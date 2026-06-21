@@ -3,10 +3,9 @@ import Link from 'next/link';
 import { ArrowLeft, ExternalLink, Github, CheckCircle } from 'lucide-react';
 import { PROJECTS, getProjectBySlug, CATEGORY_LABELS } from '@/lib/projects';
 import TechBadge from '@/components/TechBadge';
+import FallbackImage from '@/components/FallbackImage';
 
-interface Props {
-  params: { slug: string };
-}
+interface Props { params: { slug: string }; }
 
 export async function generateStaticParams() {
   return PROJECTS.map((p) => ({ slug: p.slug }));
@@ -15,10 +14,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const project = getProjectBySlug(params.slug);
   if (!project) return {};
-  return {
-    title: `${project.title} — Jair Molina Arce`,
-    description: project.tagline,
-  };
+  return { title: `${project.title} — Jair Molina Arce`, description: project.tagline };
 }
 
 export default function ProjectPage({ params }: Props) {
@@ -28,104 +24,96 @@ export default function ProjectPage({ params }: Props) {
   return (
     <div className="pt-24 pb-32">
       <div className="max-w-5xl mx-auto px-6 md:px-12">
-        {/* Back */}
-        <Link
-          href="/projects"
-          className="inline-flex items-center gap-2 text-sm font-mono text-[#555] hover:text-[#888] transition-colors mb-10"
-        >
+        <Link href="/projects" className="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-text-secondary transition-colors mb-10">
           <ArrowLeft size={14} /> All Projects
         </Link>
 
         {/* Hero image */}
-        <div className="relative aspect-video bg-[#111] rounded-lg border border-[#1a1a1a] overflow-hidden mb-10">
-          <div className="absolute inset-0 flex flex-col items-center justify-center opacity-20">
-            <p className="font-mono text-xs text-[#333]">📁 {project.coverImage}</p>
-            <p className="font-mono text-[10px] text-[#242424] mt-2">{project.title}</p>
+        <div className="relative aspect-video bg-surface rounded-lg border border-border-subtle overflow-hidden mb-10">
+          <FallbackImage
+            src={project.coverImage}
+            alt={project.title}
+            fill sizes="(max-width: 768px) 100vw, 900px"
+            className="object-cover opacity-80"
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center opacity-[0.12] pointer-events-none">
+            <p className="font-mono text-xs text-text-muted">[ no image ]</p>
           </div>
         </div>
 
-        {/* Meta row */}
+        {/* Meta */}
         <div className="flex flex-wrap items-center gap-3 mb-4">
           {project.categories.map((cat) => (
             <TechBadge key={cat} label={CATEGORY_LABELS[cat]} variant="accent" />
           ))}
-          <span className="font-mono text-xs text-[#555]">·</span>
-          <span className="font-mono text-xs text-[#555]">{project.period}</span>
-          <span className="font-mono text-xs text-[#555]">·</span>
-          <span className="font-mono text-xs text-[#555]">{project.institution}</span>
+          <span className="font-mono text-xs text-text-muted">·</span>
+          <span className="font-mono text-xs text-text-muted">{project.period}</span>
+          <span className="font-mono text-xs text-text-muted">·</span>
+          <span className="font-mono text-xs text-text-muted">{project.institution}</span>
         </div>
 
-        {/* Title */}
-        <h1 className="text-3xl md:text-4xl font-semibold text-[#F0F0F0] mb-3 leading-tight">
-          {project.title}
-        </h1>
-        <p className="text-lg text-[#888] mb-8 leading-relaxed">{project.tagline}</p>
+        <h1 className="text-3xl md:text-4xl font-semibold text-text-primary mb-3 leading-tight">{project.title}</h1>
+        <p className="text-lg text-text-secondary mb-8 leading-relaxed">{project.tagline}</p>
 
-        {/* External links */}
-        <div className="flex gap-4 mb-12">
-          {project.githubUrl && (
+        {project.githubUrl && (
+          <div className="flex gap-4 mb-12">
             <a
               href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 border border-[#242424] text-sm font-mono text-[#888] hover:border-[#00C2FF] hover:text-[#00C2FF] transition-colors rounded"
+              target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 border border-border text-sm font-mono text-text-secondary hover:border-accent hover:text-accent transition-colors rounded"
             >
               <Github size={14} /> View on GitHub
             </a>
-          )}
-        </div>
+          </div>
+        )}
 
         <div className="grid md:grid-cols-3 gap-10">
-          {/* Main column */}
+          {/* Main */}
           <div className="md:col-span-2 space-y-10">
-            {/* Description */}
             <div>
-              <h2 className="font-mono text-xs text-[#555] uppercase tracking-widest mb-4">
-                // overview
-              </h2>
-              <p className="text-[#888] leading-relaxed whitespace-pre-line">{project.description}</p>
+              <h2 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-4">// overview</h2>
+              <p className="text-text-secondary leading-relaxed whitespace-pre-line">{project.description}</p>
             </div>
 
-            {/* Highlights */}
             <div>
-              <h2 className="font-mono text-xs text-[#555] uppercase tracking-widest mb-4">
-                // technical highlights
-              </h2>
+              <h2 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-4">// technical highlights</h2>
               <ul className="space-y-3">
                 {project.highlights.map((h, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <CheckCircle size={14} className="text-[#00C2FF] flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-[#888]">{h}</span>
+                    <CheckCircle size={14} className="text-accent flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-text-secondary">{h}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Evidence */}
             <div>
-              <h2 className="font-mono text-xs text-[#555] uppercase tracking-widest mb-4">
-                // evidence & documentation
-              </h2>
+              <h2 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-4">// evidence & documentation</h2>
               <ul className="space-y-2">
                 {project.evidence.map((e, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <span className="font-mono text-[#00C2FF] text-xs mt-0.5">→</span>
-                    <span className="text-sm text-[#888]">{e}</span>
+                    <span className="font-mono text-accent text-xs mt-0.5">→</span>
+                    <span className="text-sm text-text-secondary">{e}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Gallery placeholders */}
             {project.gallery && project.gallery.length > 0 && (
               <div>
-                <h2 className="font-mono text-xs text-[#555] uppercase tracking-widest mb-4">
-                  // gallery
-                </h2>
+                <h2 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-4">// gallery</h2>
                 <div className="grid grid-cols-2 gap-3">
                   {project.gallery.map((img, i) => (
-                    <div key={i} className="aspect-video bg-[#111] rounded border border-[#1a1a1a] flex items-center justify-center">
-                      <p className="font-mono text-[9px] text-[#333] text-center px-2">{img}</p>
+                    <div key={i} className="relative aspect-video bg-surface rounded border border-border-subtle overflow-hidden">
+                      <FallbackImage
+                        src={img}
+                        alt={`${project.title} — image ${i + 1}`}
+                        fill sizes="(max-width: 768px) 50vw, 400px"
+                        className="object-cover opacity-80"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-[0.12] pointer-events-none">
+                        <p className="font-mono text-[9px] text-text-muted text-center px-2">{img.split('/').pop()}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -135,86 +123,65 @@ export default function ProjectPage({ params }: Props) {
 
           {/* Sidebar */}
           <div className="space-y-8">
-            {/* Metrics */}
             {project.metrics && project.metrics.length > 0 && (
-              <div className="bg-[#0D0D0D] border border-[#1a1a1a] rounded-lg p-5">
-                <h3 className="font-mono text-xs text-[#555] uppercase tracking-widest mb-4">// metrics</h3>
+              <div className="bg-surface-alt border border-border-subtle rounded-lg p-5">
+                <h3 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-4">// metrics</h3>
                 <div className="space-y-4">
                   {project.metrics.map((m) => (
                     <div key={m.label}>
-                      <p className="font-mono text-[#00C2FF] text-xl font-medium">
-                        {m.value}
-                        <span className="text-sm text-[#555] ml-1">{m.unit}</span>
+                      <p className="font-mono text-accent text-xl font-medium">
+                        {m.value}<span className="text-sm text-text-muted ml-1">{m.unit}</span>
                       </p>
-                      <p className="text-xs text-[#555]">{m.label}</p>
+                      <p className="text-xs text-text-muted">{m.label}</p>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Hardware */}
             {project.hardware && project.hardware.length > 0 && (
               <div>
-                <h3 className="font-mono text-xs text-[#555] uppercase tracking-widest mb-3">// hardware</h3>
+                <h3 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-3">// hardware</h3>
                 <div className="flex flex-wrap gap-1.5">
-                  {project.hardware.map((hw) => (
-                    <TechBadge key={hw} label={hw} variant="amber" />
-                  ))}
+                  {project.hardware.map((hw) => <TechBadge key={hw} label={hw} variant="amber" />)}
                 </div>
               </div>
             )}
 
-            {/* Firmware */}
             {project.firmware && project.firmware.length > 0 && (
               <div>
-                <h3 className="font-mono text-xs text-[#555] uppercase tracking-widest mb-3">// firmware</h3>
+                <h3 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-3">// firmware</h3>
                 <div className="flex flex-wrap gap-1.5">
-                  {project.firmware.map((fw) => (
-                    <TechBadge key={fw} label={fw} variant="accent" />
-                  ))}
+                  {project.firmware.map((fw) => <TechBadge key={fw} label={fw} variant="accent" />)}
                 </div>
               </div>
             )}
 
-            {/* Software */}
             {project.software.length > 0 && (
               <div>
-                <h3 className="font-mono text-xs text-[#555] uppercase tracking-widest mb-3">// software</h3>
+                <h3 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-3">// software</h3>
                 <div className="flex flex-wrap gap-1.5">
-                  {project.software.map((sw) => (
-                    <TechBadge key={sw} label={sw} variant="muted" />
-                  ))}
+                  {project.software.map((sw) => <TechBadge key={sw} label={sw} variant="muted" />)}
                 </div>
               </div>
             )}
 
-            {/* Protocols */}
             {project.protocols && project.protocols.length > 0 && (
               <div>
-                <h3 className="font-mono text-xs text-[#555] uppercase tracking-widest mb-3">// protocols</h3>
+                <h3 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-3">// protocols</h3>
                 <div className="flex flex-wrap gap-1.5">
-                  {project.protocols.map((p) => (
-                    <TechBadge key={p} label={p} variant="muted" />
-                  ))}
+                  {project.protocols.map((p) => <TechBadge key={p} label={p} variant="muted" />)}
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* Next project nav */}
-        <div className="mt-16 pt-8 border-t border-[#1a1a1a] flex justify-between">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 text-sm font-mono text-[#555] hover:text-[#00C2FF] transition-colors"
-          >
+        <div className="mt-16 pt-8 border-t border-border-subtle flex justify-between">
+          <Link href="/projects" className="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-accent transition-colors">
             <ArrowLeft size={14} /> All Projects
           </Link>
-          <Link
-            href="/highlights"
-            className="inline-flex items-center gap-2 text-sm font-mono text-[#555] hover:text-[#00C2FF] transition-colors"
-          >
+          <Link href="/highlights" className="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-accent transition-colors">
             Engineering Highlights <ExternalLink size={14} />
           </Link>
         </div>

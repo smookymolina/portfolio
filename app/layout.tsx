@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { ThemeProvider } from '@/lib/theme';
+import AmbientBackground from '@/components/AmbientBackground';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://jairmolina.dev'),
@@ -9,26 +11,15 @@ export const metadata: Metadata = {
   description:
     'Embedded Systems & Advanced Technology Engineer. Firmware, IoT, Aerospace Instrumentation, Control Systems. IPN · IAC 2024 · ESP32 · STM32 · CO.DE Aerospace.',
   keywords: [
-    'Embedded Systems Engineer',
-    'Firmware Engineer',
-    'IoT',
-    'ESP32',
-    'STM32',
-    'Aerospace',
-    'Instrumentation',
-    'DAQ',
-    'PID Control',
-    'Mechatronics',
-    'IPN Mexico',
-    'IAC 2024',
+    'Embedded Systems Engineer', 'Firmware Engineer', 'IoT', 'ESP32', 'STM32',
+    'Aerospace', 'Instrumentation', 'DAQ', 'PID Control', 'Mechatronics', 'IPN Mexico', 'IAC 2024',
   ],
   authors: [{ name: 'Jair Molina Arce', url: 'https://github.com/smookymolina' }],
   openGraph: {
     type: 'website',
     locale: 'en_US',
     title: 'Jair Molina Arce — Embedded Systems Engineer',
-    description:
-      'Firmware, IoT, Aerospace Instrumentation & Control Systems. IPN Researcher. IAC 2024 Speaker.',
+    description: 'Firmware, IoT, Aerospace Instrumentation & Control Systems. IPN Researcher. IAC 2024 Speaker.',
     images: [{ url: '/images/og/og-image.jpg', width: 1200, height: 630 }],
   },
   twitter: {
@@ -40,9 +31,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -51,9 +41,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-background text-text-primary min-h-screen">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <AmbientBackground />
+          <Navbar />
+          <main className="relative z-10">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

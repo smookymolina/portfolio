@@ -5,14 +5,26 @@ import { PROJECTS, CATEGORY_LABELS, type ProjectCategory } from '@/lib/projects'
 import ProjectCard from '@/components/ProjectCard';
 import SectionHeader from '@/components/SectionHeader';
 
-const CATEGORIES: ProjectCategory[] = ['embedded', 'firmware', 'iot', 'aerospace', 'ai', 'hardware', 'control'];
+const CATEGORIES: ProjectCategory[] = ['embedded','firmware','iot','aerospace','ai','hardware','control'];
 
 export default function ProjectsPage() {
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory | 'all'>('all');
+  const [active, setActive] = useState<ProjectCategory | 'all'>('all');
 
-  const filtered = activeCategory === 'all'
-    ? PROJECTS
-    : PROJECTS.filter((p) => p.categories.includes(activeCategory));
+  const filtered = active === 'all' ? PROJECTS : PROJECTS.filter((p) => p.categories.includes(active));
+
+  const btn = (cat: ProjectCategory | 'all', label: string) => (
+    <button
+      key={cat}
+      onClick={() => setActive(cat)}
+      className={`px-4 py-1.5 text-sm font-mono rounded border transition-colors ${
+        active === cat
+          ? 'border-accent text-accent bg-accent/5'
+          : 'border-border text-text-muted hover:border-border-subtle hover:text-text-secondary'
+      }`}
+    >
+      {label}
+    </button>
+  );
 
   return (
     <div className="pt-24 pb-32">
@@ -23,75 +35,46 @@ export default function ProjectsPage() {
           subtitle="Complete inventory of hardware, firmware, IoT, and research projects. Filter by engineering domain."
         />
 
-        {/* Filter bar */}
         <div className="flex flex-wrap gap-2 mb-12">
-          <button
-            onClick={() => setActiveCategory('all')}
-            className={`px-4 py-1.5 text-sm font-mono rounded border transition-colors ${
-              activeCategory === 'all'
-                ? 'border-[#00C2FF] text-[#00C2FF] bg-[#00C2FF]/5'
-                : 'border-[#242424] text-[#555] hover:border-[#333] hover:text-[#888]'
-            }`}
-          >
-            All ({PROJECTS.length})
-          </button>
-          {CATEGORIES.map((cat) => {
-            const count = PROJECTS.filter((p) => p.categories.includes(cat)).length;
-            return (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-1.5 text-sm font-mono rounded border transition-colors ${
-                  activeCategory === cat
-                    ? 'border-[#00C2FF] text-[#00C2FF] bg-[#00C2FF]/5'
-                    : 'border-[#242424] text-[#555] hover:border-[#333] hover:text-[#888]'
-                }`}
-              >
-                {CATEGORY_LABELS[cat]} ({count})
-              </button>
-            );
-          })}
+          {btn('all', `All (${PROJECTS.length})`)}
+          {CATEGORIES.map((cat) =>
+            btn(cat, `${CATEGORY_LABELS[cat]} (${PROJECTS.filter((p) => p.categories.includes(cat)).length})`)
+          )}
         </div>
 
-        {/* Class A section */}
-        {(activeCategory === 'all' || filtered.some((p) => p.classification === 'A')) && (
+        {(active === 'all' || filtered.some((p) => p.classification === 'A')) && (
           <div className="mb-16">
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-px flex-1 bg-[#1a1a1a]" />
-              <span className="font-mono text-xs text-[#00C2FF]">Class A — Exceptional</span>
-              <div className="h-px flex-1 bg-[#1a1a1a]" />
+              <div className="h-px flex-1 bg-border-subtle" />
+              <span className="font-mono text-xs text-accent">Class A — Exceptional</span>
+              <div className="h-px flex-1 bg-border-subtle" />
             </div>
             <div className="grid md:grid-cols-2 gap-6">
-              {filtered
-                .filter((p) => p.classification === 'A')
-                .map((p) => (
-                  <ProjectCard key={p.id} project={p} />
-                ))}
+              {filtered.filter((p) => p.classification === 'A').map((p) => (
+                <ProjectCard key={p.id} project={p} />
+              ))}
             </div>
           </div>
         )}
 
-        {/* Class B section */}
-        {(activeCategory === 'all' || filtered.some((p) => p.classification === 'B')) && (
+        {(active === 'all' || filtered.some((p) => p.classification === 'B')) && (
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-px flex-1 bg-[#1a1a1a]" />
-              <span className="font-mono text-xs text-[#888]">Class B — Strong Case Studies</span>
-              <div className="h-px flex-1 bg-[#1a1a1a]" />
+              <div className="h-px flex-1 bg-border-subtle" />
+              <span className="font-mono text-xs text-text-secondary">Class B — Strong Case Studies</span>
+              <div className="h-px flex-1 bg-border-subtle" />
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered
-                .filter((p) => p.classification === 'B')
-                .map((p) => (
-                  <ProjectCard key={p.id} project={p} />
-                ))}
+              {filtered.filter((p) => p.classification === 'B').map((p) => (
+                <ProjectCard key={p.id} project={p} />
+              ))}
             </div>
           </div>
         )}
 
         {filtered.length === 0 && (
           <div className="text-center py-24">
-            <p className="font-mono text-[#555]">No projects in this category.</p>
+            <p className="font-mono text-text-muted">No projects in this category.</p>
           </div>
         )}
       </div>
