@@ -27,9 +27,9 @@
   --color-surface-alt:    13  13  13;
   --color-border:         36  36  36;
   --color-border-subtle:  26  26  26;
-  --color-text-primary:   240 240 240;
-  --color-text-secondary: 136 136 136;
-  --color-text-muted:     85  85  85;
+  --color-text-primary:   255 255 255;
+  --color-text-secondary: 190 190 190;
+  --color-text-muted:     120 120 120;
   --color-accent:         0   194 255;
   --color-accent-dim:     0   136 187;
   --color-accent-amber:   255 179 0;

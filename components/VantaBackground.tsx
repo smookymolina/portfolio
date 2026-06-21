@@ -3,12 +3,26 @@
 import { useEffect, useRef } from 'react';
 import { useTheme } from '@/lib/theme';
 
-// Hex colors from globals.css tokens
-// dark:  --color-bg: 10 10 10  | --color-accent: 0 194 255
-// light: --color-bg: 242 240 236 | --color-accent: 0 107 138
+// Per-theme Vanta NET configuration
+// dark:  muted cyan + lower opacity + sparser network → lines don't overwhelm dark bg
+// light: full accent color + higher opacity + denser network → vibrant on light bg
 const PALETTE = {
-  dark:  { bg: 0x0a0a0a, color: 0x00c2ff },
-  light: { bg: 0xf2f0ec, color: 0x006b8a },
+  dark: {
+    bg:          0x0a0a0a,
+    color:       0x3f3fff,
+    points:      6.5,
+    maxDistance: 18.5,
+    spacing:     19.0,
+    opacity:     0.42,
+  },
+  light: {
+    bg:          0xf2f0ec,
+    color:       0x006b8a,
+    points:      8.0,
+    maxDistance: 22.0,
+    spacing:     18.0,
+    opacity:     0.9,
+  },
 } as const;
 
 export default function VantaBackground() {
@@ -21,7 +35,7 @@ export default function VantaBackground() {
     if (!containerRef.current) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const { bg, color } = PALETTE[theme];
+    const { bg, color, points, maxDistance, spacing } = PALETTE[theme];
     let cancelled = false;
 
     (async () => {
@@ -39,9 +53,9 @@ export default function VantaBackground() {
         THREE,
         color,
         backgroundColor: bg,
-        points:          8.0,
-        maxDistance:     22.0,
-        spacing:         18.0,
+        points,
+        maxDistance,
+        spacing,
         showDots:        true,
       });
     })();
@@ -58,7 +72,8 @@ export default function VantaBackground() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-0 pointer-events-none"
+      className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-500"
+      style={{ opacity: PALETTE[theme].opacity }}
       aria-hidden="true"
     />
   );
