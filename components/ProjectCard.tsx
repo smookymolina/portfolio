@@ -9,7 +9,6 @@ import TechBadge from './TechBadge';
 
 interface Props {
   project: Project;
-  variant?: 'default' | 'featured';
 }
 
 const STATUS_COLORS: Record<string, string> = {

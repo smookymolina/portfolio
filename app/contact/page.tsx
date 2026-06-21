@@ -24,7 +24,7 @@ export default function ContactPage() {
   const c = t.contact;
 
   const LINKS = [
-    { icon: Mail,         label: 'Email',    sub: 'speedysmoking@gmail.com',             href: 'mailto:speedysmoking@gmail.com' },
+    { icon: Mail,         label: 'Email',    sub: 'ingjarimolina@gmail.com',             href: 'mailto:ingjarimolina@gmail.com' },
     { icon: Linkedin,     label: 'LinkedIn', sub: 'jair-molina-arce-4909622b2',           href: 'https://linkedin.com/in/jair-molina-arce-4909622b2' },
     { icon: Github,       label: 'GitHub',   sub: 'github.com/smookymolina',              href: 'https://github.com/smookymolina' },
     { icon: ExternalLink, label: 'ORCID',    sub: '0009-0009-6732-8100',                  href: 'https://orcid.org/0009-0009-6732-8100' },

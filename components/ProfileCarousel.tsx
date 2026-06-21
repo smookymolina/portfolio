@@ -113,10 +113,18 @@ export default function ProfileCarousel() {
       </div>
 
       {/* Info tag below */}
-      <div className="mt-3 flex items-center gap-2">
-        <div className="h-px flex-1 bg-border-subtle" />
-        <span className="font-mono text-xs text-text-muted">IPN · CDMX · Mexico</span>
-        <div className="h-px flex-1 bg-border-subtle" />
+      <div className="mt-4 flex flex-col items-center text-center w-full select-none">
+        <div className="flex items-center gap-2 w-full mb-1">
+          <div className="h-px flex-1 bg-border-subtle" />
+          <span className="font-mono text-xs text-text-muted uppercase">IPN · ESIME · UPIITA</span>
+          <div className="h-px flex-1 bg-border-subtle" />
+        </div>
+        <div className="font-mono text-[11px] text-accent font-medium leading-relaxed">
+          Politecnico di Milano
+        </div>
+        <div className="font-mono text-[10px] text-text-muted/80 uppercase tracking-widest mt-0.5">
+          México · Italia · Holanda · Suiza
+        </div>
       </div>
     </div>
   );

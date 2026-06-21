@@ -64,10 +64,10 @@ export default function Footer() {
             <div className="font-mono text-xs text-text-muted mb-4">{t.nav.connect}</div>
             <div className="flex flex-col gap-3">
               <a
-                href="mailto:speedysmoking@gmail.com"
+                href="mailto:ingjarimolina@gmail.com"
                 className="flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded"
               >
-                <Mail size={14} /> speedysmoking@gmail.com
+                <Mail size={14} /> ingjarimolina@gmail.com
               </a>
               <a
                 href="https://github.com/smookymolina"

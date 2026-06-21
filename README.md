@@ -44,8 +44,7 @@ lib/
 ├── translations.ts       # EN/ES translation strings (all UI text)
 ├── lang.tsx              # LangProvider + useLang() hook
 ├── projects.ts           # 14 projects data
-├── research.ts           # Publications, conferences (media + academic), teaching
-└── highlights.ts         # 9 curated highlight entries
+└── research.ts           # Publications, conferences (media + academic), teaching
 
 components/
 ├── Navbar.tsx            # Desktop + mobile nav, EN/ES toggle, theme toggle
@@ -90,6 +89,6 @@ The image uses Next.js standalone output for minimal size (~100MB runtime vs ~80
 
 Place your photo at:
 ```
-public/images/profile/jair-molina.jpg
+public/images/profile/jair-molina.jpeg
 ```
 The site automatically displays it on the home hero and about page. Currently shows a styled placeholder.
