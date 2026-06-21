@@ -38,7 +38,7 @@ export const PUBLICATIONS: Publication[] = [
     tags: ['CubeSat', 'Small Satellites', 'Mission Design', 'Aerospace', 'IAC'],
     highlight:
       'Presented in person at the most important astronautical congress in the world — IAC 2024, Milan, Italy.',
-    coverImage: '/images/research/iac-milan.jpg',
+    coverImage: '/images/research/iac-milan.jpeg',
   },
   {
     id: 'pub02',
@@ -56,7 +56,7 @@ export const PUBLICATIONS: Publication[] = [
     tags: ['Machine Learning', 'Cybersecurity', 'Satellite Communications', 'Anti-Jamming', 'Ku/Ka Band', 'Defense'],
     highlight:
       'Co-author of a Springer book chapter on ML-driven cyberdefense for satellite links — defense-tech intersection of AI + space.',
-    coverImage: '/images/research/ml-cyberdefense.jpg',
+    coverImage: '/images/research/ml-cyberdefense.jpeg',
   },
   {
     id: 'pub03',
@@ -71,7 +71,7 @@ export const PUBLICATIONS: Publication[] = [
     tags: ['Test Bench', 'DAQ', 'Instrumentation', 'Rocket Propulsion', 'FEA'],
     highlight:
       'Sole author — full documentation of the propulsion test bench DAQ system design and experimental methodology.',
-    coverImage: '/images/research/revista-espacio.jpg',
+    coverImage: '/images/research/revista-espacio.jpeg',
   },
 ];
 

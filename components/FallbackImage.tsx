@@ -10,9 +10,10 @@ interface Props {
   sizes?: string;
   className?: string;
   priority?: boolean;
+  loading?: 'eager' | 'lazy';
 }
 
-export default function FallbackImage({ src, alt, fill, sizes, className, priority }: Props) {
+export default function FallbackImage({ src, alt, fill, sizes, className, priority, loading }: Props) {
   const [hidden, setHidden] = useState(false);
   if (hidden) return null;
   return (
@@ -23,6 +24,7 @@ export default function FallbackImage({ src, alt, fill, sizes, className, priori
       sizes={sizes}
       className={className}
       priority={priority}
+      loading={loading}
       onError={() => setHidden(true)}
     />
   );

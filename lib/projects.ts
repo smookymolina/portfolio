@@ -37,7 +37,9 @@ export interface Project {
   evidence: string[];
   githubUrl?: string;
   coverImage: string; // e.g. /images/projects/banco-pruebas/hero.jpg
-  gallery?: string[]; // e.g. ['/images/projects/banco-pruebas/01.jpg']
+  gallery?: string[]; // e.g. ['/images/projects/banco-pruebas/01.jpeg']
+  videoUrl?: string; // e.g. /videos/vr-training-broadcast.mp4
+  broadcastChannels?: string[]; // TV channels that featured this project
   featured: boolean;
 }
 
@@ -104,11 +106,11 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'Experimental data & analysis reports',
       'Hardware photos and test videos',
     ],
-    coverImage: '/images/projects/banco-pruebas/hero.jpg',
+    coverImage: '/images/projects/banco-pruebas/hero.jpeg',
     gallery: [
-      '/images/projects/banco-pruebas/01.jpg',
-      '/images/projects/banco-pruebas/02.jpg',
-      '/images/projects/banco-pruebas/03.jpg',
+      '/images/projects/banco-pruebas/01.jpeg',
+      '/images/projects/banco-pruebas/02.jpeg',
+      '/images/projects/banco-pruebas/03.jpeg',
     ],
     featured: true,
   },
@@ -161,10 +163,11 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'Integration with test bench DAQ (P-01)',
     ],
     githubUrl: 'https://github.com/smookymolina',
-    coverImage: '/images/projects/telemetria-mqtt/hero.jpg',
+    coverImage: '/images/projects/telemetria-mqtt/hero.jpeg',
     gallery: [
-      '/images/projects/telemetria-mqtt/01.jpg',
-      '/images/projects/telemetria-mqtt/dashboard.png',
+      '/images/projects/telemetria-mqtt/01.jpeg',
+      '/images/projects/telemetria-mqtt/02.jpeg',
+      '/images/projects/telemetria-mqtt/dashboard.jpeg',
     ],
     featured: true,
   },
@@ -214,10 +217,10 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'MATLAB model for tuning validation',
     ],
     githubUrl: 'https://github.com/smookymolina/atz_stm32',
-    coverImage: '/images/projects/pid-stm32/hero.jpg',
+    coverImage: '/images/projects/pid-stm32/hero.jpeg',
     gallery: [
-      '/images/projects/pid-stm32/response-curve.png',
-      '/images/projects/pid-stm32/hardware.jpg',
+      '/images/projects/pid-stm32/response-curve.jpeg',
+      '/images/projects/pid-stm32/hardware.jpeg',
     ],
     featured: true,
   },
@@ -266,11 +269,11 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'FlatCAM G-code files',
       'Before/after modification photos',
     ],
-    coverImage: '/images/projects/pcb-mill/hero.jpg',
+    coverImage: '/images/projects/pcb-mill/hero.jpeg',
     gallery: [
-      '/images/projects/pcb-mill/machine.jpg',
-      '/images/projects/pcb-mill/pcb-result.jpg',
-      '/images/projects/pcb-mill/milling-video-thumb.jpg',
+      '/images/projects/pcb-mill/machine.jpeg',
+      '/images/projects/pcb-mill/pcb-result.jpeg',
+      '/images/projects/pcb-mill/milling-video-thumb.jpeg',
     ],
     featured: true,
   },
@@ -318,8 +321,8 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'Multi-node expandable architecture',
     ],
     evidence: ['Dashboard screenshots', 'Node photos', 'Sample automated reports'],
-    coverImage: '/images/projects/smartcity-iot/hero.jpg',
-    gallery: ['/images/projects/smartcity-iot/dashboard.png', '/images/projects/smartcity-iot/nodes.jpg'],
+    coverImage: '/images/projects/smartcity-iot/hero.jpeg',
+    gallery: ['/images/projects/smartcity-iot/dashboard.jpeg', '/images/projects/smartcity-iot/nodes.jpeg'],
     featured: false,
   },
   {
@@ -355,8 +358,8 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'Real-time dashboard with configurable alert thresholds',
     ],
     evidence: ['Architecture diagram', 'API documentation', 'Docker Compose configuration'],
-    coverImage: '/images/projects/iot-platform/hero.jpg',
-    gallery: ['/images/projects/iot-platform/dashboard.png', '/images/projects/iot-platform/api-docs.png'],
+    coverImage: '/images/projects/iot-platform/hero.jpeg',
+    gallery: ['/images/projects/iot-platform/dashboard.jpeg', '/images/projects/iot-platform/api-docs.jpeg'],
     featured: false,
   },
   {
@@ -391,8 +394,8 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
     ],
     evidence: ['GitHub: github.com/smookymolina/JobHunter', 'README with full architecture diagram'],
     githubUrl: 'https://github.com/smookymolina/JobHunter',
-    coverImage: '/images/projects/jobhunter/hero.jpg',
-    gallery: ['/images/projects/jobhunter/dashboard.png', '/images/projects/jobhunter/pipeline.png'],
+    coverImage: '/images/projects/jobhunter/hero.jpeg',
+    gallery: ['/images/projects/jobhunter/dashboard.jpeg', '/images/projects/jobhunter/pipeline.jpeg'],
     featured: false,
   },
   {
@@ -427,7 +430,7 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'Statistical metrics: mean, std, FFT, trend detection',
     ],
     evidence: ['Python source code', 'Sample generated reports (PDF + Excel)', 'Before/after timing comparison'],
-    coverImage: '/images/projects/data-pipeline/hero.jpg',
+    coverImage: '/images/projects/data-pipeline/pipeline.jpeg',
     featured: false,
   },
   {
@@ -460,7 +463,7 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'Validation plots (model vs. experimental)',
       'Thermal distribution maps',
     ],
-    coverImage: '/images/projects/thermal-simulator/hero.jpg',
+    coverImage: '/images/projects/thermal-simulator/hero.jpeg',
     featured: false,
   },
   {
@@ -493,7 +496,7 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'Well-documented Python source (Spanish + technical comments)',
     ],
     githubUrl: 'https://github.com/smookymolina/Clase_02_Modelizacion',
-    coverImage: '/images/projects/dynamic-modeling/hero.jpg',
+    coverImage: '/images/projects/dynamic-modeling/hero.jpeg',
     featured: false,
   },
   {
@@ -522,8 +525,10 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'Application demo video',
       'Training protocol documentation',
     ],
-    coverImage: '/images/projects/vr-training/hero.jpg',
-    gallery: ['/images/projects/vr-training/tv-azteca.jpg', '/images/projects/vr-training/simulation.jpg'],
+    coverImage: '/images/projects/vr-training/hero.jpeg',
+    gallery: ['/images/projects/vr-training/tv-azteca.jpeg', '/images/projects/vr-training/simulation.jpeg'],
+    videoUrl: '/videos/capsula.mp4',
+    broadcastChannels: ['TV Azteca'],
     featured: false,
   },
   {
@@ -563,12 +568,14 @@ The application was demonstrated live on ADN40 (national news channel) and Canal
       'Mexico Profundo program feature',
       'Application demo video',
     ],
-    coverImage: '/images/projects/tren-maya/hero.jpg',
+    coverImage: '/images/projects/tren-maya/hero.jpeg',
     gallery: [
-      '/images/projects/tren-maya/adn40.jpg',
-      '/images/projects/tren-maya/canal-once.jpg',
-      '/images/projects/tren-maya/app-demo.jpg',
+      '/images/projects/tren-maya/adn40.jpeg',
+      '/images/projects/tren-maya/canal-once.jpeg',
+      '/images/projects/tren-maya/app-demo.jpeg',
     ],
+    videoUrl: '/videos/capsula.mp4',
+    broadcastChannels: ['ADN40', 'Canal Once'],
     featured: false,
   },
   {
@@ -599,7 +606,7 @@ The application was demonstrated live on ADN40 (national news channel) and Canal
     ],
     evidence: ['GitHub: github.com/smookymolina/atz_stm32 (Assembly language)'],
     githubUrl: 'https://github.com/smookymolina/atz_stm32',
-    coverImage: '/images/projects/stm32-firmware/hero.jpg',
+    coverImage: '/images/projects/stm32-firmware/hero.jpeg',
     featured: false,
   },
 ];

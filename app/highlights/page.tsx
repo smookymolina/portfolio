@@ -16,7 +16,7 @@ const HIGHLIGHTS = [
     firmware: ['C/C++ bare-metal','UART · SPI · I2C','ADC multi-channel','ISR sampling'],
     metrics: [{ v:'1 kHz',l:'Sampling rate' },{ v:'<4% RMS',l:'Thermal model error' },{ v:'3 ch',l:'Simultaneous sensors' }],
     badge: 'Published Research', badgeColor: 'accent' as const,
-    link: '/projects/rocket-propulsion-daq', coverImage: '/images/projects/banco-pruebas/hero.jpg',
+    link: '/projects/rocket-propulsion-daq', coverImage: '/images/projects/banco-pruebas/hero.jpeg',
   },
   {
     id: 'h02', icon: Wifi, rank: '02', category: 'Embedded + IoT + Real-Time',
@@ -26,7 +26,7 @@ const HIGHLIGHTS = [
     firmware: ['C++ (ESP-IDF)','MQTT QoS 1','ISR-driven sampling','OTA updates','Watchdog timer'],
     metrics: [{ v:'<50 ms',l:'End-to-end latency' },{ v:'100 Hz',l:'Data rate' },{ v:'>50 m',l:'Outdoor range' }],
     badge: 'Real-Time Firmware', badgeColor: 'accent' as const,
-    link: '/projects/mqtt-telemetry-propulsion', coverImage: '/images/projects/telemetria-mqtt/hero.jpg',
+    link: '/projects/mqtt-telemetry-propulsion', coverImage: '/images/projects/telemetria-mqtt/hero.jpeg',
   },
   {
     id: 'h03', icon: Zap, rank: '03', category: 'Firmware + Control Systems',
@@ -36,7 +36,7 @@ const HIGHLIGHTS = [
     firmware: ['C++ (STM32 HAL)','Extended Ziegler-Nichols','Fixed-point ISR','UART logging'],
     metrics: [{ v:'−35%',l:'Settling time' },{ v:'1 kHz',l:'Control loop rate' },{ v:'~18%',l:'Overshoot reduction' }],
     badge: 'Quantified Impact', badgeColor: 'green' as const,
-    link: '/projects/adaptive-pid-stm32', coverImage: '/images/projects/pid-stm32/hero.jpg',
+    link: '/projects/adaptive-pid-stm32', coverImage: '/images/projects/pid-stm32/hero.jpeg',
   },
   {
     id: 'h04', icon: Wrench, rank: '04', category: 'Hardware Hacking + PCB Fabrication',
@@ -46,7 +46,7 @@ const HIGHLIGHTS = [
     firmware: ['GRBL (modified for milling)','Custom spindle enable logic','G-code via FlatCAM'],
     metrics: [{ v:'Functional',l:'PCBs produced' },{ v:'In-house',l:'Custom mount design' },{ v:'Low-cost',l:'vs. commercial PCB' }],
     badge: 'Builder / Inventor', badgeColor: 'amber' as const,
-    link: '/projects/3d-printer-pcb-mill', coverImage: '/images/projects/pcb-mill/hero.jpg',
+    link: '/projects/3d-printer-pcb-mill', coverImage: '/images/projects/pcb-mill/hero.jpeg',
   },
   {
     id: 'h05', icon: Globe, rank: '05', category: 'International Research — Aerospace',
@@ -55,7 +55,7 @@ const HIGHLIGHTS = [
     hardware: [], firmware: [],
     metrics: [{ v:'IAC 2024',l:'Milan, Oct 2024' },{ v:'75th',l:"World's largest IAC" },{ v:'In person',l:'Presented live' }],
     badge: 'International Speaker', badgeColor: 'accent' as const,
-    link: '/research', coverImage: '/images/research/iac-milan.jpg', doi: '10.52202/078365-0120',
+    link: '/research', coverImage: '/images/research/iac-milan.jpeg', doi: '10.52202/078365-0120',
   },
   {
     id: 'h06', icon: Shield, rank: '06', category: 'AI + Defense + Satellite Communications',
@@ -74,7 +74,7 @@ const HIGHLIGHTS = [
     firmware: ['C++ MQTT','Deep sleep optimization','OTA updates'],
     metrics: [{ v:'End-to-end',l:'HW → FW → Backend → UI' },{ v:'Auto PDF',l:'Weekly reports' },{ v:'Multi-node',l:'Scalable' }],
     badge: 'IoT System', badgeColor: 'accent' as const,
-    link: '/projects/smartcity-iot-network', coverImage: '/images/projects/smartcity-iot/hero.jpg',
+    link: '/projects/smartcity-iot-network', coverImage: '/images/projects/smartcity-iot/hero.jpeg',
   },
   {
     id: 'h08', icon: Tv, rank: '08', category: 'VR · Industrial Training · National TV',
@@ -84,7 +84,7 @@ const HIGHLIGHTS = [
     firmware: [],
     metrics: [{ v:'TV Azteca',l:'National broadcast 2024' },{ v:'Live demo',l:'National audience' },{ v:'Haptic',l:'Full HW integration' }],
     badge: 'TV Azteca · VR · Training', badgeColor: 'muted' as const,
-    link: '/projects/vr-industrial-training', coverImage: '/images/projects/vr-training/hero.jpg',
+    link: '/projects/vr-industrial-training', coverImage: '/images/projects/vr-training/hero.jpeg',
   },
   {
     id: 'h09', icon: Film, rank: '09', category: 'AR Tourism · National Media · Culture',
@@ -94,7 +94,7 @@ const HIGHLIGHTS = [
     firmware: [],
     metrics: [{ v:'4 segments',l:'National TV broadcasts' },{ v:'ADN40 + Once',l:'Major channels' },{ v:'AR + GPS',l:'Technology stack' }],
     badge: 'ADN40 · Canal Once · AR', badgeColor: 'amber' as const,
-    link: '/projects/tren-maya-tourism-app', coverImage: '/images/projects/tren-maya/hero.jpg',
+    link: '/projects/tren-maya-tourism-app', coverImage: '/images/projects/tren-maya/hero.jpeg',
   },
 ];
 

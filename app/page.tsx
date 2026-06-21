@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, ExternalLink, Tv, User } from 'lucide-react';
+import { ArrowRight, ExternalLink, Tv } from 'lucide-react';
 import { CLASS_A_PROJECTS } from '@/lib/projects';
 import ProjectCard from '@/components/ProjectCard';
 import TechBadge from '@/components/TechBadge';
 import FallbackImage from '@/components/FallbackImage';
+import ProfileCarousel from '@/components/ProfileCarousel';
 import { useLang } from '@/lib/lang';
 
 const CV = '/cv/CV_Jair_Molina_Arce_2026_v2.pdf';
@@ -115,46 +116,9 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right: profile image placeholder */}
+            {/* Right: profile carousel */}
             <div className="order-1 md:order-2 flex justify-center md:justify-end">
-              <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-[340px]">
-                {/* Corner accent marks */}
-                <div className="absolute -top-2 -left-2 w-7 h-7 border-t-2 border-l-2 border-accent" aria-hidden="true" />
-                <div className="absolute -top-2 -right-2 w-7 h-7 border-t-2 border-r-2 border-accent" aria-hidden="true" />
-                <div className="absolute -bottom-2 -left-2 w-7 h-7 border-b-2 border-l-2 border-accent" aria-hidden="true" />
-                <div className="absolute -bottom-2 -right-2 w-7 h-7 border-b-2 border-r-2 border-accent" aria-hidden="true" />
-
-                {/* Image container */}
-                <div className="w-full h-full bg-surface border border-border-subtle rounded overflow-hidden relative">
-                  {/* Placeholder background */}
-                  <div className="absolute inset-0 grid-bg opacity-30" />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10">
-                    <div className="w-20 h-20 rounded-full border-2 border-accent/30 bg-surface-alt flex items-center justify-center">
-                      <User size={32} className="text-accent/50" />
-                    </div>
-                    <div className="text-center">
-                      <p className="font-mono text-xs text-text-muted">Jair Molina Arce</p>
-                      <p className="font-mono text-xs text-accent/60 mt-0.5">// photo</p>
-                    </div>
-                  </div>
-                  {/* Actual photo when available */}
-                  <FallbackImage
-                    src="/images/profile/jair-molina.jpg"
-                    alt="Jair Molina Arce"
-                    fill
-                    sizes="(max-width: 640px) 224px, (max-width: 768px) 256px, 320px"
-                    className="object-cover object-top z-20 relative"
-                    priority
-                  />
-                </div>
-
-                {/* Info tag below */}
-                <div className="mt-3 flex items-center gap-2">
-                  <div className="h-px flex-1 bg-border-subtle" />
-                  <span className="font-mono text-xs text-text-muted">IPN · CDMX · Mexico</span>
-                  <div className="h-px flex-1 bg-border-subtle" />
-                </div>
-              </div>
+              <ProfileCarousel />
             </div>
           </div>
         </div>
@@ -223,7 +187,7 @@ export default function HomePage() {
               </a>
             </div>
             <div className="relative aspect-video bg-surface rounded-lg border border-border-subtle overflow-hidden">
-              <FallbackImage src="/images/research/iac-milan.jpg" alt="IAC 2024 — Milan, Italy" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-80" />
+              <FallbackImage src="/images/research/iac-milan.jpeg" alt="IAC 2024 — Milan, Italy" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-80" />
               <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
               <div className="absolute bottom-3 left-3 font-mono text-xs text-text-muted">IAC 2024 · Milan, Italy</div>
             </div>

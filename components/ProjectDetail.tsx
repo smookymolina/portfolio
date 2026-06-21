@@ -26,6 +26,36 @@ export default function ProjectDetail({ project }: { project: Project }) {
           </div>
         </div>
 
+        {/* Broadcast video capsule */}
+        {project.videoUrl && (
+          <div className="mb-10">
+            <div className="flex flex-wrap items-center gap-3 mb-3">
+              <h2 className="font-mono text-xs text-text-muted uppercase tracking-widest">{c.broadcast_coverage}</h2>
+              {project.broadcastChannels && project.broadcastChannels.length > 0 && (
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs text-text-muted">{c.featured_on}:</span>
+                  {project.broadcastChannels.map((ch) => (
+                    <span key={ch} className="font-mono text-xs px-2 py-0.5 rounded border border-accent/40 text-accent bg-accent/5">
+                      {ch}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="rounded-lg border border-border-subtle overflow-hidden bg-black">
+              <video
+                src={project.videoUrl}
+                controls
+                preload="metadata"
+                className="w-full aspect-video"
+                aria-label={`${project.title} — broadcast footage`}
+              >
+                <source src={project.videoUrl} type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        )}
+
         {/* Meta */}
         <div className="flex flex-wrap items-center gap-3 mb-4">
           {project.categories.map((cat) => (

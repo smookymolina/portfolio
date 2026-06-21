@@ -59,7 +59,7 @@ export default function AboutPage() {
               </div>
               {/* Actual image overlay (takes precedence when available) */}
               <div className="absolute inset-0 z-20">
-                <FallbackImage src="/images/profile/jair-molina.jpg" alt="Jair Molina Arce" fill sizes="300px" className="object-cover object-top" />
+                <FallbackImage src="/images/profile/jair-molina.jpeg" alt="Jair Molina Arce" fill sizes="300px" className="object-cover object-top" />
               </div>
             </div>
 

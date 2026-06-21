@@ -136,6 +136,8 @@ const T = {
       view_on_github: 'View on GitHub',
       download_cv: 'Download CV (PDF)',
       back_projects: '← All Projects',
+      broadcast_coverage: '// broadcast coverage',
+      featured_on: 'Featured on',
     },
   },
 
@@ -274,6 +276,8 @@ const T = {
       view_on_github: 'Ver en GitHub',
       download_cv: 'Descargar CV (PDF)',
       back_projects: '← Todos los Proyectos',
+      broadcast_coverage: '// cobertura televisiva',
+      featured_on: 'Transmitido en',
     },
   },
 };
