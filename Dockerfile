@@ -1,11 +1,15 @@
-# ── Stage 1: Install dependencies ──────────────────────────────────────────
+# syntax=docker/dockerfile:1.4
+# ── Stage 1: Install dependencies ───────────────────────────────────────────
 FROM node:20-alpine AS deps
 WORKDIR /app
 
 RUN apk add --no-cache libc6-compat
 
 COPY package.json package-lock.json* ./
-RUN npm ci
+
+# BuildKit cache mount: reuse npm cache across builds (speeds up reinstalls)
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --prefer-offline
 
 # ── Stage 2: Build the app ──────────────────────────────────────────────────
 FROM node:20-alpine AS builder
@@ -17,7 +21,8 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
-RUN npm run build
+RUN --mount=type=cache,target=/app/.next/cache \
+    npm run build
 
 # ── Stage 3: Production runner ──────────────────────────────────────────────
 FROM node:20-alpine AS runner
@@ -30,15 +35,15 @@ ENV HOSTNAME="0.0.0.0"
 
 RUN addgroup -S nodejs && adduser -S nextjs -G nodejs
 
-# Copy standalone output
-COPY --from=builder /app/.next/standalone ./
-# Copy static assets
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-# Copy public folder (not included in standalone)
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+# Standalone server + hashed static bundles
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static    ./.next/static
+# Public assets (images, videos, cv) — not included in standalone
+COPY --from=builder --chown=nextjs:nodejs /app/public          ./public
 
 USER nextjs
 
 EXPOSE 3000
 
+# node server.js is the Next.js standalone entry point
 CMD ["node", "server.js"]

@@ -41,14 +41,21 @@
 @layer base {
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-
-  body {
+  /* html holds the fallback background (shown before Vanta initialises) */
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
     background-color: rgb(var(--color-bg));
+    transition: background-color 0.25s ease;
+  }
+
+  /* body is transparent so the Vanta canvas (z-0, fixed) shows through */
+  body {
+    background-color: transparent;
     color: rgb(var(--color-text-primary));
     font-family: var(--font-inter), system-ui, sans-serif;
     line-height: 1.6;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    transition: color 0.25s ease;
   }
 
   ::selection {

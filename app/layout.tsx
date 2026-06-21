@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import VantaBackground from '@/components/VantaBackground';
 import { ThemeProvider } from '@/lib/theme';
 import { LangProvider } from '@/lib/lang';
 
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-background text-text-primary min-h-screen">
         <ThemeProvider>
+          <VantaBackground />
           <LangProvider>
             <Navbar />
             <main className="relative z-10">{children}</main>
