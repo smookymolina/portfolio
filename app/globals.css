@@ -46,7 +46,7 @@
   body {
     background-color: rgb(var(--color-bg));
     color: rgb(var(--color-text-primary));
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: var(--font-inter), system-ui, sans-serif;
     line-height: 1.6;
     transition: background-color 0.25s ease, color 0.25s ease;
   }
@@ -65,7 +65,7 @@
 @layer components {
   .section-padding { @apply px-6 md:px-12 lg:px-24; }
 
-  .mono { font-family: 'JetBrains Mono', monospace; }
+  .mono { font-family: var(--font-mono), monospace; }
 
   .accent-text  { color: rgb(var(--color-accent)); }
   .amber-text   { color: rgb(var(--color-accent-amber)); }
@@ -105,7 +105,7 @@
   }
 
   .metric-value {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono), monospace;
     color: rgb(var(--color-accent));
   }
 }

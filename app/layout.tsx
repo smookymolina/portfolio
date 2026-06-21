@@ -1,9 +1,24 @@
 import type { Metadata } from 'next';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/lib/theme';
-import AmbientBackground from '@/components/AmbientBackground';
+import { LangProvider } from '@/lib/lang';
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  display: 'swap',
+  variable: '--font-mono',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://jairmolina.dev'),
@@ -18,9 +33,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
+    alternateLocale: 'es_MX',
     title: 'Jair Molina Arce — Embedded Systems Engineer',
     description: 'Firmware, IoT, Aerospace Instrumentation & Control Systems. IPN Researcher. IAC 2024 Speaker.',
-    images: [{ url: '/images/og/og-image.jpg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -31,21 +46,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" data-theme="dark" suppressHydrationWarning
+      className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-background text-text-primary min-h-screen">
         <ThemeProvider>
-          <AmbientBackground />
-          <Navbar />
-          <main className="relative z-10">{children}</main>
-          <Footer />
+          <LangProvider>
+            <Navbar />
+            <main className="relative z-10">{children}</main>
+            <Footer />
+          </LangProvider>
         </ThemeProvider>
       </body>
     </html>

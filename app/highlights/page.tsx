@@ -1,8 +1,11 @@
-import { ArrowRight, ExternalLink, Cpu, Wifi, Zap, Wrench, Globe, Shield, Radio, Tv } from 'lucide-react';
+'use client';
+
+import { ArrowRight, ExternalLink, Cpu, Wifi, Zap, Wrench, Globe, Shield, Radio, Tv, Film } from 'lucide-react';
 import Link from 'next/link';
 import TechBadge from '@/components/TechBadge';
 import SectionHeader from '@/components/SectionHeader';
 import FallbackImage from '@/components/FallbackImage';
+import { useLang } from '@/lib/lang';
 
 const HIGHLIGHTS = [
   {
@@ -50,133 +53,137 @@ const HIGHLIGHTS = [
     title: 'IAC 2024 — In-Person Speaker, Milan Italy',
     description: 'Co-author and in-person presenter at the 75th International Astronautical Congress (IAC) in Milan, Italy — the most important astronautical congress in the world. Presented at the 31st IAA Symposium on Small Satellite Missions in October 2024.',
     hardware: [], firmware: [],
-    metrics: [{ v:'IAC 2024',l:'Milan, October 2024' },{ v:'75th',l:"Edition — world's largest IAC" },{ v:'In person',l:'Not just co-author' }],
+    metrics: [{ v:'IAC 2024',l:'Milan, Oct 2024' },{ v:'75th',l:"World's largest IAC" },{ v:'In person',l:'Presented live' }],
     badge: 'International Speaker', badgeColor: 'accent' as const,
     link: '/research', coverImage: '/images/research/iac-milan.jpg', doi: '10.52202/078365-0120',
   },
   {
     id: 'h06', icon: Shield, rank: '06', category: 'AI + Defense + Satellite Communications',
-    title: 'ML-Driven Cyberdefense for Satellite Links (Springer Book Chapter, 2026)',
-    description: 'Co-author of a Springer book chapter on machine learning-based anti-jamming strategies for satellite communications in Ku and Ka frequency bands. Presents an adaptive ML framework for real-time detection and countering of jamming attacks on military and commercial satellite links.',
+    title: 'ML-Driven Cyberdefense for Satellite Links (Springer, 2026)',
+    description: 'Co-author of a Springer book chapter on machine learning-based anti-jamming strategies for satellite communications in Ku and Ka frequency bands. Adaptive ML framework for real-time detection and countering of jamming attacks on military and commercial satellite links.',
     hardware: [], firmware: [],
-    metrics: [{ v:'Springer',l:'Publisher 2026' },{ v:'Ku/Ka Band',l:'Satellite frequencies' },{ v:'Defense Tech',l:'Application domain' }],
+    metrics: [{ v:'Springer',l:'Publisher 2026' },{ v:'Ku/Ka Band',l:'Satellite freq.' },{ v:'Defense Tech',l:'Application' }],
     badge: 'Defense · ML · Satellites', badgeColor: 'amber' as const,
     link: '/research', doi: '10.1007/978-3-032-09735-4_15',
   },
   {
     id: 'h07', icon: Radio, rank: '07', category: 'IoT + Full-Stack + Smart Cities',
     title: 'SmartCity IoT Sensor Network — End-to-End',
-    description: 'Distributed IoT network with multiple ESP32 nodes (gas + environmental sensors) publishing via MQTT to a Flask/PostgreSQL backend. Real-time Chart.js dashboard with push alerts and automated weekly PDF environmental reports. Complete end-to-end system from hardware to cloud.',
+    description: 'Distributed IoT network with multiple ESP32 nodes (gas + environmental sensors) publishing via MQTT to a Flask/PostgreSQL backend. Real-time Chart.js dashboard with push alerts and automated weekly PDF environmental reports.',
     hardware: ['ESP32 nodes','MQ-series gas sensors','BME280 (temp/humidity/pressure)'],
     firmware: ['C++ MQTT','Deep sleep optimization','OTA updates'],
-    metrics: [{ v:'End-to-end',l:'HW → FW → Backend → Dashboard' },{ v:'Auto PDF',l:'Weekly reports generated' },{ v:'Multi-node',l:'Scalable architecture' }],
+    metrics: [{ v:'End-to-end',l:'HW → FW → Backend → UI' },{ v:'Auto PDF',l:'Weekly reports' },{ v:'Multi-node',l:'Scalable' }],
     badge: 'IoT System', badgeColor: 'accent' as const,
     link: '/projects/smartcity-iot-network', coverImage: '/images/projects/smartcity-iot/hero.jpg',
   },
   {
-    id: 'h08', icon: Tv, rank: '08', category: 'VR · Industrial Training · Media',
-    title: 'VR Safety Training Demonstrated on National TV (TV Azteca, 2024)',
-    description: 'Immersive VR application for industrial fire extinguisher safety training, with haptic feedback and motion tracking. Selected for a live demonstration on TV Azteca México in 2024 — broadcast to a national audience. The application features realistic fire physics and interactive scoring.',
+    id: 'h08', icon: Tv, rank: '08', category: 'VR · Industrial Training · National TV',
+    title: 'VR Fire Extinguisher Training — Demonstrated on TV Azteca',
+    description: 'Immersive VR application for industrial fire extinguisher safety training with haptic feedback and motion tracking. Selected for a live demonstration on TV Azteca México in 2024 — broadcast to a national audience.',
     hardware: ['VR headset','Motion tracking hardware','Haptic feedback devices'],
     firmware: [],
-    metrics: [{ v:'National TV',l:'TV Azteca broadcast 2024' },{ v:'Live demo',l:'In front of national audience' },{ v:'Haptic',l:'Full hardware integration' }],
-    badge: 'Media · VR · Industrial', badgeColor: 'muted' as const,
+    metrics: [{ v:'TV Azteca',l:'National broadcast 2024' },{ v:'Live demo',l:'National audience' },{ v:'Haptic',l:'Full HW integration' }],
+    badge: 'TV Azteca · VR · Training', badgeColor: 'muted' as const,
     link: '/projects/vr-industrial-training', coverImage: '/images/projects/vr-training/hero.jpg',
+  },
+  {
+    id: 'h09', icon: Film, rank: '09', category: 'AR Tourism · National Media · Culture',
+    title: 'Mexico Profundo — Tren Maya AR App · ADN40 + Canal Once',
+    description: 'Augmented reality tourism app for Mexico\'s Tren Maya railway corridor featuring AR cultural overlays and indigenous heritage content. Featured in four national TV segments: ADN40 "Mexico Profundo", Canal Once "Realidad Virtual", Canal Once "Mexico Profundo", and TV Azteca — reaching millions of viewers.',
+    hardware: [],
+    firmware: [],
+    metrics: [{ v:'4 segments',l:'National TV broadcasts' },{ v:'ADN40 + Once',l:'Major channels' },{ v:'AR + GPS',l:'Technology stack' }],
+    badge: 'ADN40 · Canal Once · AR', badgeColor: 'amber' as const,
+    link: '/projects/tren-maya-tourism-app', coverImage: '/images/projects/tren-maya/hero.jpg',
   },
 ];
 
 export default function HighlightsPage() {
+  const { t } = useLang();
+  const h = t.highlights;
+
   return (
     <div className="pt-24 pb-32">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <SectionHeader
-          label="01 — engineering highlights"
-          title="What Makes This Profile Different"
-          subtitle="A curated selection of projects and achievements that distinguish this engineering background from a standard resume. Each highlight represents a rare combination of hardware, firmware, research, or impact."
-        />
+        <SectionHeader label={h.label} title={h.title} subtitle={h.subtitle} />
 
         <div className="space-y-px border border-border-subtle rounded-lg overflow-hidden">
-          {HIGHLIGHTS.map((h) => {
-            const Icon = h.icon;
+          {HIGHLIGHTS.map((hl) => {
+            const Icon = hl.icon;
             return (
-              <div key={h.id} className="bg-surface-alt border-b border-border-subtle last:border-b-0">
+              <div key={hl.id} className="bg-surface-alt border-b border-border-subtle last:border-b-0">
                 <div className="p-6 md:p-8">
                   <div className="grid md:grid-cols-[1fr_auto] gap-6">
                     <div>
                       <div className="flex items-start gap-4 mb-4">
                         <div className="flex-shrink-0 w-10 h-10 rounded border border-border bg-surface flex items-center justify-center">
-                          <Icon size={18} className="text-accent" />
+                          <Icon size={17} className="text-accent" />
                         </div>
-                        <div className="flex-1">
-                          <div className="flex flex-wrap items-center gap-3 mb-1">
-                            <span className="font-mono text-xs text-text-muted">{h.rank}</span>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2 mb-1">
+                            <span className="font-mono text-xs text-text-muted">{hl.rank}</span>
                             <span className="font-mono text-xs text-text-muted">·</span>
-                            <span className="font-mono text-xs text-text-muted">{h.category}</span>
-                            <TechBadge label={h.badge} variant={h.badgeColor} />
+                            <span className="font-mono text-xs text-text-muted">{hl.category}</span>
+                            <TechBadge label={hl.badge} variant={hl.badgeColor} />
                           </div>
-                          <h2 className="text-lg md:text-xl font-semibold text-text-primary leading-snug">{h.title}</h2>
+                          <h2 className="text-lg md:text-xl font-semibold text-text-primary leading-snug">{hl.title}</h2>
                         </div>
                       </div>
 
-                      <p className="text-text-secondary leading-relaxed mb-6 ml-14">{h.description}</p>
+                      <p className="text-text-secondary leading-relaxed mb-5 ml-14">{hl.description}</p>
 
-                      <div className="ml-14 grid md:grid-cols-2 gap-4 mb-6">
-                        {h.hardware.length > 0 && (
+                      <div className="ml-14 grid md:grid-cols-2 gap-4 mb-5">
+                        {hl.hardware.length > 0 && (
                           <div>
-                            <p className="font-mono text-xs text-text-muted mb-2">// hardware</p>
+                            <p className="font-mono text-xs text-text-muted mb-2">{h.hw_label}</p>
                             <div className="flex flex-wrap gap-1.5">
-                              {h.hardware.map((hw) => <TechBadge key={hw} label={hw} variant="amber" />)}
+                              {hl.hardware.map((hw) => <TechBadge key={hw} label={hw} variant="amber" />)}
                             </div>
                           </div>
                         )}
-                        {h.firmware.length > 0 && (
+                        {hl.firmware.length > 0 && (
                           <div>
-                            <p className="font-mono text-xs text-text-muted mb-2">// firmware · software</p>
+                            <p className="font-mono text-xs text-text-muted mb-2">{h.fw_label}</p>
                             <div className="flex flex-wrap gap-1.5">
-                              {h.firmware.map((fw) => <TechBadge key={fw} label={fw} variant="accent" />)}
+                              {hl.firmware.map((fw) => <TechBadge key={fw} label={fw} variant="accent" />)}
                             </div>
                           </div>
                         )}
                       </div>
 
                       <div className="ml-14 flex flex-wrap gap-6 mb-4">
-                        {h.metrics.map((m) => (
+                        {hl.metrics.map((m) => (
                           <div key={m.l}>
-                            <p className="font-mono text-accent font-medium">{m.v}</p>
+                            <p className="font-mono text-accent font-medium text-sm">{m.v}</p>
                             <p className="text-xs text-text-muted">{m.l}</p>
                           </div>
                         ))}
                       </div>
 
                       <div className="ml-14 flex items-center gap-4">
-                        <Link href={h.link} className="inline-flex items-center gap-1.5 text-sm font-mono text-accent hover:text-accent/80 transition-colors">
-                          View detail <ArrowRight size={13} />
+                        <Link href={hl.link} className="inline-flex items-center gap-1.5 text-sm font-mono text-accent hover:text-accent/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded">
+                          {h.view_detail} <ArrowRight size={13} />
                         </Link>
-                        {'doi' in h && h.doi && (
+                        {'doi' in hl && hl.doi && (
                           <a
-                            href={`https://doi.org/${h.doi}`}
+                            href={`https://doi.org/${hl.doi}`}
                             target="_blank" rel="noopener noreferrer"
                             className="inline-flex items-center gap-1.5 text-xs font-mono text-text-muted hover:text-text-secondary transition-colors"
                           >
-                            <ExternalLink size={11} /> DOI: {h.doi}
+                            <ExternalLink size={11} /> DOI: {hl.doi}
                           </a>
                         )}
                       </div>
                     </div>
 
                     {/* Thumbnail */}
-                    <div className="hidden md:block w-48 flex-shrink-0">
+                    <div className="hidden md:block w-44 flex-shrink-0">
                       <div className="aspect-video bg-surface rounded border border-border-subtle relative overflow-hidden">
-                        {'coverImage' in h && h.coverImage && (
-                          <FallbackImage
-                            src={h.coverImage}
-                            alt={h.title}
-                            fill sizes="192px"
-                            className="object-cover opacity-70"
-                          />
+                        {'coverImage' in hl && hl.coverImage && (
+                          <FallbackImage src={hl.coverImage} alt={hl.title} fill sizes="176px" className="object-cover opacity-70" />
                         )}
                         <div className="absolute inset-0 flex items-center justify-center opacity-[0.12] pointer-events-none">
-                          <p className="font-mono text-[9px] text-text-muted text-center px-2">{h.rank}</p>
+                          <p className="font-mono text-[9px] text-text-muted">{hl.rank}</p>
                         </div>
                       </div>
                     </div>

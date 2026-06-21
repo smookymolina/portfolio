@@ -4,19 +4,22 @@ import { useState } from 'react';
 import { PROJECTS, CATEGORY_LABELS, type ProjectCategory } from '@/lib/projects';
 import ProjectCard from '@/components/ProjectCard';
 import SectionHeader from '@/components/SectionHeader';
+import { useLang } from '@/lib/lang';
 
 const CATEGORIES: ProjectCategory[] = ['embedded','firmware','iot','aerospace','ai','hardware','control'];
 
 export default function ProjectsPage() {
   const [active, setActive] = useState<ProjectCategory | 'all'>('all');
+  const { t } = useLang();
+  const p = t.projects;
 
-  const filtered = active === 'all' ? PROJECTS : PROJECTS.filter((p) => p.categories.includes(active));
+  const filtered = active === 'all' ? PROJECTS : PROJECTS.filter((proj) => proj.categories.includes(active));
 
   const btn = (cat: ProjectCategory | 'all', label: string) => (
     <button
       key={cat}
       onClick={() => setActive(cat)}
-      className={`px-4 py-1.5 text-sm font-mono rounded border transition-colors ${
+      className={`px-4 py-1.5 text-sm font-mono rounded border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${
         active === cat
           ? 'border-accent text-accent bg-accent/5'
           : 'border-border text-text-muted hover:border-border-subtle hover:text-text-secondary'
@@ -29,44 +32,40 @@ export default function ProjectsPage() {
   return (
     <div className="pt-24 pb-32">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <SectionHeader
-          label="02 — projects"
-          title="All Engineering Projects"
-          subtitle="Complete inventory of hardware, firmware, IoT, and research projects. Filter by engineering domain."
-        />
+        <SectionHeader label={p.label} title={p.title} subtitle={p.subtitle} />
 
         <div className="flex flex-wrap gap-2 mb-12">
-          {btn('all', `All (${PROJECTS.length})`)}
+          {btn('all', `${p.all} (${PROJECTS.length})`)}
           {CATEGORIES.map((cat) =>
-            btn(cat, `${CATEGORY_LABELS[cat]} (${PROJECTS.filter((p) => p.categories.includes(cat)).length})`)
+            btn(cat, `${CATEGORY_LABELS[cat]} (${PROJECTS.filter((proj) => proj.categories.includes(cat)).length})`)
           )}
         </div>
 
-        {(active === 'all' || filtered.some((p) => p.classification === 'A')) && (
+        {filtered.some((proj) => proj.classification === 'A') && (
           <div className="mb-16">
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px flex-1 bg-border-subtle" />
-              <span className="font-mono text-xs text-accent">Class A — Exceptional</span>
+              <span className="font-mono text-xs text-accent whitespace-nowrap">{p.class_a}</span>
               <div className="h-px flex-1 bg-border-subtle" />
             </div>
             <div className="grid md:grid-cols-2 gap-6">
-              {filtered.filter((p) => p.classification === 'A').map((p) => (
-                <ProjectCard key={p.id} project={p} />
+              {filtered.filter((proj) => proj.classification === 'A').map((proj) => (
+                <ProjectCard key={proj.id} project={proj} />
               ))}
             </div>
           </div>
         )}
 
-        {(active === 'all' || filtered.some((p) => p.classification === 'B')) && (
+        {filtered.some((proj) => proj.classification === 'B') && (
           <div>
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px flex-1 bg-border-subtle" />
-              <span className="font-mono text-xs text-text-secondary">Class B — Strong Case Studies</span>
+              <span className="font-mono text-xs text-text-secondary whitespace-nowrap">{p.class_b}</span>
               <div className="h-px flex-1 bg-border-subtle" />
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.filter((p) => p.classification === 'B').map((p) => (
-                <ProjectCard key={p.id} project={p} />
+              {filtered.filter((proj) => proj.classification === 'B').map((proj) => (
+                <ProjectCard key={proj.id} project={proj} />
               ))}
             </div>
           </div>
@@ -74,7 +73,7 @@ export default function ProjectsPage() {
 
         {filtered.length === 0 && (
           <div className="text-center py-24">
-            <p className="font-mono text-text-muted">No projects in this category.</p>
+            <p className="font-mono text-text-muted">{p.empty}</p>
           </div>
         )}
       </div>

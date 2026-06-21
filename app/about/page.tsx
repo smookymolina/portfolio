@@ -1,7 +1,9 @@
-import { ExternalLink } from 'lucide-react';
+'use client';
+
 import TechBadge from '@/components/TechBadge';
 import SectionHeader from '@/components/SectionHeader';
 import FallbackImage from '@/components/FallbackImage';
+import { useLang } from '@/lib/lang';
 
 const SKILLS = [
   { category: 'Embedded Systems / IoT',  items: ['ESP32','STM32 (Cortex-M)','Arduino','C/C++ bare-metal','MQTT','UART · SPI · I2C','WiFi','OTA Updates'], variant: 'amber' as const },
@@ -13,15 +15,16 @@ const SKILLS = [
 ];
 
 const TIMELINE = [
-  { period: '2026 – Present', role: 'Instructor — Advanced Excel',                              org: 'Profuturo · Mexico City',                                          type: 'teaching' },
-  { period: '2025 – Present', role: 'Lecturer — Thermal Engineering & Aerospace Systems Modeling', org: 'Universidad Internacional de Innovación de Aguascalientes (UIIA)',  type: 'teaching',  highlight: true },
-  { period: '2024 – Present', role: 'MSc. in Advanced Technologies — Control & Instrumentation', org: 'Instituto Politécnico Nacional (IPN)',                              type: 'education', highlight: true },
-  { period: '2024',           role: 'Co-Author & In-Person Speaker — IAC 2024',                 org: '75th International Astronautical Congress · Milan, Italy',           type: 'research',  highlight: true },
-  { period: '2024',           role: 'Graduate Instructor — Disruptive Technologies (VR/AR)',     org: 'ENBA–IPN · Postgraduate',                                          type: 'teaching' },
-  { period: '2022 – 2024',    role: 'Embedded Systems & Instrumentation — Propulsion Test Bench', org: 'Instituto Politécnico Nacional · Research',                       type: 'engineering', highlight: true },
-  { period: '2023 – 2024',    role: 'Full-Stack IoT Platform & SmartCity Network',              org: 'Independent Project',                                              type: 'engineering' },
-  { period: '2023',           role: 'Chief of Staff — ICASST 2023',                             org: 'International Congress · Mexico City',                              type: 'research' },
-  { period: '2017 – 2023',    role: 'B.Eng. Mechanical Engineering',                            org: 'Instituto Politécnico Nacional (IPN) — Degree in process',          type: 'education' },
+  { period: '2026 – Present', role: 'Instructor — Advanced Excel',                                   org: 'Profuturo · Mexico City',                                           type: 'teaching' },
+  { period: '2025 – Present', role: 'Lecturer — Thermal Engineering & Aerospace Systems Modeling',   org: 'Universidad Nacional de Innovación e Ingeniería (UNII)',              type: 'teaching',    highlight: true },
+  { period: '2024 – Present', role: 'MSc. in Advanced Technologies — Control & Instrumentation',     org: 'Instituto Politécnico Nacional (IPN)',                               type: 'education',   highlight: true },
+  { period: '2024',           role: 'Co-Author & In-Person Speaker — IAC 2024',                      org: '75th International Astronautical Congress · Milan, Italy',            type: 'research',    highlight: true },
+  { period: '2024',           role: 'National TV Media — TV Azteca, ADN40, Canal Once (×2)',         org: 'VR Training · AR Tourism · Mexico Profundo',                         type: 'media',       highlight: true },
+  { period: '2024',           role: 'Graduate Instructor — Disruptive Technologies (VR/AR)',         org: 'ENBA–IPN · Postgraduate',                                            type: 'teaching' },
+  { period: '2022 – 2024',    role: 'Embedded Systems & Instrumentation — Propulsion Test Bench',   org: 'Instituto Politécnico Nacional · Research',                          type: 'engineering', highlight: true },
+  { period: '2023 – 2024',    role: 'Full-Stack IoT Platform & SmartCity Network',                  org: 'Independent Project',                                               type: 'engineering' },
+  { period: '2023',           role: 'Chief of Staff — ICASST 2023',                                 org: 'International Congress · Mexico City',                               type: 'research' },
+  { period: '2017 – 2023',    role: 'B.Eng. Mechanical Engineering',                                org: 'Instituto Politécnico Nacional (IPN)',                               type: 'education' },
 ];
 
 const TYPE_COLORS: Record<string, string> = {
@@ -29,45 +32,54 @@ const TYPE_COLORS: Record<string, string> = {
   research:    'text-accent-amber',
   teaching:    'text-accent-green',
   education:   'text-text-secondary',
+  media:       'text-accent-amber',
 };
 
 export default function AboutPage() {
+  const { t } = useLang();
+  const a = t.about;
+
   return (
     <div className="pt-24 pb-32">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
 
         {/* Profile hero */}
-        <div className="grid md:grid-cols-[320px_1fr] gap-16 mb-24">
+        <div className="grid md:grid-cols-[300px_1fr] gap-12 lg:gap-16 mb-24">
           <div>
-            <div className="aspect-square bg-surface rounded-lg border border-border-subtle relative overflow-hidden mb-4">
-              <FallbackImage
-                src="/images/profile/jair-molina.jpg"
-                alt="Jair Molina Arce"
-                fill sizes="320px"
-                className="object-cover object-top"
-              />
-              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-[0.12] pointer-events-none">
-                <p className="font-mono text-xs text-text-muted">[ profile photo ]</p>
+            <div className="aspect-square bg-surface-alt rounded-lg border border-border-subtle relative overflow-hidden mb-5">
+              {/* Placeholder shown when photo not yet available */}
+              <div className="absolute inset-0 grid-bg opacity-25" />
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10">
+                <div className="w-24 h-24 rounded-full border-2 border-accent/30 bg-surface flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-accent/40">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                  </svg>
+                </div>
+                <p className="font-mono text-xs text-text-muted">// profile photo</p>
+              </div>
+              {/* Actual image overlay (takes precedence when available) */}
+              <div className="absolute inset-0 z-20">
+                <FallbackImage src="/images/profile/jair-molina.jpg" alt="Jair Molina Arce" fill sizes="300px" className="object-cover object-top" />
               </div>
             </div>
 
-            <div className="space-y-2 font-mono text-xs">
+            <div className="space-y-0 font-mono text-xs border border-border-subtle rounded-lg overflow-hidden">
               {[
-                { label: 'ORCID',      value: '0009-0009-6732-8100', url: 'https://orcid.org/0009-0009-6732-8100' },
-                { label: 'CVU CONACYT',value: '1340773' },
-                { label: 'GitHub',     value: 'smookymolina', url: 'https://github.com/smookymolina' },
-                { label: 'Location',   value: 'Mexico City, Mexico' },
-                { label: 'Languages',  value: 'Spanish (native) · English (technical)' },
-                { label: 'Startup',    value: 'CO.DE Aerospace (Co-Founder)' },
+                { label: 'ORCID',       value: '0009-0009-6732-8100', url: 'https://orcid.org/0009-0009-6732-8100' },
+                { label: 'CVU CONACYT', value: '1340773' },
+                { label: 'GitHub',      value: 'smookymolina', url: 'https://github.com/smookymolina' },
+                { label: 'Location',    value: 'Mexico City, Mexico' },
+                { label: 'Languages',   value: 'Spanish (native) · English (technical)' },
+                { label: 'Startup',     value: 'CO.DE Aerospace · Co-Founder' },
               ].map((row) => (
-                <div key={row.label} className="flex justify-between py-2 border-b border-border-subtle last:border-0">
+                <div key={row.label} className="flex justify-between px-4 py-3 border-b border-border-subtle last:border-0 bg-surface-alt hover:bg-surface transition-colors">
                   <span className="text-text-muted">{row.label}</span>
                   {row.url ? (
                     <a href={row.url} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent/80">
                       {row.value} ↗
                     </a>
                   ) : (
-                    <span className="text-text-secondary">{row.value}</span>
+                    <span className="text-text-secondary text-right">{row.value}</span>
                   )}
                 </div>
               ))}
@@ -75,46 +87,22 @@ export default function AboutPage() {
           </div>
 
           <div>
-            <p className="font-mono text-xs text-accent tracking-widest uppercase mb-3">// engineer profile</p>
+            <p className="font-mono text-xs text-accent tracking-widest uppercase mb-3">{a.label}</p>
             <h1 className="text-4xl font-semibold text-text-primary mb-2">Jair Molina Arce</h1>
-            <p className="text-xl text-text-secondary mb-8">Embedded Systems &amp; Advanced Technology Engineer</p>
+            <p className="text-xl text-text-secondary mb-8">{a.subtitle}</p>
 
             <div className="space-y-4 text-text-secondary leading-relaxed mb-8">
-              <p>
-                Mechanical Engineer from IPN Mexico, pursuing a Master's in Advanced Technologies
-                with research focus on dynamic systems control and instrumentation. My work bridges
-                hardware, firmware, and software — building real physical systems that push the
-                boundaries of what's possible with constrained resources.
-              </p>
-              <p>
-                I designed and built a complete DAQ system for solid-fuel rocket motor test benches
-                — hardware, signal conditioning, firmware, and analysis pipeline included. I
-                modified a 3D printer into a PCB milling machine. I implemented adaptive PID
-                controllers that reduced settling time by 35%. I built end-to-end IoT platforms
-                that go from sensor hardware to production-grade web dashboards.
-              </p>
-              <p>
-                In 2024, I co-authored and personally presented research at the 75th International
-                Astronautical Congress (IAC) in Milan — the most important astronautical event in
-                the world. In 2026, I co-authored a Springer book chapter on ML-driven
-                cyberdefense for satellite communications.
-              </p>
-              <p>
-                I teach Thermal Engineering and Aerospace Systems Modeling at university level.
-                I co-founded CO.DE Aerospace with my MSc. research partner Alan Rosas Palacios —
-                a technology company at the intersection of software, courses, and cybersecurity.
-              </p>
+              <p>{a.bio1}</p>
+              <p>{a.bio2}</p>
+              <p>{a.bio3}</p>
+              <p>{a.bio4}</p>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
-              {[
-                { v: '5+', l: 'Years building\nhardware systems' },
-                { v: '3×', l: 'Published /\nPeer-reviewed' },
-                { v: '2×', l: 'University\ncourses taught' },
-              ].map((s) => (
-                <div key={s.l} className="bg-surface-alt border border-border-subtle rounded p-4">
-                  <p className="font-mono text-accent text-2xl font-medium">{s.v}</p>
-                  <p className="text-xs text-text-muted whitespace-pre-line mt-1">{s.l}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {['5+','3×','2×'].map((v, i) => (
+                <div key={v} className="bg-surface-alt border border-border-subtle rounded p-4">
+                  <p className="font-mono text-accent text-2xl font-medium">{v}</p>
+                  <p className="text-xs text-text-muted whitespace-pre-line mt-1">{a.stat_labels[i]}</p>
                 </div>
               ))}
             </div>
@@ -122,8 +110,8 @@ export default function AboutPage() {
         </div>
 
         {/* Skills */}
-        <SectionHeader label="// technical skills" title="Engineering Competencies" />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+        <SectionHeader label={a.skills_label} title={a.skills_title} />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-24">
           {SKILLS.map((sg) => (
             <div key={sg.category} className="bg-surface-alt border border-border-subtle rounded-lg p-5">
               <h3 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-4">{sg.category}</h3>
@@ -137,7 +125,7 @@ export default function AboutPage() {
         </div>
 
         {/* Timeline */}
-        <SectionHeader label="// experience" title="Timeline" />
+        <SectionHeader label={a.timeline_label} title={a.timeline_title} />
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-px bg-border-subtle" />
           <div className="space-y-0">
@@ -146,10 +134,8 @@ export default function AboutPage() {
                 <div className={`absolute left-0 top-1.5 w-2 h-2 rounded-full border-2 -translate-x-[3px] ${
                   item.highlight ? 'border-accent bg-accent' : 'border-border bg-background'
                 }`} />
-                <p className="font-mono text-xs text-text-muted mb-1">{item.period}</p>
-                <p className={`font-medium ${item.highlight ? 'text-text-primary' : 'text-text-secondary'}`}>
-                  {item.role}
-                </p>
+                <p className="font-mono text-xs text-text-muted mb-0.5">{item.period}</p>
+                <p className={`font-medium ${item.highlight ? 'text-text-primary' : 'text-text-secondary'}`}>{item.role}</p>
                 <p className={`text-sm ${TYPE_COLORS[item.type]}`}>{item.org}</p>
               </div>
             ))}

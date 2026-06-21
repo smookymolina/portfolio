@@ -1,9 +1,23 @@
+'use client';
+
 import Link from 'next/link';
 import { Github, Linkedin, Mail } from 'lucide-react';
+import { useLang } from '@/lib/lang';
 
 const CV = '/cv/CV_Jair_Molina_Arce_2026_v2.pdf';
 
 export default function Footer() {
+  const { t } = useLang();
+
+  const NAV_LINKS = [
+    { href: '/about',      label: t.nav.about,       external: false },
+    { href: '/highlights', label: t.nav.highlights,  external: false },
+    { href: '/projects',   label: t.nav.projects,    external: false },
+    { href: '/research',   label: t.nav.research,    external: false },
+    { href: '/contact',    label: t.nav.contact,     external: false },
+    { href: CV,            label: t.nav.resume_pdf,  external: true  },
+  ];
+
   return (
     <footer className="border-t border-border-subtle mt-32 relative z-10">
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
@@ -20,35 +34,40 @@ export default function Footer() {
           </div>
 
           <div>
-            <div className="font-mono text-xs text-text-muted mb-4">// navigate</div>
+            <div className="font-mono text-xs text-text-muted mb-4">{t.nav.navigate}</div>
             <nav className="grid grid-cols-2 gap-2">
-              {[
-                { href: '/about',     label: 'About' },
-                { href: '/highlights',label: 'Highlights' },
-                { href: '/projects',  label: 'Projects' },
-                { href: '/research',  label: 'Research' },
-                { href: '/contact',   label: 'Contact' },
-                { href: CV,           label: 'Resume PDF' },
-              ].map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className="text-sm text-text-muted hover:text-accent transition-colors"
-                >
-                  {l.label}
-                </Link>
-              ))}
+              {NAV_LINKS.map((l) =>
+                l.external ? (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-text-muted hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded"
+                  >
+                    {l.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="text-sm text-text-muted hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded"
+                  >
+                    {l.label}
+                  </Link>
+                )
+              )}
             </nav>
           </div>
 
           <div>
-            <div className="font-mono text-xs text-text-muted mb-4">// connect</div>
+            <div className="font-mono text-xs text-text-muted mb-4">{t.nav.connect}</div>
             <div className="flex flex-col gap-3">
               <a
-                href="mailto:ingjairmolina@gmail.com"
-                className="flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors"
+                href="mailto:speedysmoking@gmail.com"
+                className="flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded"
               >
-                <Mail size={14} /> ingjairmolina@gmail.com
+                <Mail size={14} /> speedysmoking@gmail.com
               </a>
               <a
                 href="https://github.com/smookymolina"
@@ -70,7 +89,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-6 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-text-muted font-mono">
-            © {new Date().getFullYear()} Jair Molina Arce · Built with Next.js 14 + Tailwind
+            © {new Date().getFullYear()} Jair Molina Arce · Next.js 14 + Tailwind CSS
           </p>
           <div className="flex items-center gap-4">
             <span className="text-xs text-text-muted font-mono">CO.DE Aerospace Co-Founder</span>

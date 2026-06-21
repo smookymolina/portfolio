@@ -1,149 +1,95 @@
 # Portfolio — Jair Molina Arce
 
-**Embedded Systems & Advanced Technology Engineer**
+**Embedded Systems & Advanced Technology Engineer**  
+Mechanical Engineer (IPN) | IoT & Embedded Systems | Research & Development
 
-Next.js 14 + Tailwind CSS + TypeScript  
-Dark industrial design — Anduril / SpaceX aesthetic
+Professional engineering portfolio built with Next.js 14 + Tailwind CSS. Showcases 14+ projects across embedded systems, firmware, IoT, aerospace, VR/AR, and AI — plus 3 research publications and 4 national TV media appearances.
 
 ---
 
-## Quick Start
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 14 App Router (SSG + Edge) |
+| Styling | Tailwind CSS v3 with CSS custom property tokens |
+| Language | TypeScript |
+| Fonts | next/font/google (Inter + JetBrains Mono) |
+| i18n | Client-side React Context (EN/ES toggle, localStorage) |
+| OG Image | Edge `ImageResponse` — dynamic 1200×630 |
+| Deploy | Docker (standalone output) |
+
+## Features
+
+- **Bilingual (EN/ES)** — language toggle in navbar, persisted in localStorage
+- **Dark / Light mode** — industrial dark default, full light mode support
+- **Mobile-first** — responsive from 320px up, mobile nav with Escape key + body lock
+- **Performance** — `next/font`, image optimization (AVIF/WebP), no canvas animations
+- **Security headers** — X-Frame-Options, X-XSS-Protection, X-Content-Type-Options
+- **Focus-visible accessibility** — all interactive elements keyboard-accessible
+
+## Project Structure
+
+```
+app/
+├── page.tsx              # Home — hero with profile photo, CV-based profile
+├── about/                # Profile, bio, skills, timeline
+├── highlights/           # 9 engineering highlights
+├── projects/             # Project grid + [slug] detail pages
+├── research/             # Publications, conferences, media, teaching
+├── contact/              # Contact form + channels
+└── opengraph-image.tsx   # Dynamic OG image (Edge runtime)
+
+lib/
+├── translations.ts       # EN/ES translation strings (all UI text)
+├── lang.tsx              # LangProvider + useLang() hook
+├── projects.ts           # 14 projects data
+├── research.ts           # Publications, conferences (media + academic), teaching
+└── highlights.ts         # 9 curated highlight entries
+
+components/
+├── Navbar.tsx            # Desktop + mobile nav, EN/ES toggle, theme toggle
+├── Footer.tsx            # Links, social, identifiers
+├── ProjectCard.tsx       # Card used in projects grid
+├── ProjectDetail.tsx     # Client component for [slug] detail (bypasses SSR boundary)
+└── FallbackImage.tsx     # Graceful image error handling
+```
+
+## Running Locally
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Start development server
-npm run dev
-
-# 3. Open in browser
-http://localhost:3000
+npm run dev       # http://localhost:3000
+npm run build     # Production build
+npm run start     # Start production server
 ```
 
----
-
-## Adding Your Photos & Videos
-
-Place your media files in the following paths under `/public/`:
-
-### Profile
-```
-public/images/profile/jair-molina.jpg       ← Your professional photo
-```
-
-### Projects
-```
-public/images/projects/banco-pruebas/
-  hero.jpg          ← Main cover image
-  01.jpg            ← Gallery photos
-  02.jpg
-  03.jpg
-
-public/images/projects/telemetria-mqtt/
-  hero.jpg
-  01.jpg
-  dashboard.png     ← Dashboard screenshot
-
-public/images/projects/pid-stm32/
-  hero.jpg
-  response-curve.png
-  hardware.jpg
-
-public/images/projects/pcb-mill/
-  hero.jpg          ← The modified machine
-  machine.jpg
-  pcb-result.jpg
-  milling-video-thumb.jpg
-
-public/images/projects/smartcity-iot/
-  hero.jpg
-  dashboard.png
-  nodes.jpg
-
-public/images/projects/jobhunter/
-  hero.jpg
-  dashboard.png
-  pipeline.png
-
-public/images/projects/iot-platform/
-  hero.jpg
-  dashboard.png
-  api-docs.png
-
-public/images/projects/data-pipeline/
-  hero.jpg
-
-public/images/projects/thermal-simulator/
-  hero.jpg
-
-public/images/projects/dynamic-modeling/
-  hero.jpg
-
-public/images/projects/vr-training/
-  hero.jpg
-  tv-azteca.jpg     ← Screenshot of TV Azteca broadcast
-  simulation.jpg
-
-public/images/projects/stm32-firmware/
-  hero.jpg
-```
-
-### Research
-```
-public/images/research/
-  iac-milan.jpg         ← Photo from IAC 2024 Milan presentation
-  ml-cyberdefense.jpg   ← Book cover or concept image
-  revista-espacio.jpg   ← Publication screenshot
-
-public/images/og/
-  og-image.jpg          ← Open Graph image (1200×630)
-```
-
-### CV
-```
-public/cv/
-  CV_Jair_Molina_2026.pdf   ← Your PDF resume
-```
-
----
-
-## Deployment (Vercel — Free)
+## Docker
 
 ```bash
-# 1. Install Vercel CLI
-npm i -g vercel
+# Build and run
+docker compose up --build
 
-# 2. Deploy
-vercel
-
-# 3. Add custom domain
-# vercel.com → project settings → Domains
-# → add jairmolina.engineering or jairmolina.dev
+# Or manually
+docker build -t jair-portfolio .
+docker run -p 3000:3000 jair-portfolio
 ```
 
----
+The image uses Next.js standalone output for minimal size (~100MB runtime vs ~800MB full node_modules).
 
-## Site Structure
+## Engineering Profile
 
+- **MSc. in Advanced Technologies** — IPN (2024–present), control & instrumentation
+- **B.Eng. Mechanical Engineering** — IPN (2017–2023)
+- **IAC 2024** — Co-author & in-person speaker, Milan, Italy
+- **3 Publications** — IAC conference, Springer book chapter, Revista Hacia el Espacio
+- **4 National TV appearances** — TV Azteca, ADN40, Canal Once (×2)
+- **CVU CONACYT**: 1340773 | **ORCID**: 0009-0009-6732-8100
+
+## To Add Your Photo
+
+Place your photo at:
 ```
-/               → Hero landing page
-/about          → Full profile, skills, timeline
-/highlights     → Engineering Highlights (8 key differentiators)
-/projects       → All projects, filterable by category
-/projects/[id]  → Individual project case study
-/research       → Publications, conferences, teaching
-/contact        → Contact info, availability, CV download
+public/images/profile/jair-molina.jpg
 ```
-
----
-
-## Customization
-
-- **Colors:** `tailwind.config.ts` → theme.extend.colors
-- **Project data:** `lib/projects.ts`
-- **Research data:** `lib/research.ts`
-- **CV file:** replace `public/cv/CV_Jair_Molina_2026.pdf`
-
----
-
-Built June 2026 · CO.DE Aerospace
+The site automatically displays it on the home hero and about page. Currently shows a styled placeholder.

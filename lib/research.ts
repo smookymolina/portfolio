@@ -16,7 +16,7 @@ export interface Publication {
 export interface Conference {
   id: string;
   name: string;
-  role: 'speaker' | 'poster' | 'staff' | 'attendee';
+  role: 'speaker' | 'poster' | 'staff' | 'attendee' | 'media';
   location: string;
   date: string;
   description: string;
@@ -122,12 +122,39 @@ export const CONFERENCES: Conference[] = [
   },
   {
     id: 'c06',
-    name: 'Technology Demo — TV Azteca México (National Broadcast)',
-    role: 'speaker',
+    name: 'TV Azteca México — VR Fire Extinguisher Training (National Broadcast)',
+    role: 'media',
     location: 'Mexico City, Mexico',
     date: '2024',
     description:
-      'Live demonstration of a VR industrial safety training system on TV Azteca México. Reached a national audience. Topic: Virtual Reality applied to fire extinguisher training.',
+      'Live demonstration of a VR industrial safety training system on TV Azteca México. Immersive virtual reality simulation for fire extinguisher training with haptic feedback — broadcast to a national audience.',
+  },
+  {
+    id: 'c07',
+    name: 'ADN40 — "Mexico Profundo": Tren Maya AR Tourism App',
+    role: 'media',
+    location: 'Mexico City, Mexico',
+    date: '2024',
+    description:
+      'Featured technology segment on ADN40 (national news channel) presenting the Mexico Profundo augmented reality tourism app for the Tren Maya railway corridor. Live demo of AR cultural overlays and route points of interest.',
+  },
+  {
+    id: 'c08',
+    name: 'Canal Once — "Realidad Virtual": VR Technology Segment',
+    role: 'media',
+    location: 'Mexico City, Mexico',
+    date: '2024',
+    description:
+      'Invited technology guest on Canal Once (IPN public television) for a VR segment showcasing immersive applications for industrial training and education. Demonstrated VR fire extinguisher simulation live on air.',
+  },
+  {
+    id: 'c09',
+    name: 'Canal Once — "Mexico Profundo": Tourism Technology',
+    role: 'media',
+    location: 'Mexico City, Mexico',
+    date: '2024',
+    description:
+      'Second appearance on Canal Once for the "Mexico Profundo" program, presenting AR tourism technology for Mexican cultural heritage and the Tren Maya railway experience.',
   },
 ];
 
@@ -136,7 +163,7 @@ export const TEACHING = [
     id: 't01',
     role: 'Lecturer',
     subjects: ['Thermal Engineering', 'Aerospace Systems Modeling'],
-    institution: 'Universidad Internacional de Innovación de Aguascalientes (UIIA)',
+    institution: 'Universidad Nacional de Innovación e Ingeniería (UNII)',
     period: 'Aug. 2025 – Present',
     format: 'Virtual',
     tools: ['ANSYS', 'MATLAB/Simulink', 'SolidWorks'],

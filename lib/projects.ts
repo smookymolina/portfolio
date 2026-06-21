@@ -527,6 +527,51 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
     featured: false,
   },
   {
+    id: 'p14',
+    slug: 'tren-maya-tourism-app',
+    title: 'Mexico Profundo — Tren Maya AR Tourism App',
+    subtitle: 'Augmented Reality Tourism App for Tren Maya Railway — Featured on ADN40 & Canal Once',
+    tagline:
+      'Interactive AR tourism application for Mexico\'s Tren Maya railway corridor — cultural overlays, route landmarks, and indigenous heritage content. Featured live on ADN40 and Canal Once national broadcasts.',
+    categories: ['ai'],
+    classification: 'B',
+    status: 'completed',
+    period: '2024',
+    institution: 'Professional Project — Mexico Profundo',
+    description: `Augmented reality tourism application for Mexico's Tren Maya railway corridor, developed as part of the "Mexico Profundo" cultural technology initiative. The app features real-time AR overlays for historical and cultural landmarks along the Tren Maya route, interactive GPS-based points of interest, and indigenous heritage content.
+
+The application was demonstrated live on ADN40 (national news channel) and Canal Once (IPN public television) as featured technology segments, reaching a combined audience of millions of viewers across Mexico.`,
+    hardware: [],
+    firmware: [],
+    software: [
+      'AR development platform',
+      'Mobile app (iOS / Android)',
+      'Real-time 3D engine',
+      'GPS integration',
+      'Cultural content CMS',
+    ],
+    highlights: [
+      'Featured live on ADN40 national news — Mexico Profundo segment',
+      'Featured on Canal Once (IPN public television) — Mexico Profundo',
+      'AR cultural overlays for Tren Maya route landmarks',
+      'Indigenous heritage and cultural content integration',
+      'Reached millions of viewers across Mexico national broadcasts',
+    ],
+    evidence: [
+      'ADN40 broadcast footage (2024)',
+      'Canal Once broadcast footage (2024)',
+      'Mexico Profundo program feature',
+      'Application demo video',
+    ],
+    coverImage: '/images/projects/tren-maya/hero.jpg',
+    gallery: [
+      '/images/projects/tren-maya/adn40.jpg',
+      '/images/projects/tren-maya/canal-once.jpg',
+      '/images/projects/tren-maya/app-demo.jpg',
+    ],
+    featured: false,
+  },
+  {
     id: 'p03',
     slug: 'stm32-embedded-firmware',
     title: 'STM32 Bare-Metal Firmware — Assembly & C',

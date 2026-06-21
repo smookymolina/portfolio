@@ -1,124 +1,173 @@
+'use client';
+
 import Link from 'next/link';
-import { ArrowRight, Github, Linkedin, ExternalLink } from 'lucide-react';
+import { ArrowRight, ExternalLink, Tv, User } from 'lucide-react';
 import { CLASS_A_PROJECTS } from '@/lib/projects';
 import ProjectCard from '@/components/ProjectCard';
 import TechBadge from '@/components/TechBadge';
 import FallbackImage from '@/components/FallbackImage';
+import { useLang } from '@/lib/lang';
 
-const STATS = [
-  { value: 'IAC 2024',    label: "Int'l Astronautical Congress", sub: 'Milan, Italy — In person' },
-  { value: '2×',          label: 'Published Papers',             sub: 'Conference + Book Chapter' },
-  { value: 'ESP32 · STM32',label: 'Primary MCUs',               sub: 'C/C++ Firmware' },
-  { value: '6h → 20min',  label: 'DAQ Analysis Pipeline',       sub: '94% time reduction' },
-];
+const CV = '/cv/CV_Jair_Molina_Arce_2026_v2.pdf';
 
-const TECH_STACK = [
-  'ESP32','STM32','C/C++','MQTT','Python',
-  'UART · SPI · I2C','LabVIEW','ANSYS','FEA',
-  'Flask','Docker','MATLAB/Simulink',
+const MEDIA = [
+  { channel: 'TV Azteca',  program: 'Tecnología',      topic: 'VR Fire Extinguisher Training', year: '2024' },
+  { channel: 'ADN40',      program: 'Mexico Profundo',  topic: 'AR Tourism — Tren Maya',        year: '2024' },
+  { channel: 'Canal Once', program: 'Realidad Virtual', topic: 'VR Industrial Training',        year: '2024' },
+  { channel: 'Canal Once', program: 'Mexico Profundo',  topic: 'Tourism Technology',            year: '2024' },
 ];
 
 const SIGNAL_PATH =
   'M0,40 L30,40 L40,10 L50,70 L60,40 L90,40 L100,40 L110,15 L120,65 L130,40 L160,40 L170,25 L180,55 L190,40 L220,40 L230,8 L240,72 L250,40 L280,40 L290,30 L300,50 L310,40 L340,40';
 
-const CV = '/cv/CV_Jair_Molina_Arce_2026_v2.pdf';
-
 export default function HomePage() {
+  const { t } = useLang();
+  const h = t.home;
+
+  const STATS = [
+    { value: 'MSc. AT',      label: h.stat_msc_label,    sub: h.stat_msc_sub },
+    { value: '3×',           label: h.stat_pub_label,    sub: 'IAC · Springer · Revista' },
+    { value: '4×',           label: h.stat_tv_label,     sub: 'TV Azteca · ADN40 · Canal Once' },
+    { value: '6h → 20min',   label: h.stat_daq_label,    sub: h.stat_daq_sub },
+  ];
+
+  const TECH_STACK = [
+    'ESP32','STM32','C/C++','MQTT','Python',
+    'UART · SPI · I2C','LabVIEW','ANSYS','FEA',
+    'Flask','Docker','MATLAB/Simulink',
+  ];
+
   return (
     <>
-      {/* HERO */}
+      {/* ── HERO ── */}
       <section className="relative min-h-screen flex flex-col justify-center grid-bg overflow-hidden pt-16">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-accent/[0.03] blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-accent/[0.025] blur-[140px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-3 mb-8 animate-in">
-              <div className="h-px w-8 bg-accent" />
-              <span className="font-mono text-xs text-accent tracking-widest uppercase">
-                Embedded Systems · Aerospace · IoT · Firmware
-              </span>
-            </div>
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full py-12 md:py-0">
+          <div className="grid md:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-center">
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-text-primary leading-[1.1] mb-6 animate-in delay-100">
-              Jair<br />Molina Arce
-            </h1>
-
-            <p className="text-xl md:text-2xl text-text-secondary mb-4 font-light animate-in delay-200">
-              Embedded Systems &amp; Advanced Technology Engineer
-            </p>
-
-            <p className="text-base text-text-muted max-w-2xl leading-relaxed mb-10 animate-in delay-300">
-              I build systems at the intersection of hardware and software — from solid-fuel rocket
-              test benches with real-time DAQ to distributed IoT networks for urban monitoring.
-              Researcher at IPN · Speaker at IAC 2024, Milan · Co-Founder at CO.DE Aerospace.
-            </p>
-
-            <div className="flex flex-wrap gap-4 mb-16 animate-in delay-400">
-              <Link
-                href="/highlights"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-background font-medium text-sm rounded hover:bg-accent/90 transition-colors"
-              >
-                Engineering Highlights <ArrowRight size={16} />
-              </Link>
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-border text-text-secondary text-sm rounded hover:border-accent hover:text-accent transition-colors"
-              >
-                All Projects
-              </Link>
-              <a
-                href={CV}
-                target="_blank"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-border text-text-secondary text-sm font-mono rounded hover:border-border-subtle hover:text-text-primary transition-colors"
-              >
-                CV.pdf <ExternalLink size={14} />
-              </a>
-            </div>
-
-            {/* Oscilloscope signal */}
-            <div className="mb-16 animate-in delay-500">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="font-mono text-xs text-text-muted">CH1: Chamber Pressure [psi]</span>
-                <span className="font-mono text-xs text-accent blink">▊</span>
+            {/* Left: text */}
+            <div className="order-2 md:order-1">
+              <div className="flex items-center gap-3 mb-6 md:mb-8">
+                <div className="h-px w-8 bg-accent" />
+                <span className="font-mono text-xs text-accent tracking-widest uppercase">
+                  {h.hero_label}
+                </span>
               </div>
-              <svg viewBox="0 0 340 80" className="w-full max-w-xl h-16 opacity-60" xmlns="http://www.w3.org/2000/svg">
-                <path d={SIGNAL_PATH} fill="none" stroke="currentColor" className="text-accent signal-line" strokeWidth="1.5" strokeLinejoin="round" />
-                {[0,1,2,3,4].map((i) => (
-                  <line key={i} x1={i*85} y1="0" x2={i*85} y2="80" stroke="currentColor" strokeWidth="1" className="text-border-subtle opacity-50" />
+
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-text-primary leading-[1.1] mb-4 md:mb-6">
+                Jair<br />Molina Arce
+              </h1>
+
+              <p className="text-lg md:text-xl lg:text-2xl text-text-secondary mb-3 md:mb-4 font-light">
+                {h.hero_subtitle}
+              </p>
+              <p className="font-mono text-xs text-text-muted mb-4">{h.hero_title_cv}</p>
+
+              <p className="text-sm md:text-base text-text-muted max-w-xl leading-relaxed mb-8 md:mb-10">
+                {h.hero_description}
+              </p>
+
+              <div className="flex flex-wrap gap-3 mb-10 md:mb-14">
+                <Link
+                  href="/highlights"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-background font-medium text-sm rounded hover:bg-accent/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+                >
+                  {h.cta_highlights} <ArrowRight size={15} />
+                </Link>
+                <Link
+                  href="/projects"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-secondary text-sm rounded hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+                >
+                  {h.cta_projects}
+                </Link>
+                <a
+                  href={CV}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-secondary text-sm font-mono rounded hover:border-border-subtle hover:text-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+                >
+                  CV.pdf <ExternalLink size={14} />
+                </a>
+              </div>
+
+              {/* Oscilloscope */}
+              <div className="mb-10">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="font-mono text-xs text-text-muted">CH1: Chamber Pressure [psi]</span>
+                  <span className="font-mono text-xs text-accent blink">▊</span>
+                </div>
+                <svg viewBox="0 0 340 80" className="w-full max-w-md h-14 opacity-50">
+                  <path d={SIGNAL_PATH} fill="none" stroke="currentColor" className="text-accent signal-line" strokeWidth="1.5" strokeLinejoin="round" />
+                  {[0,1,2,3,4].map((i) => (
+                    <line key={i} x1={i*85} y1="0" x2={i*85} y2="80" stroke="currentColor" strokeWidth="1" className="text-border-subtle opacity-50" />
+                  ))}
+                  {[0,1,2].map((i) => (
+                    <line key={i} x1="0" y1={i*40} x2="340" y2={i*40} stroke="currentColor" strokeWidth="1" className="text-border-subtle opacity-50" />
+                  ))}
+                </svg>
+              </div>
+
+              <div className="flex flex-wrap gap-1.5">
+                {TECH_STACK.map((tag) => (
+                  <TechBadge key={tag} label={tag} variant="muted" />
                 ))}
-                {[0,1,2].map((i) => (
-                  <line key={i} x1="0" y1={i*40} x2="340" y2={i*40} stroke="currentColor" strokeWidth="1" className="text-border-subtle opacity-50" />
-                ))}
-              </svg>
+              </div>
             </div>
 
-            <div className="flex flex-wrap gap-2 animate-in delay-500">
-              {TECH_STACK.map((t) => (
-                <TechBadge key={t} label={t} variant="muted" />
-              ))}
+            {/* Right: profile image placeholder */}
+            <div className="order-1 md:order-2 flex justify-center md:justify-end">
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-[340px]">
+                {/* Corner accent marks */}
+                <div className="absolute -top-2 -left-2 w-7 h-7 border-t-2 border-l-2 border-accent" aria-hidden="true" />
+                <div className="absolute -top-2 -right-2 w-7 h-7 border-t-2 border-r-2 border-accent" aria-hidden="true" />
+                <div className="absolute -bottom-2 -left-2 w-7 h-7 border-b-2 border-l-2 border-accent" aria-hidden="true" />
+                <div className="absolute -bottom-2 -right-2 w-7 h-7 border-b-2 border-r-2 border-accent" aria-hidden="true" />
+
+                {/* Image container */}
+                <div className="w-full h-full bg-surface border border-border-subtle rounded overflow-hidden relative">
+                  {/* Placeholder background */}
+                  <div className="absolute inset-0 grid-bg opacity-30" />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10">
+                    <div className="w-20 h-20 rounded-full border-2 border-accent/30 bg-surface-alt flex items-center justify-center">
+                      <User size={32} className="text-accent/50" />
+                    </div>
+                    <div className="text-center">
+                      <p className="font-mono text-xs text-text-muted">Jair Molina Arce</p>
+                      <p className="font-mono text-xs text-accent/60 mt-0.5">// photo</p>
+                    </div>
+                  </div>
+                  {/* Actual photo when available */}
+                  <FallbackImage
+                    src="/images/profile/jair-molina.jpg"
+                    alt="Jair Molina Arce"
+                    fill
+                    sizes="(max-width: 640px) 224px, (max-width: 768px) 256px, 320px"
+                    className="object-cover object-top z-20 relative"
+                    priority
+                  />
+                </div>
+
+                {/* Info tag below */}
+                <div className="mt-3 flex items-center gap-2">
+                  <div className="h-px flex-1 bg-border-subtle" />
+                  <span className="font-mono text-xs text-text-muted">IPN · CDMX · Mexico</span>
+                  <div className="h-px flex-1 bg-border-subtle" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Social links */}
-        <div className="absolute right-6 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-4">
-          <a href="https://github.com/smookymolina" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-text-primary transition-colors">
-            <Github size={18} />
-          </a>
-          <a href="https://linkedin.com/in/jair-molina-arce-4909622b2" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-text-primary transition-colors">
-            <Linkedin size={18} />
-          </a>
-        </div>
       </section>
 
-      {/* STATS BAR */}
+      {/* ── STATS BAR ── */}
       <section className="border-y border-border-subtle bg-surface-alt">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-border-subtle">
             {STATS.map((s) => (
-              <div key={s.label} className="px-6 py-6">
-                <p className="font-mono text-accent text-lg font-medium mb-0.5">{s.value}</p>
-                <p className="text-sm text-text-primary font-medium mb-0.5">{s.label}</p>
+              <div key={s.label} className="px-4 md:px-6 py-5 md:py-6">
+                <p className="font-mono text-accent text-base md:text-lg font-medium mb-0.5">{s.value}</p>
+                <p className="text-xs md:text-sm text-text-primary font-medium mb-0.5">{s.label}</p>
                 <p className="text-xs text-text-muted">{s.sub}</p>
               </div>
             ))}
@@ -126,55 +175,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FEATURED PROJECTS */}
-      <section className="max-w-7xl mx-auto px-6 md:px-12 py-28">
-        <div className="flex items-end justify-between mb-12">
+      {/* ── FEATURED PROJECTS ── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
+        <div className="flex items-end justify-between mb-8 md:mb-12">
           <div>
-            <p className="font-mono text-xs text-accent tracking-widest uppercase mb-2">
-              02 — selected work
-            </p>
-            <h2 className="text-3xl font-semibold text-text-primary">Class A Projects</h2>
-            <p className="text-text-secondary mt-2">
-              Exceptional hardware + firmware systems that define this engineering profile.
-            </p>
+            <p className="font-mono text-xs text-accent tracking-widest uppercase mb-2">{h.featured_label}</p>
+            <h2 className="text-2xl md:text-3xl font-semibold text-text-primary">{h.featured_title}</h2>
+            <p className="text-text-secondary mt-2 max-w-xl text-sm md:text-base">{h.featured_subtitle}</p>
           </div>
           <Link href="/projects" className="hidden md:inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors font-mono">
-            View all <ArrowRight size={14} />
+            {h.view_all} <ArrowRight size={14} />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {CLASS_A_PROJECTS.map((project) => (
             <ProjectCard key={project.id} project={project} variant="featured" />
           ))}
         </div>
 
-        <div className="mt-8 md:hidden flex justify-center">
+        <div className="mt-6 md:hidden flex justify-center">
           <Link href="/projects" className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors font-mono">
-            View all projects <ArrowRight size={14} />
+            {h.view_all} <ArrowRight size={14} />
           </Link>
         </div>
       </section>
 
-      {/* IAC 2024 BANNER */}
+      {/* ── IAC 2024 BANNER ── */}
       <section className="border-y border-border-subtle bg-surface-alt overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-16">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-16">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
-              <div className="font-mono text-xs text-accent tracking-widest uppercase mb-4">
-                // international publication
-              </div>
-              <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-4 leading-snug">
-                75th International Astronautical Congress — IAC 2024
-              </h2>
-              <p className="text-text-secondary mb-6 leading-relaxed">
-                Co-author and in-person speaker at the most important astronautical congress in the
-                world. Presented at the 31st IAA Symposium on Small Satellite Missions in Milan,
-                Italy, October 2024.
-              </p>
+              <div className="font-mono text-xs text-accent tracking-widest uppercase mb-4">{h.pub_label}</div>
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-text-primary mb-4 leading-snug">{h.pub_title}</h2>
+              <p className="text-text-secondary mb-6 leading-relaxed text-sm md:text-base">{h.pub_desc}</p>
               <div className="flex flex-wrap gap-2 mb-6">
-                {['IAF','Small Satellites','IAC 2024','Milan Italy','CubeSat'].map((t) => (
-                  <TechBadge key={t} label={t} variant="accent" />
+                {['IAF','Small Satellites','IAC 2024','Milan Italy','CubeSat'].map((tag) => (
+                  <TechBadge key={tag} label={tag} variant="accent" />
                 ))}
               </div>
               <a
@@ -186,96 +223,101 @@ export default function HomePage() {
               </a>
             </div>
             <div className="relative aspect-video bg-surface rounded-lg border border-border-subtle overflow-hidden">
-              <FallbackImage
-                src="/images/research/iac-milan.jpg"
-                alt="IAC 2024 — Milan, Italy"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover opacity-80"
-              />
-              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-[0.12] pointer-events-none">
-                <p className="font-mono text-xs text-text-muted">IAC 2024 — Milan, Italy</p>
-              </div>
+              <FallbackImage src="/images/research/iac-milan.jpg" alt="IAC 2024 — Milan, Italy" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-80" />
+              <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
+              <div className="absolute bottom-3 left-3 font-mono text-xs text-text-muted">IAC 2024 · Milan, Italy</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* QUICK ABOUT */}
-      <section className="max-w-7xl mx-auto px-6 md:px-12 py-28">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="font-mono text-xs text-accent tracking-widest uppercase mb-4">
-              03 — profile
-            </p>
-            <h2 className="text-3xl font-semibold text-text-primary mb-6">
-              π-shaped engineer at the intersection of hardware &amp; software
-            </h2>
-            <p className="text-text-secondary mb-4 leading-relaxed">
-              Mechanical Engineer from IPN Mexico, pursuing MSc. in Advanced Technologies with
-              focus on dynamic systems control and instrumentation. My work spans embedded firmware,
-              sensor integration, control theory, FEA simulation, and aerospace propulsion.
-            </p>
-            <p className="text-text-secondary mb-8 leading-relaxed">
-              I built a solid-fuel rocket motor DAQ system, converted a 3D printer into a PCB
-              milling machine, and co-authored research on ML-driven satellite cyberdefense —
-              all while teaching Aerospace Systems Modeling at university level.
-            </p>
-            <Link href="/about" className="inline-flex items-center gap-2 text-sm font-mono text-accent hover:text-accent/80 transition-colors">
-              Full profile <ArrowRight size={14} />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              { label: 'Embedded Firmware',    detail: 'C/C++ · ESP32 · STM32',         accent: true  },
-              { label: 'DAQ & Instrumentation',detail: 'Pressure · Temp · Load Cell',    accent: false },
-              { label: 'IoT & Telemetry',      detail: 'MQTT · WiFi · REST',             accent: false },
-              { label: 'Control Systems',      detail: 'PID · Auto-Tune · State Space',  accent: false },
-              { label: 'Aerospace FEA',        detail: 'ANSYS · SolidWorks',             accent: false },
-              { label: 'Research',             detail: 'IAC 2024 · IPN · Springer',      accent: true  },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className={`p-4 rounded border ${
-                  item.accent
-                    ? 'bg-accent/5 border-accent/20'
-                    : 'bg-surface border-border-subtle'
-                }`}
-              >
-                <p className="text-sm font-medium text-text-primary mb-1">{item.label}</p>
-                <p className="font-mono text-xs text-text-muted">{item.detail}</p>
+      {/* ── NATIONAL MEDIA ── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
+        <div className="mb-8 md:mb-10">
+          <p className="font-mono text-xs text-accent tracking-widest uppercase mb-2">{h.media_label}</p>
+          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-3">{h.media_title}</h2>
+          <p className="text-text-secondary max-w-2xl leading-relaxed text-sm md:text-base">{h.media_desc}</p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          {MEDIA.map((m) => (
+            <div key={m.channel + m.program} className="bg-surface-alt border border-border-subtle rounded-lg p-4 md:p-5 hover:border-accent/30 transition-colors">
+              <div className="flex items-center gap-2 mb-3">
+                <Tv size={13} className="text-accent shrink-0" />
+                <span className="font-mono text-xs text-accent font-medium truncate">{m.channel}</span>
               </div>
-            ))}
+              <p className="text-xs md:text-sm font-medium text-text-primary mb-1">{m.program}</p>
+              <p className="text-xs text-text-muted leading-relaxed">{m.topic}</p>
+              <p className="font-mono text-xs text-text-muted mt-2 pt-2 border-t border-border-subtle">{m.year}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── PROFILE (CV-BASED) ── */}
+      <section className="border-t border-border-subtle bg-surface-alt">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
+          <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+            <div>
+              <p className="font-mono text-xs text-accent tracking-widest uppercase mb-4">{h.profile_label}</p>
+              <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-6 leading-snug">{h.profile_title}</h2>
+              <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_desc1}</p>
+              <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_desc2}</p>
+              <p className="text-text-secondary mb-8 leading-relaxed text-sm md:text-base">{h.profile_desc3}</p>
+              <div className="flex flex-wrap gap-3 mb-6">
+                <Link href="/about" className="inline-flex items-center gap-2 text-sm font-mono text-accent hover:text-accent/80 transition-colors">
+                  {h.full_profile} <ArrowRight size={14} />
+                </Link>
+                <a href={CV} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-text-primary transition-colors">
+                  <ExternalLink size={13} /> {h.download_cv}
+                </a>
+              </div>
+              {/* Key identifiers */}
+              <div className="flex flex-wrap gap-2 mt-4">
+                {['CVU CONACYT: 1340773', 'ORCID: 0009-0009-6732-8100', 'IPN · CDMX'].map((id) => (
+                  <span key={id} className="font-mono text-xs px-2 py-1 bg-surface border border-border-subtle text-text-muted rounded">
+                    {id}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Skill grid — from CV specialization table */}
+            <div className="grid grid-cols-2 gap-3">
+              {h.skill_labels.map((label, i) => (
+                <div
+                  key={label}
+                  className={`p-3 md:p-4 rounded border ${
+                    i === 0 || i === 4
+                      ? 'bg-accent/5 border-accent/20'
+                      : 'bg-surface border-border-subtle'
+                  }`}
+                >
+                  <p className="text-xs md:text-sm font-medium text-text-primary mb-1">{label}</p>
+                  <p className="font-mono text-xs text-text-muted leading-relaxed">{h.skill_details[i]}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="max-w-7xl mx-auto px-6 md:px-12 pb-28">
-        <div className="rounded-lg border border-border-subtle bg-surface-alt p-12 text-center">
-          <p className="font-mono text-xs text-accent tracking-widest uppercase mb-4">
-            // available for hire
-          </p>
-          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-4">
-            Looking for an Embedded Systems Engineer?
-          </h2>
-          <p className="text-text-secondary max-w-lg mx-auto mb-8">
-            Open to positions in Embedded Systems, Firmware Engineering, R&amp;D, Robotics,
-            and Aerospace. Based in Mexico City — open to remote and international opportunities.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-accent text-background font-medium text-sm rounded hover:bg-accent/90 transition-colors"
+      {/* ── CTA ── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
+        <div className="rounded-lg border border-border-subtle bg-surface-alt p-8 md:p-14 text-center">
+          <p className="font-mono text-xs text-accent tracking-widest uppercase mb-4">{h.cta_label}</p>
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-text-primary mb-4">{h.cta_title}</h2>
+          <p className="text-text-secondary max-w-lg mx-auto mb-8 leading-relaxed text-sm md:text-base">{h.cta_desc}</p>
+          <div className="flex flex-wrap gap-3 md:gap-4 justify-center">
+            <Link href="/contact"
+              className="inline-flex items-center gap-2 px-6 md:px-7 py-2.5 md:py-3 bg-accent text-background font-medium text-sm rounded hover:bg-accent/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
             >
-              Get in Touch <ArrowRight size={16} />
+              {h.get_in_touch} <ArrowRight size={15} />
             </Link>
-            <Link
-              href="/highlights"
-              className="inline-flex items-center gap-2 px-8 py-3 border border-border text-text-secondary text-sm rounded hover:border-accent hover:text-accent transition-colors"
+            <Link href="/highlights"
+              className="inline-flex items-center gap-2 px-6 md:px-7 py-2.5 md:py-3 border border-border text-text-secondary text-sm rounded hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
             >
-              See Highlights
+              {h.see_highlights}
             </Link>
           </div>
         </div>
