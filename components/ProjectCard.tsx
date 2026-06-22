@@ -32,13 +32,13 @@ export default function ProjectCard({ project }: Props) {
       className="group block card-surface rounded-lg overflow-hidden"
     >
       {/* Cover */}
-      <div className="relative aspect-video bg-surface overflow-hidden">
+      <div className="relative aspect-[4/3] bg-surface overflow-hidden">
         <FallbackImage
           src={project.coverImage}
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-          className="object-contain opacity-70 group-hover:opacity-90 transition-opacity duration-300"
+          className={`${project.coverFit === 'cover' ? 'object-cover' : 'object-contain'} ${project.coverPosition || 'object-center'} opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60 pointer-events-none" />
 

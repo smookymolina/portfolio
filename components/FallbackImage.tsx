@@ -39,13 +39,13 @@ export default function FallbackImage({ src, alt, fill, sizes, className, priori
     );
   }
 
-  return (
+  const imgElement = (
     <Image
       src={src}
       alt={alt}
       fill={fill}
       sizes={sizes}
-      className={className}
+      className={className ? `${className} relative z-10` : 'relative z-10'}
       priority={priority}
       loading={loading}
       placeholder="blur"
@@ -53,4 +53,27 @@ export default function FallbackImage({ src, alt, fill, sizes, className, priori
       onError={() => setError(true)}
     />
   );
+
+  const isContain = className?.includes('object-contain');
+
+  if (fill && isContain) {
+    return (
+      <div className="absolute inset-0 select-none overflow-hidden rounded-lg">
+        {/* Blurred background layer to adapt vertical/portrait images to horizontal/landscape layout */}
+        <div className="absolute inset-0 pointer-events-none opacity-25 dark:opacity-15 blur-lg scale-110">
+          <Image
+            src={src}
+            alt=""
+            fill
+            className="object-cover"
+            placeholder="blur"
+            blurDataURL={DEFAULT_BLUR}
+          />
+        </div>
+        {imgElement}
+      </div>
+    );
+  }
+
+  return imgElement;
 }

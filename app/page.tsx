@@ -19,8 +19,7 @@ const MEDIA = [
   { channel: 'Canal Once', program: 'Mexico Profundo',  topic: 'Tourism Technology',            year: '2024' },
 ];
 
-const SIGNAL_PATH =
-  'M0,40 L30,40 L40,10 L50,70 L60,40 L90,40 L100,40 L110,15 L120,65 L130,40 L160,40 L170,25 L180,55 L190,40 L220,40 L230,8 L240,72 L250,40 L280,40 L290,30 L300,50 L310,40 L340,40';
+
 
 export default function HomePage() {
   const { t, lang } = useLang();
@@ -98,22 +97,7 @@ export default function HomePage() {
                 </a>
               </div>
 
-              {/* Oscilloscope */}
-              <div className="pt-2">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="font-mono text-xs text-text-muted">CH1: Chamber Pressure [psi]</span>
-                  <span className="font-mono text-xs text-accent blink">▊</span>
-                </div>
-                <svg viewBox="0 0 340 80" className="w-full max-w-md h-14 opacity-50">
-                  <path d={SIGNAL_PATH} fill="none" stroke="currentColor" className="text-accent signal-line" strokeWidth="1.5" strokeLinejoin="round" />
-                  {[0,1,2,3,4].map((i) => (
-                    <line key={i} x1={i*85} y1="0" x2={i*85} y2="80" stroke="currentColor" strokeWidth="1" className="text-border-subtle opacity-50" />
-                  ))}
-                  {[0,1,2].map((i) => (
-                    <line key={i} x1="0" y1={i*40} x2="340" y2={i*40} stroke="currentColor" strokeWidth="1" className="text-border-subtle opacity-50" />
-                  ))}
-                </svg>
-              </div>
+
 
               <div className="flex flex-wrap gap-1.5 pt-2">
                 {TECH_STACK.map((tag) => (

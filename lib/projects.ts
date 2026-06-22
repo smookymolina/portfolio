@@ -37,6 +37,8 @@ export interface Project {
   evidence: string[];
   githubUrl?: string;
   coverImage: string; // e.g. /images/projects/banco-pruebas/hero.jpg
+  coverFit?: 'cover' | 'contain';
+  coverPosition?: string;
   gallery?: string[]; // e.g. ['/images/projects/banco-pruebas/01.jpeg']
   videoUrl?: string; // e.g. /videos/vr-training-broadcast.mp4
   broadcastChannels?: string[]; // TV channels that featured this project
@@ -107,6 +109,8 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'Hardware photos and test videos',
     ],
     coverImage: '/images/projects/banco-pruebas/hero.jpeg',
+    coverFit: 'cover',
+    coverPosition: 'object-top',
     gallery: [
       '/images/projects/banco-pruebas/01.jpeg',
       '/images/projects/banco-pruebas/02.jpeg',
@@ -163,7 +167,9 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'Integration with test bench DAQ (P-01)',
     ],
     githubUrl: 'https://github.com/smookymolina',
-    coverImage: '/images/projects/telemetria-mqtt/hero.jpeg',
+    coverImage: '/images/projects/telemetria-mqtt/hero.jpg',
+    coverFit: 'cover',
+    coverPosition: 'object-center',
     gallery: [
       '/images/projects/telemetria-mqtt/01.jpeg',
       '/images/projects/telemetria-mqtt/02.jpeg',

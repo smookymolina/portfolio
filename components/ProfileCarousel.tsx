@@ -5,12 +5,12 @@ import { ChevronLeft, ChevronRight, User } from 'lucide-react';
 import FallbackImage from '@/components/FallbackImage';
 
 const PHOTOS = [
-  '/images/profile/photo-02.jpeg',
+  '/images/profile/photo-07.jpeg',
   '/images/profile/photo-03.jpeg',
   '/images/profile/photo-04.jpeg',
   '/images/profile/photo-05.jpeg',
   '/images/profile/photo-06.jpeg',
-  '/images/profile/photo-07.jpeg',
+  '/images/profile/photo-02.jpeg',
 ];
 
 export default function ProfileCarousel() {
