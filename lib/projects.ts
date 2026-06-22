@@ -110,7 +110,7 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
     ],
     coverImage: '/images/projects/banco-pruebas/hero.jpeg',
     coverFit: 'cover',
-    coverPosition: 'object-top',
+    coverPosition: 'object-[50%_-10px]',
     gallery: [
       '/images/projects/banco-pruebas/01.jpeg',
       '/images/projects/banco-pruebas/02.jpeg',
