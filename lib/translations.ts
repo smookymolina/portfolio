@@ -58,6 +58,9 @@ const T = {
       media_label: '// national media',
       media_title: 'Featured on National Television',
       media_desc: 'VR/AR technology demonstrations selected for national broadcast on TV Azteca, ADN40, and Canal Once — reaching millions of viewers in Mexico.',
+      video_label: '// video presentation',
+      video_title: 'Demo Reel & Project Highlights',
+      video_desc: 'A showcase of embedded systems development, control loops, and aerospace hardware in action.',
     },
     about: {
       label: '// engineer profile',
@@ -198,6 +201,9 @@ const T = {
       media_label: '// medios nacionales',
       media_title: 'Presencia en Televisión Nacional',
       media_desc: 'Demostraciones de tecnología VR/AR seleccionadas para transmisión nacional en TV Azteca, ADN40 y Canal Once — llegando a millones de televidentes en México.',
+      video_label: '// video de presentación destacado',
+      video_title: 'Video de Demostración y Proyectos',
+      video_desc: 'Una muestra del desarrollo de sistemas embebidos, lazos de control y hardware aeroespacial en acción.',
     },
     about: {
       label: '// perfil de ingeniero',

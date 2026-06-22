@@ -53,24 +53,33 @@ export default function ProfileCarousel() {
         </div>
 
         {/* Photo slides */}
-        {PHOTOS.map((src, i) => (
-          <div
-            key={src}
-            className={`absolute inset-0 z-20 transition-opacity duration-700 ${
-              i === current ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            }`}
-          >
-            <FallbackImage
-              src={src}
-              alt={`Jair Molina Arce — ${i + 1}`}
-              fill
-              sizes="(max-width: 640px) 224px, (max-width: 768px) 256px, 320px"
-              className="object-cover object-top"
-              priority={i === 0}
-              loading="eager"
-            />
-          </div>
-        ))}
+        {PHOTOS.map((src, i) => {
+          const isCurrent = i === current;
+          const isNear =
+            i === (current + 1) % PHOTOS.length ||
+            i === (current - 1 + PHOTOS.length) % PHOTOS.length;
+
+          if (!isCurrent && !isNear) return null;
+
+          return (
+            <div
+              key={src}
+              className={`absolute inset-0 z-20 transition-opacity duration-700 ${
+                isCurrent ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
+            >
+              <FallbackImage
+                src={src}
+                alt={`Jair Molina Arce — ${i + 1}`}
+                fill
+                sizes="(max-width: 640px) 224px, (max-width: 768px) 256px, 320px"
+                className="object-cover object-top"
+                priority={isCurrent}
+                loading={isCurrent ? 'eager' : 'lazy'}
+              />
+            </div>
+          );
+        })}
 
         {/* Prev button */}
         <button

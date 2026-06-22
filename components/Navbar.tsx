@@ -66,7 +66,7 @@ export default function Navbar() {
               <span className="font-mono text-xs text-accent font-medium">JM</span>
             </div>
             <span className="font-mono text-sm text-text-secondary group-hover:text-text-primary transition-colors hidden sm:block">
-              jair.molina
+              Jair Molina
             </span>
           </Link>
 

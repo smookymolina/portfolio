@@ -139,6 +139,46 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── DEMO REEL VIDEO ── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12 pt-16 md:pt-24">
+        <div className="relative border border-border-subtle bg-surface-alt/45 backdrop-blur-md rounded-xl p-6 md:p-10 overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-accent/[0.02] blur-[120px] pointer-events-none" />
+          
+          <div className="grid lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-12 items-center relative z-10">
+            {/* Left: Info */}
+            <div className="flex flex-col justify-center">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                <span className="font-mono text-xs text-accent tracking-widest uppercase">
+                  {h.video_label}
+                </span>
+              </div>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-text-primary mb-4 leading-snug">
+                {h.video_title}
+              </h2>
+              <p className="text-text-secondary leading-relaxed text-sm md:text-base mb-6 font-light">
+                {h.video_desc}
+              </p>
+              
+              <div className="inline-flex items-center gap-2 text-xs font-mono text-text-muted bg-surface border border-border-subtle rounded-md px-3 py-1.5 self-start">
+                <span className="text-accent">▶</span> Play / Pause enabled
+              </div>
+            </div>
+            
+            {/* Right: Video player container */}
+            <div className="relative aspect-video rounded-lg overflow-hidden border border-border bg-black/50 shadow-2xl group transition-all duration-300 hover:border-accent/45">
+              <video
+                src="/videos/capsula.mp4"
+                controls
+                preload="metadata"
+                className="w-full h-full object-cover relative z-10"
+              />
+              <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── FEATURED PROJECTS ── */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
         <div className="flex items-end justify-between mb-8 md:mb-12">

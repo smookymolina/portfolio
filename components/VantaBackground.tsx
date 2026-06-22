@@ -9,19 +9,19 @@ import { useTheme } from '@/lib/theme';
 const PALETTE = {
   dark: {
     bg:          0x0a0a0a,
-    color:       0x3f3fff,
-    points:      6.5,
-    maxDistance: 18.5,
-    spacing:     19.0,
-    opacity:     0.42,
+    color:       0x00c2ff, // Matches theme's cyan accent
+    points:      8.0,
+    maxDistance: 23.0,
+    spacing:     18.0,
+    opacity:     0.55,
   },
   light: {
     bg:          0xf2f0ec,
-    color:       0x006b8a,
+    color:       0x006b8a, // Matches theme's dark cyan accent
     points:      8.0,
-    maxDistance: 22.0,
+    maxDistance: 23.0,
     spacing:     18.0,
-    opacity:     0.9,
+    opacity:     0.55,
   },
 } as const;
 
@@ -73,7 +73,11 @@ export default function VantaBackground() {
     <div
       ref={containerRef}
       className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-500"
-      style={{ opacity: PALETTE[theme].opacity }}
+      style={{
+        opacity: PALETTE[theme].opacity,
+        transform: 'translate3d(0, 0, 0)',
+        willChange: 'transform',
+      }}
       aria-hidden="true"
     />
   );
