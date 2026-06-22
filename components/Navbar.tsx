@@ -157,7 +157,7 @@ export default function Navbar() {
           <nav
             id="mobile-nav"
             aria-label="Mobile navigation"
-            className="md:hidden fixed top-16 left-0 right-0 z-40 bg-background border-b border-border-subtle animate-in"
+            className="md:hidden fixed top-16 left-0 right-0 z-40 bg-background border-b border-border-subtle animate-in max-h-[calc(100vh-4rem)] overflow-y-auto"
           >
         <div className="px-6 py-5 flex flex-col gap-1">
           {NAV_LINKS.map((link) => (

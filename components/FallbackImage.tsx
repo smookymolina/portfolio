@@ -4,6 +4,10 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Image as ImageIcon } from 'lucide-react';
 
+// 8×8 dark-gray PNG stretched + blurred by Next.js as loading placeholder
+const DEFAULT_BLUR =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAIUlEQVQoU2NkYGD4z8BQDwAIgAF/QualIQAAAABJRU5ErkJggg==';
+
 interface Props {
   src: string;
   alt: string;
@@ -19,11 +23,18 @@ export default function FallbackImage({ src, alt, fill, sizes, className, priori
 
   if (error) {
     return (
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-surface-alt/60 backdrop-blur-[2px] border border-border-subtle/40 rounded p-4 text-center select-none pointer-events-none">
-        <ImageIcon size={20} className="text-text-muted/30" />
-        <span className="font-mono text-[9px] text-text-muted/50 tracking-wider uppercase truncate max-w-full px-2">
-          {alt}
-        </span>
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-background/55 backdrop-blur-sm border border-white/[0.05] rounded-lg p-6 text-center select-none pointer-events-none shadow-inner">
+        <div className="w-10 h-10 rounded-full bg-accent/5 border border-accent/20 flex items-center justify-center">
+          <ImageIcon size={18} className="text-accent/60" />
+        </div>
+        <div className="space-y-1">
+          <span className="block font-mono text-[10px] text-accent tracking-widest uppercase">
+            [ no image ]
+          </span>
+          <span className="block font-mono text-[9px] text-text-muted/65 truncate max-w-[200px] px-2">
+            {alt}
+          </span>
+        </div>
       </div>
     );
   }
@@ -37,6 +48,8 @@ export default function FallbackImage({ src, alt, fill, sizes, className, priori
       className={className}
       priority={priority}
       loading={loading}
+      placeholder="blur"
+      blurDataURL={DEFAULT_BLUR}
       onError={() => setError(true)}
     />
   );

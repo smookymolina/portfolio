@@ -8,6 +8,7 @@ import TechBadge from '@/components/TechBadge';
 import FallbackImage from '@/components/FallbackImage';
 import ProfileCarousel from '@/components/ProfileCarousel';
 import { useLang } from '@/lib/lang';
+import { useTheme } from '@/lib/theme';
 
 const CV = '/cv/CV_Jair_Molina_Arce_2026_v2.pdf';
 
@@ -22,8 +23,9 @@ const SIGNAL_PATH =
   'M0,40 L30,40 L40,10 L50,70 L60,40 L90,40 L100,40 L110,15 L120,65 L130,40 L160,40 L170,25 L180,55 L190,40 L220,40 L230,8 L240,72 L250,40 L280,40 L290,30 L300,50 L310,40 L340,40';
 
 export default function HomePage() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const h = t.home;
+  const { theme } = useTheme();
 
   const STATS = [
     { value: 'MSc. AT',      label: h.stat_msc_label,    sub: h.stat_msc_sub },
@@ -42,34 +44,38 @@ export default function HomePage() {
     <>
       {/* ── HERO ── */}
       <section className="relative min-h-screen flex flex-col justify-center grid-bg overflow-hidden pt-16">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-accent/[0.025] blur-[140px] pointer-events-none" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[320px] h-[320px] md:w-[700px] md:h-[700px] rounded-full bg-accent/[0.025] blur-[140px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 w-full py-12 md:py-0">
-          <div className="grid md:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-10 lg:gap-16 items-center">
 
             {/* Left: text */}
-            <div className="order-2 md:order-1">
-              <div className="flex items-center gap-3 mb-6 md:mb-8">
-                <div className="h-px w-8 bg-accent" />
-                <span className="font-mono text-xs text-accent tracking-widest uppercase">
-                  {h.hero_label}
-                </span>
+            <div className="order-2 md:order-1 space-y-6">
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-px w-8 bg-accent" />
+                  <span className="font-mono text-xs text-accent tracking-widest uppercase">
+                    {h.hero_label}
+                  </span>
+                </div>
+
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-text-primary leading-[1.1] mb-2">
+                  Jair<br />Molina Arce
+                </h1>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-text-primary leading-[1.1] mb-4 md:mb-6">
-                Jair<br />Molina Arce
-              </h1>
+              {/* Smaller glass card wrapping only the specific subtitle, CV title, and description */}
+              <div className="bg-background/55 backdrop-blur-sm rounded-xl p-5 border border-white/[0.05] max-w-xl shadow-lg">
+                <p className="text-lg md:text-xl lg:text-2xl text-text-primary mb-2 font-light leading-snug">
+                  {h.hero_subtitle}
+                </p>
+                <p className="font-mono text-xs text-text-secondary mb-4">{h.hero_title_cv}</p>
+                <p className="text-sm md:text-base text-text-secondary leading-relaxed font-light">
+                  {h.hero_description}
+                </p>
+              </div>
 
-              <p className="text-lg md:text-xl lg:text-2xl text-text-secondary mb-3 md:mb-4 font-light">
-                {h.hero_subtitle}
-              </p>
-              <p className="font-mono text-xs text-text-muted mb-4">{h.hero_title_cv}</p>
-
-              <p className="text-sm md:text-base text-text-muted max-w-xl leading-relaxed mb-8 md:mb-10">
-                {h.hero_description}
-              </p>
-
-              <div className="flex flex-wrap gap-3 mb-10 md:mb-14">
+              <div className="flex flex-wrap gap-3 pt-2">
                 <Link
                   href="/highlights"
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-background font-medium text-sm rounded hover:bg-accent/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
@@ -93,7 +99,7 @@ export default function HomePage() {
               </div>
 
               {/* Oscilloscope */}
-              <div className="mb-10">
+              <div className="pt-2">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="font-mono text-xs text-text-muted">CH1: Chamber Pressure [psi]</span>
                   <span className="font-mono text-xs text-accent blink">▊</span>
@@ -109,7 +115,7 @@ export default function HomePage() {
                 </svg>
               </div>
 
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-1.5 pt-2">
                 {TECH_STACK.map((tag) => (
                   <TechBadge key={tag} label={tag} variant="muted" />
                 ))}
@@ -127,9 +133,9 @@ export default function HomePage() {
       {/* ── STATS BAR ── */}
       <section className="border-y border-border-subtle bg-surface-alt">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-border-subtle">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-[1px] bg-border-subtle">
             {STATS.map((s) => (
-              <div key={s.label} className="px-4 md:px-6 py-5 md:py-6">
+              <div key={s.label} className="bg-surface-alt px-4 md:px-6 py-5 md:py-6">
                 <p className="font-mono text-accent text-base md:text-lg font-medium mb-0.5">{s.value}</p>
                 <p className="text-xs md:text-sm text-text-primary font-medium mb-0.5">{s.label}</p>
                 <p className="text-xs text-text-muted">{s.sub}</p>
@@ -142,7 +148,7 @@ export default function HomePage() {
       {/* ── DEMO REEL VIDEO ── */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 pt-16 md:pt-24">
         <div className="relative border border-border-subtle bg-surface-alt/45 backdrop-blur-md rounded-xl p-6 md:p-10 overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-accent/[0.02] blur-[120px] pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[280px] h-[280px] md:w-[500px] md:h-[500px] rounded-full bg-accent/[0.02] blur-[120px] pointer-events-none" />
           
           <div className="grid lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-12 items-center relative z-10">
             {/* Left: Info */}
@@ -242,7 +248,7 @@ export default function HomePage() {
           <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-3">{h.media_title}</h2>
           <p className="text-text-secondary max-w-2xl leading-relaxed text-sm md:text-base">{h.media_desc}</p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {MEDIA.map((m) => (
             <div key={m.channel + m.program} className="bg-surface-alt border border-border-subtle rounded-lg p-4 md:p-5 hover:border-accent/30 transition-colors">
               <div className="flex items-center gap-2 mb-3">
@@ -261,33 +267,54 @@ export default function HomePage() {
       <section className="border-t border-border-subtle bg-surface-alt">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
           <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
-            <div>
-              <p className="font-mono text-xs text-accent tracking-widest uppercase mb-4">{h.profile_label}</p>
-              <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-6 leading-snug">{h.profile_title}</h2>
-              <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_desc1}</p>
-              <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_desc2}</p>
-              <p className="text-text-secondary mb-8 leading-relaxed text-sm md:text-base">{h.profile_desc3}</p>
-              <div className="flex flex-wrap gap-3 mb-6">
-                <Link href="/about" className="inline-flex items-center gap-2 text-sm font-mono text-accent hover:text-accent/80 transition-colors">
-                  {h.full_profile} <ArrowRight size={14} />
-                </Link>
-                <a href={CV} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-text-primary transition-colors">
-                  <ExternalLink size={13} /> {h.download_cv}
-                </a>
+            <div className="space-y-6">
+              <div className={theme === 'dark' ? "bg-background/55 backdrop-blur-sm rounded-2xl p-5 md:p-7 border border-white/[0.05] shadow-lg" : ""}>
+                <p className="font-mono text-xs text-accent tracking-widest uppercase mb-4">
+                  {theme === 'dark' ? '// perfil de ingeniero' : h.profile_label}
+                </p>
+                <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-6 leading-snug">
+                  {theme === 'dark' ? 'Jair Molina Arce' : h.profile_title}
+                </h2>
+                {theme === 'dark' ? (
+                  <>
+                    <p className="text-lg font-medium text-text-primary mb-4">{h.profile_dark_subtitle}</p>
+                    <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_dark_desc1}</p>
+                    <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_dark_desc2}</p>
+                    <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_dark_desc3}</p>
+                    <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_dark_desc4}</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_desc1}</p>
+                    <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_desc2}</p>
+                    <p className="text-text-secondary mb-8 leading-relaxed text-sm md:text-base">{h.profile_desc3}</p>
+                  </>
+                )}
               </div>
-              {/* Key identifiers */}
-              <div className="flex flex-wrap gap-2 mt-4">
-                {['CVU CONACYT: 1340773', 'ORCID: 0009-0009-6732-8100', 'IPN · CDMX'].map((id) => (
-                  <span key={id} className="font-mono text-xs px-2 py-1 bg-surface border border-border-subtle text-text-muted rounded">
-                    {id}
-                  </span>
-                ))}
+
+              <div className="pt-2">
+                <div className="flex flex-wrap gap-3 mb-6">
+                  <Link href="/about" className="inline-flex items-center gap-2 text-sm font-mono text-accent hover:text-accent/80 transition-colors">
+                    {h.full_profile} <ArrowRight size={14} />
+                  </Link>
+                  <a href={CV} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-text-primary transition-colors">
+                    <ExternalLink size={13} /> {h.download_cv}
+                  </a>
+                </div>
+                {/* Key identifiers */}
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {['CVU CONACYT: 1340773', 'ORCID: 0009-0009-6732-8100', 'IPN · CDMX'].map((id) => (
+                    <span key={id} className="font-mono text-xs px-2 py-1 bg-surface border border-border-subtle text-text-muted rounded">
+                      {id}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
             {/* Skill grid — from CV specialization table */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {h.skill_labels.map((label, i) => (
                 <div
                   key={label}

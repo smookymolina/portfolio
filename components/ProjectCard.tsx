@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import FallbackImage from './FallbackImage';
 import { ArrowUpRight } from 'lucide-react';
 import type { Project } from '@/lib/projects';
 import { CATEGORY_LABELS } from '@/lib/projects';
@@ -33,15 +33,14 @@ export default function ProjectCard({ project }: Props) {
     >
       {/* Cover */}
       <div className="relative aspect-video bg-surface overflow-hidden">
-        <Image
+        <FallbackImage
           src={project.coverImage}
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-          className="object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-300"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+          className="object-contain opacity-70 group-hover:opacity-90 transition-opacity duration-300"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60 pointer-events-none" />
 
         {project.classification === 'A' && (
           <div className="absolute top-3 left-3">
@@ -50,10 +49,6 @@ export default function ProjectCard({ project }: Props) {
             </span>
           </div>
         )}
-
-        <div className="absolute inset-0 flex items-center justify-center opacity-[0.12]">
-          <div className="font-mono text-xs text-text-muted tracking-widest">[ no image ]</div>
-        </div>
       </div>
 
       {/* Content */}
@@ -77,7 +72,7 @@ export default function ProjectCard({ project }: Props) {
         </div>
 
         {project.metrics && project.metrics.length > 0 && (
-          <div className="flex gap-4 pt-3 border-t border-border-subtle">
+          <div className="flex flex-wrap gap-4 pt-3 border-t border-border-subtle">
             {project.metrics.slice(0, 2).map((m) => (
               <div key={m.label}>
                 <p className="font-mono text-accent text-sm font-medium">

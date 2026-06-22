@@ -4,6 +4,7 @@ import TechBadge from '@/components/TechBadge';
 import SectionHeader from '@/components/SectionHeader';
 import FallbackImage from '@/components/FallbackImage';
 import { useLang } from '@/lib/lang';
+import { useTheme } from '@/lib/theme';
 
 const SKILLS = [
   { category: 'Embedded Systems / IoT',  items: ['ESP32','STM32 (Cortex-M)','Arduino','C/C++ bare-metal','MQTT','UART · SPI · I2C','WiFi','OTA Updates'], variant: 'amber' as const },
@@ -38,15 +39,16 @@ const TYPE_COLORS: Record<string, string> = {
 export default function AboutPage() {
   const { t } = useLang();
   const a = t.about;
+  const { theme } = useTheme();
 
   return (
     <div className="pt-24 pb-32">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
 
         {/* Profile hero */}
-        <div className="grid md:grid-cols-[300px_1fr] gap-12 lg:gap-16 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-12 lg:gap-16 mb-24">
           <div>
-            <div className="aspect-square bg-surface-alt rounded-lg border border-border-subtle relative overflow-hidden mb-5">
+            <div className="bg-surface-alt rounded-lg border border-border-subtle relative overflow-hidden mb-5 w-[200px] h-[200px] mx-auto md:w-full md:h-auto md:aspect-square">
               {/* Placeholder shown when photo not yet available */}
               <div className="absolute inset-0 grid-bg opacity-25" />
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10">
@@ -59,7 +61,7 @@ export default function AboutPage() {
               </div>
               {/* Actual image overlay (takes precedence when available) */}
               <div className="absolute inset-0 z-20">
-                <FallbackImage src="/images/profile/jair-molina.jpeg" alt="Jair Molina Arce" fill sizes="300px" className="object-cover object-top" />
+                <FallbackImage src="/images/profile/jair-molina.jpeg" alt="Jair Molina Arce" fill sizes="300px" className="object-cover object-[50%_30%]" />
               </div>
             </div>
 
@@ -69,7 +71,7 @@ export default function AboutPage() {
                 { label: 'CVU CONACYT', value: '1340773' },
                 { label: 'GitHub',      value: 'smookymolina', url: 'https://github.com/smookymolina' },
                 { label: 'Location',    value: 'Mexico City, Mexico' },
-                { label: 'Languages',   value: 'Spanish (native) · English (technical)' },
+                { label: 'Languages',   value: 'Spanish (native) · English (advanced)' },
                 { label: 'Startup',     value: 'CO.DE Aerospace · Co-Founder' },
               ].map((row) => (
                 <div key={row.label} className="flex justify-between px-4 py-3 border-b border-border-subtle last:border-0 bg-surface-alt hover:bg-surface transition-colors">
@@ -86,7 +88,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div>
+          <div className={theme === 'dark' ? "bg-background/55 backdrop-blur-sm rounded-2xl p-5 md:p-7 border border-white/[0.05] shadow-lg" : ""}>
             <p className="font-mono text-xs text-accent tracking-widest uppercase mb-3">{a.label}</p>
             <h1 className="text-4xl font-semibold text-text-primary mb-2">Jair Molina Arce</h1>
             <p className="text-xl text-text-secondary mb-8">{a.subtitle}</p>
@@ -126,8 +128,8 @@ export default function AboutPage() {
 
         {/* Timeline */}
         <SectionHeader label={a.timeline_label} title={a.timeline_title} />
-        <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-px bg-border-subtle" />
+        <div className={theme === 'dark' ? "bg-background/55 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/[0.05] shadow-lg relative" : "relative"}>
+          <div className={theme === 'dark' ? "absolute left-6 md:left-8 top-6 md:top-8 bottom-6 md:bottom-8 w-px bg-border-subtle" : "absolute left-0 top-0 bottom-0 w-px bg-border-subtle"} />
           <div className="space-y-0">
             {TIMELINE.map((item, i) => (
               <div key={i} className="relative pl-8 pb-8">

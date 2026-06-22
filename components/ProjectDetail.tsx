@@ -20,10 +20,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
 
         {/* Hero image */}
         <div className="relative aspect-video bg-surface rounded-lg border border-border-subtle overflow-hidden mb-10">
-          <FallbackImage src={project.coverImage} alt={project.title} fill sizes="(max-width: 768px) 100vw, 900px" className="object-cover opacity-80" />
-          <div className="absolute inset-0 flex items-center justify-center opacity-[0.12] pointer-events-none">
-            <p className="font-mono text-xs text-text-muted">[ no image ]</p>
-          </div>
+          <FallbackImage src={project.coverImage} alt={project.title} fill sizes="(max-width: 768px) 100vw, 900px" className="object-contain opacity-80" />
         </div>
 
         {/* Broadcast video capsule */}

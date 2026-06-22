@@ -3,11 +3,13 @@
 import Link from 'next/link';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { useLang } from '@/lib/lang';
+import { useTheme } from '@/lib/theme';
 
 const CV = '/cv/CV_Jair_Molina_Arce_2026_v2.pdf';
 
 export default function Footer() {
   const { t } = useLang();
+  const { theme } = useTheme();
 
   const NAV_LINKS = [
     { href: '/about',      label: t.nav.about,       external: false },
@@ -21,7 +23,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-border-subtle mt-32 relative z-10">
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className={theme === 'dark' ? "bg-background/55 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/[0.05] shadow-lg grid grid-cols-1 md:grid-cols-3 gap-12" : "grid grid-cols-1 md:grid-cols-3 gap-12"}>
           <div>
             <div className="font-mono text-xs text-text-muted mb-1">// engineer</div>
             <p className="font-semibold text-text-primary mb-1">Jair Molina Arce</p>
