@@ -25,13 +25,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
         <div className={theme === 'dark' ? "bg-background/55 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/[0.05] shadow-lg grid grid-cols-1 md:grid-cols-3 gap-12" : "grid grid-cols-1 md:grid-cols-3 gap-12"}>
           <div>
-            <div className="font-mono text-xs text-text-muted mb-1">// engineer</div>
+            <div className="font-mono text-xs text-text-muted mb-1">{t.footer?.engineer_label || '// engineer'}</div>
             <p className="font-semibold text-text-primary mb-1">Jair Molina Arce</p>
             <p className="text-sm text-text-secondary">
-              Embedded Systems & Advanced Technology Engineer
+              {t.footer?.subtitle || 'Embedded Systems & Advanced Technology Engineer'}
             </p>
             <p className="text-xs text-text-muted font-mono mt-3">
-              IPN · Mexico City · ORCID: 0009-0009-6732-8100
+              {t.footer?.location || 'IPN · Mexico City'} · ORCID: 0009-0009-6732-8100
             </p>
           </div>
 
@@ -94,7 +94,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Jair Molina Arce · Next.js 14 + Tailwind CSS · v1.1.2
           </p>
           <div className="flex items-center gap-4">
-            <span className="text-xs text-text-muted font-mono">CO.DE Aerospace Co-Founder</span>
+            <span className="text-xs text-text-muted font-mono">{t.footer?.cofounder || 'CO.DE Aerospace Co-Founder'}</span>
             <span className="text-border">·</span>
             <span className="text-xs text-text-muted font-mono">CVU CONACYT: 1340773</span>
           </div>

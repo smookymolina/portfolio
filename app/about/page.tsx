@@ -6,28 +6,6 @@ import FallbackImage from '@/components/FallbackImage';
 import { useLang } from '@/lib/lang';
 import { useTheme } from '@/lib/theme';
 
-const SKILLS = [
-  { category: 'Embedded Systems / IoT',  items: ['ESP32','STM32 (Cortex-M)','Arduino','C/C++ bare-metal','MQTT','UART · SPI · I2C','WiFi','OTA Updates'], variant: 'amber' as const },
-  { category: 'Firmware Engineering',    items: ['C/C++ embedded','ARM Assembly (Thumb-2)','RTOS concepts','ISR / DMA','ADC multi-channel','PWM control','Watchdog timers'], variant: 'amber' as const },
-  { category: 'Control Systems',         items: ['PID (classic & digital)','Auto-tuning (Z-N)','State space modeling','Linearization','LabVIEW','MATLAB/Simulink'], variant: 'accent' as const },
-  { category: 'Instrumentation & DAQ',   items: ['Pressure transducers','Thermocouples (K-type)','Load cells + HX711','Signal conditioning','LabVIEW DAQ','Python (pandas/numpy)'], variant: 'accent' as const },
-  { category: 'CAD / Simulation / Structural', items: ['SolidWorks','AutoCAD 2D/3D','ANSYS (FEA, Thermal)','Prodisis & Sasid','Structural Analysis Software','Renders','FlatCAM (PCB CAM)','KiCad','Python simulation'], variant: 'muted' as const },
-  { category: 'Software & Backend',      items: ['Python','Flask + SQLAlchemy','FastAPI','Docker','REST APIs','JWT auth','PostgreSQL · MySQL · Redis','Prometheus'], variant: 'muted' as const },
-];
-
-const TIMELINE = [
-  { period: '2026 – Present', role: 'Instructor — Advanced Excel',                                   org: 'Profuturo · Mexico City',                                           type: 'teaching' },
-  { period: '2025 – Present', role: 'Lecturer — Thermal Engineering & Aerospace Systems Modeling',   org: 'Universidad Nacional de Innovación e Ingeniería (UNII)',              type: 'teaching',    highlight: true },
-  { period: '2024 – Present', role: 'MSc. in Advanced Technologies — Control & Instrumentation',     org: 'Instituto Politécnico Nacional (IPN)',                               type: 'education',   highlight: true },
-  { period: '2024',           role: 'Co-Author & In-Person Speaker — IAC 2024',                      org: '75th International Astronautical Congress · Milan, Italy',            type: 'research',    highlight: true },
-  { period: '2024',           role: 'National TV Media — TV Azteca, ADN40, Canal Once (×2)',         org: 'VR Training · AR Tourism · Mexico Profundo',                         type: 'media',       highlight: true },
-  { period: '2024',           role: 'Graduate Instructor — Disruptive Technologies (VR/AR)',         org: 'ENBA–IPN · Postgraduate',                                            type: 'teaching' },
-  { period: '2022 – 2024',    role: 'Embedded Systems & Instrumentation — Propulsion Test Bench',   org: 'Instituto Politécnico Nacional · Research',                          type: 'engineering', highlight: true },
-  { period: '2023 – 2024',    role: 'Full-Stack IoT Platform & SmartCity Network',                  org: 'Independent Project',                                               type: 'engineering' },
-  { period: '2023',           role: 'Chief of Staff — ICASST 2023',                                 org: 'International Congress · Mexico City',                               type: 'research' },
-  { period: '2017 – 2023',    role: 'B.Eng. Mechanical Engineering',                                org: 'Instituto Politécnico Nacional (IPN)',                               type: 'education' },
-];
-
 const TYPE_COLORS: Record<string, string> = {
   engineering: 'text-accent',
   research:    'text-accent-amber',
@@ -40,6 +18,9 @@ export default function AboutPage() {
   const { t } = useLang();
   const a = t.about;
   const { theme } = useTheme();
+  
+  const SKILLS = a.skills;
+  const TIMELINE = a.timeline;
 
   return (
     <div className="pt-24 pb-32">
@@ -119,7 +100,7 @@ export default function AboutPage() {
               <h3 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-4">{sg.category}</h3>
               <div className="flex flex-wrap gap-1.5">
                 {sg.items.map((item) => (
-                  <TechBadge key={item} label={item} variant={sg.variant} />
+                  <TechBadge key={item} label={item} variant={sg.variant as 'accent' | 'amber' | 'muted' | 'green'} />
                 ))}
               </div>
             </div>

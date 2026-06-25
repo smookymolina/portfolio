@@ -182,3 +182,147 @@ export const TEACHING = [
       'Designed and delivered a postgraduate course on VR/AR technologies and their application to information management and immersive technical training.',
   },
 ];
+
+const PUBLICATION_TRANSLATIONS_ES: Record<string, {
+  abstract: string;
+  highlight: string;
+  venue?: string;
+}> = {
+  pub01: {
+    abstract: 'Investigación presentada en el Simposio de la IAA sobre Misiones de Pequeños Satélites dentro del 75.° IAC en Milán. El trabajo aborda el diseño de misiones y aspectos de ingeniería de sistemas para aplicaciones de pequeños satélites, desarrollados dentro del grupo de investigación aeroespacial del IPN.',
+    highlight: 'Presentado en persona en el congreso astronáutico más importante del mundo: IAC 2024, Milán, Italia.',
+    venue: '75.° Congreso Internacional de Astronáutica (IAC 2024) — Milán, Italia',
+  },
+  pub02: {
+    abstract: 'Este capítulo presenta un marco de aprendizaje automático para estrategias dinámicas contra la interferencia en comunicaciones satelitales que operan en las bandas de frecuencia Ku y Ka. El enfoque aprovecha modelos adaptativos de ML para detectar y contrarrestar ataques de interferencia en tiempo real, con implicaciones para la seguridad de los enlaces satelitales militares y comerciales.',
+    highlight: 'Co-autor de un capítulo de libro Springer sobre ciberdefensa impulsada por ML para enlaces satelitales — intersección tecnológica de defensa de la IA + espacio.',
+    venue: 'Capítulo de Libro Springer',
+  },
+  pub03: {
+    abstract: 'Caracterización, diseño y simulación de un banco de pruebas mecánicas para la medición de parámetros operativos. El trabajo documenta todo el proceso de diseño del banco de pruebas de motores cohete de combustible sólido: selección de sensores, análisis estructural, arquitectura del sistema DAQ y metodología de validación experimental.',
+    highlight: 'Único autor — documentación completa del diseño del sistema DAQ del banco de pruebas de propulsión y metodología experimental.',
+    venue: 'Revista Hacia el Espacio',
+  },
+};
+
+const CONFERENCE_TRANSLATIONS_ES: Record<string, {
+  name: string;
+  location: string;
+  date: string;
+  description: string;
+}> = {
+  c01: {
+    name: '75.° Congreso Internacional de Astronáutica (IAC 2024)',
+    location: 'Milán, Italia',
+    date: 'Octubre de 2024',
+    description: 'Presentó investigación sobre misiones de pequeños satélites en el Simposio de la IAA. Presentación en persona en el encuentro anual más grande de profesionales de la astronáutica en todo el mundo.',
+  },
+  c02: {
+    name: 'Caracterización de un banco de pruebas de cohetes de combustible sólido — UPIITA–IPN',
+    location: 'Ciudad de México, México',
+    date: 'Marzo de 2024',
+    description: 'Presentó el diseño completo y los resultados experimentales del sistema DAQ del banco de pruebas de propulsión a la comunidad de ingeniería en UPIITA–IPN.',
+  },
+  c03: {
+    name: 'Póster Científico — Planetario Luis Enrique Erro (CDA–IPN)',
+    location: 'Ciudad de México, México',
+    date: '2023',
+    description: 'Presentación en póster de la investigación en etapa inicial del banco de pruebas de propulsión en el evento de astronomía y ciencias espaciales del CDA–IPN.',
+  },
+  c04: {
+    name: 'ICASST 2023 — Congreso Internacional sobre Ciencia y Tecnología de Sistemas Avanzados',
+    location: 'Ciudad de México, México',
+    date: '2023',
+    description: 'Jefe de Staff para el congreso internacional. Responsable de la organización de sesiones, coordinación de ponentes y logística.',
+  },
+  c05: {
+    name: 'ICASST 2022 — Congreso Internacional sobre Ciencia y Tecnología de Sistemas Avanzados',
+    location: 'Ciudad de México, México',
+    date: '2022',
+    description: 'Miembro del Comité Organizador del congreso internacional.',
+  },
+  c06: {
+    name: 'TV Azteca México — Entrenamiento de Extintor VR (Transmisión Nacional)',
+    location: 'Ciudad de México, México',
+    date: '2024',
+    description: 'Demostración en vivo de un sistema de entrenamiento de seguridad industrial VR en TV Azteca México. Simulación inmersiva de realidad virtual para entrenamiento de extintor de incendios con retroalimentación háptica, transmitida a nivel nacional.',
+  },
+  c07: {
+    name: 'ADN40 — "México Profundo": App AR del Tren Maya',
+    location: 'Ciudad de México, México',
+    date: '2024',
+    description: 'Segmento tecnológico destacado en ADN40 que presenta la aplicación de turismo en realidad aumentada de México Profundo para el corredor del Tren Maya. Demo en vivo de capas AR culturales y puntos de interés de la ruta.',
+  },
+  c08: {
+    name: 'Canal Once — "Realidad Virtual": Segmento de Tecnología VR',
+    location: 'Ciudad de México, México',
+    date: '2024',
+    description: 'Invitado tecnológico en Canal Once para un segmento de VR mostrando aplicaciones inmersivas para entrenamiento industrial y educación. Demostró la simulación de extintores VR en vivo.',
+  },
+  c09: {
+    name: 'Canal Once — "México Profundo": Tecnología Turística',
+    location: 'Ciudad de México, México',
+    date: '2024',
+    description: 'Segunda aparición en Canal Once para el programa "México Profundo", presentando tecnología de turismo AR para el patrimonio cultural mexicano y la experiencia del Tren Maya.',
+  },
+};
+
+const TEACHING_TRANSLATIONS_ES: Record<string, {
+  role: string;
+  subjects: string[];
+  description: string;
+}> = {
+  t01: {
+    role: 'Docente',
+    subjects: ['Ingeniería Térmica', 'Modelado de Sistemas Aeroespaciales'],
+    description: 'Imparte cursos de licenciatura en Ingeniería Térmica y Modelado de Sistemas Aeroespaciales en formato virtual. Diseña el contenido del curso, actividades prácticas y evaluaciones enfocadas en aplicaciones reales de la industria aeroespacial.',
+  },
+  t02: {
+    role: 'Instructor de Posgrado',
+    subjects: ['Tecnologías Disruptivas: Impacto de VR y AR'],
+    description: 'Diseñó e impartió un curso de posgrado sobre tecnologías VR/AR y su aplicación a la gestión de información y el entrenamiento técnico inmersivo.',
+  },
+};
+
+export function getPublications(lang: 'en' | 'es'): Publication[] {
+  if (lang === 'en') return PUBLICATIONS;
+  return PUBLICATIONS.map((pub) => {
+    const t = PUBLICATION_TRANSLATIONS_ES[pub.id];
+    if (!t) return pub;
+    return {
+      ...pub,
+      abstract: t.abstract,
+      highlight: t.highlight,
+      venue: t.venue || pub.venue,
+    };
+  });
+}
+
+export function getConferences(lang: 'en' | 'es'): Conference[] {
+  if (lang === 'en') return CONFERENCES;
+  return CONFERENCES.map((conf) => {
+    const t = CONFERENCE_TRANSLATIONS_ES[conf.id];
+    if (!t) return conf;
+    return {
+      ...conf,
+      name: t.name || conf.name,
+      location: t.location || conf.location,
+      description: t.description || conf.description,
+      date: t.date || conf.date,
+    };
+  });
+}
+
+export function getTeaching(lang: 'en' | 'es') {
+  if (lang === 'en') return TEACHING;
+  return TEACHING.map((t) => {
+    const trans = TEACHING_TRANSLATIONS_ES[t.id];
+    if (!trans) return t;
+    return {
+      ...t,
+      role: trans.role || t.role,
+      subjects: trans.subjects || t.subjects,
+      description: trans.description || t.description,
+    };
+  });
+}

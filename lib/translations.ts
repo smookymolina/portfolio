@@ -66,6 +66,12 @@ const T = {
       video_label: '// media broadcast & demo reel',
       video_title: 'VR Training & México Profundo TV Broadcasts',
       video_desc: 'National television coverage of VR Fire Extinguisher training, and AR Tourism for Tren Maya, broadcasted on TV Azteca, ADN40, and Canal Once.',
+      media_list: [
+        { channel: 'TV Azteca',  program: 'Tecnología',      topic: 'VR Fire Extinguisher Training', year: '2024' },
+        { channel: 'ADN40',      program: 'Mexico Profundo',  topic: 'AR Tourism — Tren Maya',        year: '2024' },
+        { channel: 'Canal Once', program: 'Realidad Virtual', topic: 'VR Industrial Training',        year: '2024' },
+        { channel: 'Canal Once', program: 'Mexico Profundo',  topic: 'Tourism Technology',            year: '2024' },
+      ],
     },
     about: {
       label: '// engineer profile',
@@ -80,6 +86,26 @@ const T = {
       skills_title: 'Engineering Competencies',
       timeline_label: '// experience',
       timeline_title: 'Timeline',
+      skills: [
+        { category: 'Embedded Systems / IoT',  items: ['ESP32','STM32 (Cortex-M)','Arduino','C/C++ bare-metal','MQTT','UART · SPI · I2C','WiFi','OTA Updates'], variant: 'amber' },
+        { category: 'Firmware Engineering',    items: ['C/C++ embedded','ARM Assembly (Thumb-2)','RTOS concepts','ISR / DMA','ADC multi-channel','PWM control','Watchdog timers'], variant: 'amber' },
+        { category: 'Control Systems',         items: ['PID (classic & digital)','Auto-tuning (Z-N)','State space modeling','Linearization','LabVIEW','MATLAB/Simulink'], variant: 'accent' },
+        { category: 'Instrumentation & DAQ',   items: ['Pressure transducers','Thermocouples (K-type)','Load cells + HX711','Signal conditioning','LabVIEW DAQ','Python (pandas/numpy)'], variant: 'accent' },
+        { category: 'CAD / Simulation / Structural', items: ['SolidWorks','AutoCAD 2D/3D','ANSYS (FEA, Thermal)','Prodisis & Sasid','Structural Analysis Software','Renders','FlatCAM (PCB CAM)','KiCad','Python simulation'], variant: 'muted' },
+        { category: 'Software & Backend',      items: ['Python','Flask + SQLAlchemy','FastAPI','Docker','REST APIs','JWT auth','PostgreSQL · MySQL · Redis','Prometheus'], variant: 'muted' },
+      ],
+      timeline: [
+        { period: '2026 – Present', role: 'Instructor — Advanced Excel',                                   org: 'Profuturo · Mexico City',                                           type: 'teaching' },
+        { period: '2025 – Present', role: 'Lecturer — Thermal Engineering & Aerospace Systems Modeling',   org: 'Universidad Nacional de Innovación e Ingeniería (UNII)',              type: 'teaching',    highlight: true },
+        { period: '2024 – Present', role: 'MSc. in Advanced Technologies — Control & Instrumentation',     org: 'Instituto Politécnico Nacional (IPN)',                               type: 'education',   highlight: true },
+        { period: '2024',           role: 'Co-Author & In-Person Speaker — IAC 2024',                      org: '75th International Astronautical Congress · Milan, Italy',            type: 'research',    highlight: true },
+        { period: '2024',           role: 'National TV Media — TV Azteca, ADN40, Canal Once (×2)',         org: 'VR Training · AR Tourism · Mexico Profundo',                         type: 'media',       highlight: true },
+        { period: '2024',           role: 'Graduate Instructor — Disruptive Technologies (VR/AR)',         org: 'ENBA–IPN · Postgraduate',                                            type: 'teaching' },
+        { period: '2022 – 2024',    role: 'Embedded Systems & Instrumentation — Propulsion Test Bench',   org: 'Instituto Politécnico Nacional · Research',                          type: 'engineering', highlight: true },
+        { period: '2023 – 2024',    role: 'Full-Stack IoT Platform & SmartCity Network',                  org: 'Independent Project',                                               type: 'engineering' },
+        { period: '2023',           role: 'Chief of Staff — ICASST 2023',                                 org: 'International Congress · Mexico City',                               type: 'research' },
+        { period: '2017 – 2023',    role: 'B.Eng. Mechanical Engineering',                                org: 'Instituto Politécnico Nacional (IPN)',                               type: 'education' },
+      ],
     },
     highlights: {
       label: '01 — engineering highlights',
@@ -88,6 +114,86 @@ const T = {
       view_detail: 'View detail',
       hw_label: '// hardware',
       fw_label: '// firmware · software',
+      items: {
+        h01: {
+          category: 'Hardware + Firmware + Aerospace',
+          title: 'Solid-Fuel Rocket Motor Test Bench — DAQ System',
+          description: 'Designed and built a complete data acquisition system for rocket motor static fire tests. Custom signal conditioning PCB, multi-channel sensor integration (pressure, temperature, thrust), and embedded firmware in C/C++ on ESP32 and STM32. Validated with FEA in ANSYS. Published in peer-reviewed journal.',
+          badge: 'Published Research',
+          hardware: ['ESP32','STM32','HX711','MAX6675','Custom PCB','Pressure transducers'],
+          firmware: ['C/C++ bare-metal','UART · SPI · I2C','ADC multi-channel','ISR sampling'],
+          metric_labels: ['Sampling rate', 'Thermal model error', 'Simultaneous sensors']
+        },
+        h02: {
+          category: 'Embedded + IoT + Real-Time',
+          title: 'Wireless Telemetry System — MQTT, <50ms Latency',
+          description: 'Real-time wireless telemetry for rocket motor tests using ESP32 over MQTT. Transmits chamber pressure, nozzle temperature, and thrust data during static fire with end-to-end latency under 50 ms. Live web dashboard with automatic safety alerts when values exceed thresholds.',
+          badge: 'Real-Time Firmware',
+          hardware: ['ESP32 (WiFi)','Sensor array'],
+          firmware: ['C++ (ESP-IDF)','MQTT QoS 1','ISR-driven sampling','OTA updates','Watchdog timer'],
+          metric_labels: ['End-to-end latency', 'Data rate', 'Outdoor range']
+        },
+        h03: {
+          category: 'Firmware + Control Systems',
+          title: 'Adaptive PID Controller — Auto-Tuning on STM32 (−35% Settling Time)',
+          description: 'Self-tuning PID controller in embedded C++ on STM32 Cortex-M. Extended Ziegler-Nichols algorithm identifies system dynamics online and updates gains without shutdown. Achieved a quantified 35% reduction in settling time versus manual tuning, validated on the real propulsion test bench.',
+          badge: 'Quantified Impact',
+          hardware: ['STM32 Cortex-M','ADC sensors','PWM actuator outputs'],
+          firmware: ['C++ (STM32 HAL)','Extended Ziegler-Nichols','Fixed-point ISR','UART logging'],
+          metric_labels: ['Settling time', 'Control loop rate', 'Overshoot reduction']
+        },
+        h04: {
+          category: 'Hardware Hacking + PCB Fabrication',
+          title: '3D Printer → PCB Milling Machine (Hardware Conversion)',
+          description: 'Mechanically modified a consumer FDM 3D printer by replacing the extruder with a high-speed rotary cutting tool. Reprogrammed the motion controller firmware (GRBL) for milling operations. Designed a custom tool mount bracket. Successfully fabricated functional single-sided PCBs by copper isolation routing.',
+          badge: 'Builder / Inventor',
+          hardware: ['FDM 3D Printer (modified)','High-speed rotary tool','Custom tool mount (3D-printed)','GRBL controller'],
+          firmware: ['GRBL (modified for milling)','Custom spindle enable logic','G-code via FlatCAM'],
+          metric_labels: ['PCBs produced', 'Custom mount design', 'vs. commercial PCB']
+        },
+        h05: {
+          category: 'International Research — Aerospace',
+          title: 'IAC 2024 — In-Person Speaker, Milan Italy',
+          description: 'Co-author and in-person presenter at the 75th International Astronautical Congress (IAC) in Milan, Italy — the most important astronautical congress in the world. Presented at the 31st IAA Symposium on Small Satellite Missions in October 2024.',
+          badge: 'International Speaker',
+          hardware: [], firmware: [],
+          metric_labels: ['Milan, Oct 2024', "World's largest IAC", 'Presented live']
+        },
+        h06: {
+          category: 'AI + Defense + Satellite Communications',
+          title: 'ML-Driven Cyberdefense for Satellite Links (Springer, 2026)',
+          description: 'Co-author of a Springer book chapter on machine learning-based anti-jamming strategies for satellite communications in Ku and Ka frequency bands. Adaptive ML framework for real-time detection and countering of jamming attacks on military and commercial satellite links.',
+          badge: 'Defense · ML · Satellites',
+          hardware: [], firmware: [],
+          metric_labels: ['Publisher 2026', 'Satellite freq.', 'Application']
+        },
+        h07: {
+          category: 'IoT + Full-Stack + Smart Cities',
+          title: 'SmartCity IoT Sensor Network — End-to-End',
+          description: 'Distributed IoT network with multiple ESP32 nodes (gas + environmental sensors) publishing via MQTT to a Flask/PostgreSQL backend. Real-time Chart.js dashboard with push alerts and automated weekly PDF environmental reports.',
+          badge: 'IoT System',
+          hardware: ['ESP32 nodes','MQ-series gas sensors','BME280 (temp/humidity/pressure)'],
+          firmware: ['C++ MQTT','Deep sleep optimization','OTA updates'],
+          metric_labels: ['End-to-end', 'Weekly reports', 'Scalable']
+        },
+        h08: {
+          category: 'VR · Industrial Training · National TV',
+          title: 'VR Fire Extinguisher Training — Demonstrated on TV Azteca',
+          description: 'Immersive VR application for industrial fire extinguisher safety training with haptic feedback and motion tracking. Selected for a live demonstration on TV Azteca México in 2024 — broadcast to a national audience.',
+          badge: 'TV Azteca · VR · Training',
+          hardware: ['VR headset','Motion tracking hardware','Haptic feedback devices'],
+          firmware: [],
+          metric_labels: ['National broadcast 2024', 'National audience', 'Full HW integration']
+        },
+        h09: {
+          category: 'AR Tourism · National Media · Culture',
+          title: 'Mexico Profundo — Tren Maya AR App · ADN40 + Canal Once',
+          description: 'Augmented reality tourism app for Mexico\'s Tren Maya railway corridor featuring AR cultural overlays and indigenous heritage content. Featured in four national TV segments: ADN40 "Mexico Profundo", Canal Once "Realidad Virtual", Canal Once "Mexico Profundo", and TV Azteca — reaching millions of viewers.',
+          badge: 'ADN40 · Canal Once · AR',
+          hardware: [], firmware: [],
+          metric_labels: ['National TV broadcasts', 'Major channels', 'Technology stack']
+        }
+      }
     },
     projects: {
       label: '02 — projects',
@@ -97,6 +203,22 @@ const T = {
       class_a: 'Class A — Exceptional',
       class_b: 'Class B — Strong Case Studies',
       empty: 'No projects in this category.',
+      featured: 'Featured',
+      status: {
+        completed: 'Completed',
+        prototype: 'Prototype',
+        'in-progress': 'In Progress',
+        research: 'Research',
+      },
+      categories: {
+        embedded: 'Embedded Systems',
+        firmware: 'Firmware',
+        iot: 'IoT',
+        aerospace: 'Aerospace',
+        ai: 'AI / Automation',
+        hardware: 'Hardware Design',
+        control: 'Control Systems',
+      },
     },
     research: {
       label: '03 — research',
@@ -111,6 +233,11 @@ const T = {
       role_staff: 'Organizing Committee',
       role_attendee: 'Attendee',
       role_media: 'National Media',
+      pub_types: {
+        conference: 'Conference Paper',
+        journal: 'Journal Article',
+        'book-chapter': 'Book Chapter',
+      },
     },
     contact: {
       label: '05 — contact',
@@ -122,6 +249,17 @@ const T = {
       available_desc: 'Actively seeking engineering positions and R&D roles. Available for immediate start.',
       location: 'Mexico City, Mexico · Remote OK · Open to relocation',
       positions: '// target positions',
+      positions_list: [
+        'Embedded Systems Engineer',
+        'Firmware Engineer',
+        'Instrumentation / DAQ Engineer',
+        'Robotics / Mechatronics Engineer',
+        'R&D Engineer — Aerospace / Defense',
+        'Electronics Design Engineer',
+        'IoT Systems Engineer',
+        'AI / Automation Engineer',
+        'Technical Co-Founder',
+      ],
       resume_label: '// resume',
       resume_title: 'Download Full Resume',
       resume_desc: 'Complete CV with detailed technical competencies, project descriptions, publications, and academic history.',
@@ -146,6 +284,14 @@ const T = {
       back_projects: '← All Projects',
       broadcast_coverage: '// broadcast coverage',
       featured_on: 'Featured on',
+      play_pause_enabled: '▶ Play / Pause enabled',
+    },
+    footer: {
+      engineer_label: '// engineer',
+      subtitle: 'Embedded Systems & Advanced Technology Engineer',
+      cofounder: 'CO.DE Aerospace Co-Founder',
+      cvu: 'CVU CONACYT: 1340773',
+      location: 'IPN · Mexico City',
     },
   },
 
@@ -214,6 +360,12 @@ const T = {
       video_label: '// transmisión en medios y demostración',
       video_title: 'Transmisiones de VR Training y México Profundo',
       video_desc: 'Reportajes de televisión nacional sobre el entrenamiento de incendios en realidad virtual (VR) y turismo en realidad aumentada (AR) del Tren Maya, transmitidos en TV Azteca, ADN40 y Canal Once.',
+      media_list: [
+        { channel: 'TV Azteca',  program: 'Tecnología',      topic: 'Entrenamiento de Extintor VR', year: '2024' },
+        { channel: 'ADN40',      program: 'Mexico Profundo',  topic: 'Turismo AR — Tren Maya',        year: '2024' },
+        { channel: 'Canal Once', program: 'Realidad Virtual', topic: 'Entrenamiento Industrial VR',   year: '2024' },
+        { channel: 'Canal Once', program: 'Mexico Profundo',  topic: 'Tecnología de Turismo',         year: '2024' },
+      ],
     },
     about: {
       label: '// perfil de ingeniero',
@@ -228,6 +380,26 @@ const T = {
       skills_title: 'Competencias de Ingeniería',
       timeline_label: '// experiencia',
       timeline_title: 'Línea de Tiempo',
+      skills: [
+        { category: 'Sistemas Embebidos / IoT',  items: ['ESP32','STM32 (Cortex-M)','Arduino','C/C++ bare-metal','MQTT','UART · SPI · I2C','WiFi','Actualizaciones OTA'], variant: 'amber' },
+        { category: 'Ingeniería de Firmware',    items: ['C/C++ embebido','Ensamblador ARM (Thumb-2)','Conceptos de RTOS','ISR / DMA','ADC multicanal','Control PWM','Temporizadores Watchdog'], variant: 'amber' },
+        { category: 'Sistemas de Control',         items: ['PID (clásico y digital)','Auto-sintonización (Z-N)','Modelado en espacio de estados','Linealización','LabVIEW','MATLAB/Simulink'], variant: 'accent' },
+        { category: 'Instrumentación y DAQ',   items: ['Transductores de presión','Termopares (tipo K)','Celdas de carga + HX711','Acondicionamiento de señales','LabVIEW DAQ','Python (pandas/numpy)'], variant: 'accent' },
+        { category: 'CAD / Simulación / Estructural', items: ['SolidWorks','AutoCAD 2D/3D','ANSYS (FEA, Térmico)','Prodisis y Sasid','Software de Análisis Estructural','Renders','FlatCAM (CAM de PCB)','KiCad','Simulación en Python'], variant: 'muted' },
+        { category: 'Software y Backend',      items: ['Python','Flask + SQLAlchemy','FastAPI','Docker','APIs REST','Autenticación JWT','PostgreSQL · MySQL · Redis','Prometheus'], variant: 'muted' },
+      ],
+      timeline: [
+        { period: '2026 – Presente', role: 'Instructor — Excel Avanzado',                                   org: 'Profuturo · Ciudad de México',                                           type: 'teaching' },
+        { period: '2025 – Presente', role: 'Docente — Ingeniería Térmica y Modelado de Sistemas Aeroespaciales',   org: 'Universidad Nacional de Innovación e Ingeniería (UNII)',              type: 'teaching',    highlight: true },
+        { period: '2024 – Presente', role: 'Maestría en Tecnologías Avanzadas — Control e Instrumentación',     org: 'Instituto Politécnico Nacional (IPN)',                               type: 'education',   highlight: true },
+        { period: '2024',           role: 'Co-autor y ponente en persona — IAC 2024',                      org: '75.° Congreso Internacional de Astronáutica · Milán, Italia',            type: 'research',    highlight: true },
+        { period: '2024',           role: 'Medios de TV Nacional — TV Azteca, ADN40, Canal Once (×2)',         org: 'Entrenamiento VR · Turismo AR · México Profundo',                         type: 'media',       highlight: true },
+        { period: '2024',           role: 'Docente de Posgrado — Tecnologías Disruptivas (VR/AR)',         org: 'ENBA–IPN · Posgrado',                                            type: 'teaching' },
+        { period: '2022 – 2024',    role: 'Sistemas Embebidos e Instrumentación — Banco de Pruebas de Propulsión',   org: 'Instituto Politécnico Nacional · Investigación',                          type: 'engineering', highlight: true },
+        { period: '2023 – 2024',    role: 'Plataforma IoT Full-Stack y Red SmartCity',                  org: 'Proyecto Independiente',                                               type: 'engineering' },
+        { period: '2023',           role: 'Jefe de Personal — ICASST 2023',                                 org: 'Congreso Internacional · Ciudad de México',                               type: 'research' },
+        { period: '2017 – 2023',    role: 'Licenciatura en Ingeniería Mecánica',                                org: 'Instituto Politécnico Nacional (IPN)',                               type: 'education' },
+      ],
     },
     highlights: {
       label: '01 — logros de ingeniería',
@@ -236,6 +408,86 @@ const T = {
       view_detail: 'Ver detalle',
       hw_label: '// hardware',
       fw_label: '// firmware · software',
+      items: {
+        h01: {
+          category: 'Hardware + Firmware + Aeroespacial',
+          title: 'Banco de Pruebas de Motor Cohete — Sistema DAQ',
+          description: 'Diseñó y construyó un sistema de adquisición de datos completo para pruebas de quemado estático de motores cohete. PCB de acondicionamiento de señal personalizado, integración de sensores multicanal (presión, temperatura, empuje) y firmware embebido en C/C++ en ESP32 y STM32. Validado con FEA en ANSYS. Publicado en revista arbitrada.',
+          badge: 'Investigación Publicada',
+          hardware: ['ESP32','STM32','HX711','MAX6675','PCB Personalizada','Transductores de presión'],
+          firmware: ['C/C++ bare-metal','UART · SPI · I2C','ADC multicanal','Muestreo ISR'],
+          metric_labels: ['Tasa de muestreo', 'Error modelo térmico', 'Sensores simultáneos']
+        },
+        h02: {
+          category: 'Embebidos + IoT + Tiempo Real',
+          title: 'Sistema de Telemetría Inalámbrica — MQTT, <50ms Latencia',
+          description: 'Telemetría inalámbrica en tiempo real para pruebas de motores cohete usando ESP32 sobre MQTT. Transmite presión de cámara, temperatura de boquilla y datos de empuje durante quemados estáticos con latencia extremo a extremo inferior a 50 ms. Dashboard web en vivo con alertas automáticas de seguridad cuando los valores exceden los límites.',
+          badge: 'Firmware en Tiempo Real',
+          hardware: ['ESP32 (WiFi)','Arreglo de sensores'],
+          firmware: ['C++ (ESP-IDF)','MQTT QoS 1','Muestreo guiado por ISR','Actualizaciones OTA','Temporizador Watchdog'],
+          metric_labels: ['Latencia de extremo a extremo', 'Tasa de datos', 'Rango en exteriores']
+        },
+        h03: {
+          category: 'Firmware + Sistemas de Control',
+          title: 'Controlador PID Adaptativo — Auto-Sintonización en STM32 (−35% Tiempo de Establecimiento)',
+          description: 'Controlador PID auto-sintonizable en C++ embebido en STM32 Cortex-M. El algoritmo Ziegler-Nichols extendido identifica la dinámica del sistema en línea y actualiza las ganancias sin interrupción. Logró una reducción cuantificada del 35% en el tiempo de establecimiento frente a la sintonía manual, validado en el banco de pruebas de propulsión real.',
+          badge: 'Impacto Cuantificado',
+          hardware: ['STM32 Cortex-M','Sensores ADC','Salidas de actuador PWM'],
+          firmware: ['C++ (STM32 HAL)','Ziegler-Nichols extendido','ISR de punto fijo','Registro UART'],
+          metric_labels: ['Tiempo de establecimiento', 'Tasa de bucle de control', 'Reducción de sobreimpulso']
+        },
+        h04: {
+          category: 'Modificación de Hardware + Fabricación de PCB',
+          title: 'Impresora 3D → Fresadora de PCB (Conversión de Hardware)',
+          description: 'Modificó mecánicamente una impresora 3D FDM de consumo reemplazando el extrusor por una herramienta de corte rotativa de alta velocidad. Reprogramó el firmware del controlador de movimiento (GRBL) para operaciones de fresado. Diseñó un soporte de herramienta personalizado. Fabricó con éxito PCBs funcionales de una sola cara mediante ruteado de aislamiento de cobre.',
+          badge: 'Creador / Inventor',
+          hardware: ['Impresora 3D FDM (modificada)','Herramienta rotativa de alta velocidad','Soporte de herramienta (impreso en 3D)','Controlador GRBL'],
+          firmware: ['GRBL (modificado para fresado)','Lógica de activación de husillo','G-code vía FlatCAM'],
+          metric_labels: ['PCBs producidas', 'Diseño de soporte propio', 'vs. PCB comercial']
+        },
+        h05: {
+          category: 'Investigación Internacional — Aeroespacial',
+          title: 'IAC 2024 — Ponente en Persona, Milán Italia',
+          description: 'Co-autor y ponente en persona en el 75.° Congreso Internacional de Astronáutica (IAC) en Milán, Italia — el congreso astronáutico más importante del mundo. Presentó en el 31.° Simposio IAA sobre Misiones de Pequeños Satélites en octubre de 2024.',
+          badge: 'Ponente Internacional',
+          hardware: [], firmware: [],
+          metric_labels: ['Milán, Oct 2024', 'IAC más grande del mundo', 'Presentado en vivo']
+        },
+        h06: {
+          category: 'IA + Defensa + Comunicaciones Satelitales',
+          title: 'Ciberdefensa Basada en ML para Enlaces Satelitales (Springer, 2026)',
+          description: 'Co-autor de un capítulo de libro de Springer sobre estrategias anti-interferencia basadas en aprendizaje automático para comunicaciones satelitales en las bandas de frecuencia Ku y Ka. Marco de ML adaptativo para la detección y mitigación en tiempo real de ataques de interferencia en enlaces satelitales militares y comerciales.',
+          badge: 'Defensa · ML · Satélites',
+          hardware: [], firmware: [],
+          metric_labels: ['Editor Springer 2026', 'Frecuencia Satelital', 'Aplicación']
+        },
+        h07: {
+          category: 'IoT + Full-Stack + Ciudades Inteligentes',
+          title: 'Red de Sensores IoT SmartCity — Extremo a Extremo',
+          description: 'Red IoT distribuida con múltiples nodos ESP32 (sensores de gas y ambientales) que publican a través de MQTT a un backend de Flask/PostgreSQL. Dashboard en tiempo real con Chart.js, alertas automáticas e informes semanales en PDF generados automáticamente.',
+          badge: 'Sistema IoT',
+          hardware: ['Nodos ESP32','Sensores de gas MQ','BME280 (temp/hum/presión)'],
+          firmware: ['C++ MQTT','Optimización de deep sleep','Actualizaciones OTA'],
+          metric_labels: ['Extremo a extremo', 'Reportes semanales PDF', 'Escalable']
+        },
+        h08: {
+          category: 'VR · Capacitación Industrial · TV Nacional',
+          title: 'Entrenamiento VR de Extintores — Demostrado en TV Azteca',
+          description: 'Aplicación inmersiva de realidad virtual (VR) para el entrenamiento de seguridad en el uso de extintores industriales con retroalimentación háptica y seguimiento de movimiento. Seleccionada para una demostración en vivo en TV Azteca México en 2024 — transmitida a una audiencia nacional.',
+          badge: 'TV Azteca · VR · Entrenamiento',
+          hardware: ['Visor VR','Hardware de seguimiento de movimiento','Dispositivos hápticos'],
+          firmware: [],
+          metric_labels: ['Transmisión nacional 2024', 'Demostración en vivo', 'Integración de HW completa']
+        },
+        h09: {
+          category: 'Turismo AR · Medios Nacionales · Cultura',
+          title: 'México Profundo — App AR de Tren Maya · ADN40 + Canal Once',
+          description: 'Aplicación de turismo en realidad aumentada (AR) para el corredor ferroviario del Tren Maya de México con capas culturales e información de herencia indígena. Presentada en cuatro reportajes de televisión nacional: ADN40 "México Profundo", Canal Once "Realidad Virtual", Canal Once "México Profundo" y TV Azteca — llegando a millones de espectadores.',
+          badge: 'ADN40 · Canal Once · AR',
+          hardware: [], firmware: [],
+          metric_labels: ['Transmisiones en TV nacional', 'Canales principales', 'Stack tecnológico']
+        }
+      }
     },
     projects: {
       label: '02 — proyectos',
@@ -245,6 +497,22 @@ const T = {
       class_a: 'Clase A — Excepcionales',
       class_b: 'Clase B — Casos de Estudio',
       empty: 'No hay proyectos en esta categoría.',
+      featured: 'Destacado',
+      status: {
+        completed: 'Completado',
+        prototype: 'Prototipo',
+        'in-progress': 'En progreso',
+        research: 'Investigación',
+      },
+      categories: {
+        embedded: 'Sistemas Embebidos',
+        firmware: 'Firmware',
+        iot: 'IoT',
+        aerospace: 'Aeroespacial',
+        ai: 'IA / Automatización',
+        hardware: 'Diseño de Hardware',
+        control: 'Sistemas de Control',
+      },
     },
     research: {
       label: '03 — investigación',
@@ -259,6 +527,11 @@ const T = {
       role_staff: 'Comité Organizador',
       role_attendee: 'Asistente',
       role_media: 'Medios Nacionales',
+      pub_types: {
+        conference: 'Artículo de Conferencia',
+        journal: 'Artículo de Revista',
+        'book-chapter': 'Capítulo de Libro',
+      },
     },
     contact: {
       label: '05 — contacto',
@@ -270,6 +543,17 @@ const T = {
       available_desc: 'Buscando activamente posiciones de ingeniería y roles de I+D. Disponible para inicio inmediato.',
       location: 'Ciudad de México · Remoto OK · Abierto a reubicación',
       positions: '// posiciones objetivo',
+      positions_list: [
+        'Ingeniero de Sistemas Embebidos',
+        'Ingeniero de Firmware',
+        'Ingeniero de Instrumentación / DAQ',
+        'Ingeniero de Robótica / Mecatrónica',
+        'Ingeniero de I+D — Aeroespacial / Defensa',
+        'Ingeniero de Diseño Electrónico',
+        'Ingeniero de Sistemas IoT',
+        'Ingeniero de IA / Automatización',
+        'Co-Fundador Técnico',
+      ],
       resume_label: '// currículum',
       resume_title: 'Descargar CV Completo',
       resume_desc: 'CV completo con competencias técnicas detalladas, descripciones de proyectos, publicaciones e historial académico.',
@@ -294,6 +578,14 @@ const T = {
       back_projects: '← Todos los Proyectos',
       broadcast_coverage: '// cobertura televisiva',
       featured_on: 'Transmitido en',
+      play_pause_enabled: '▶ Reproducción / Pausa activada',
+    },
+    footer: {
+      engineer_label: '// ingeniero',
+      subtitle: 'Ingeniero en Sistemas Embebidos y Tecnologías Avanzadas',
+      cofounder: 'Co-Fundador de CO.DE Aerospace',
+      cvu: 'CVU CONACYT: 1340773',
+      location: 'IPN · Ciudad de México',
     },
   },
 };

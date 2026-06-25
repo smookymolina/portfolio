@@ -1,6 +1,9 @@
+'use client';
+
 import { ExternalLink, BookOpen, FileText, Presentation } from 'lucide-react';
 import type { Publication } from '@/lib/research';
 import TechBadge from './TechBadge';
+import { useLang } from '@/lib/lang';
 
 const TYPE_ICONS = {
   conference:    Presentation,
@@ -8,22 +11,20 @@ const TYPE_ICONS = {
   'book-chapter':BookOpen,
 };
 
-const TYPE_LABELS = {
-  conference:    'Conference Paper',
-  journal:       'Journal Article',
-  'book-chapter':'Book Chapter',
-};
-
 interface Props { pub: Publication; }
 
 export default function PublicationCard({ pub }: Props) {
+  const { t } = useLang();
+  const r = t.research;
   const Icon = TYPE_ICONS[pub.type];
+  const typeLabel = r.pub_types[pub.type as keyof typeof r.pub_types] || pub.type;
+
   return (
     <div className="card-surface rounded-lg p-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2 text-text-muted">
           <Icon size={14} />
-          <span className="font-mono text-xs">{TYPE_LABELS[pub.type]}</span>
+          <span className="font-mono text-xs">{typeLabel}</span>
         </div>
         <span className="font-mono text-xs text-text-muted">{pub.year}</span>
       </div>

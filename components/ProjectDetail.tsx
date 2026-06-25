@@ -2,14 +2,16 @@
 
 import Link from 'next/link';
 import { ArrowLeft, ExternalLink, Github, CheckCircle } from 'lucide-react';
-import { type Project, CATEGORY_LABELS } from '@/lib/projects';
+import { type Project, getProjectBySlug } from '@/lib/projects';
 import TechBadge from '@/components/TechBadge';
 import FallbackImage from '@/components/FallbackImage';
 import { useLang } from '@/lib/lang';
 
-export default function ProjectDetail({ project }: { project: Project }) {
-  const { t } = useLang();
+export default function ProjectDetail({ project: initialProject }: { project: Project }) {
+  const { t, lang } = useLang();
+  const project = getProjectBySlug(initialProject.slug, lang) || initialProject;
   const c = t.common;
+  const p = t.projects;
 
   return (
     <div className="pt-24 pb-32">
@@ -45,7 +47,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
                 controls
                 preload="metadata"
                 className="w-full aspect-video"
-                aria-label={`${project.title} — broadcast footage`}
+                aria-label={lang === 'en' ? `${project.title} — broadcast footage` : `${project.title} — cobertura televisiva`}
               >
                 <source src={project.videoUrl} type="video/mp4" />
               </video>
@@ -56,7 +58,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
         {/* Meta */}
         <div className="flex flex-wrap items-center gap-3 mb-4">
           {project.categories.map((cat) => (
-            <TechBadge key={cat} label={CATEGORY_LABELS[cat]} variant="accent" />
+            <TechBadge key={cat} label={p.categories[cat as keyof typeof p.categories] || cat} variant="accent" />
           ))}
           <span className="font-mono text-xs text-text-muted">·</span>
           <span className="font-mono text-xs text-text-muted">{project.period}</span>

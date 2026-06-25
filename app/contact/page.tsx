@@ -7,21 +7,10 @@ import { useLang } from '@/lib/lang';
 
 const CV = '/cv/CV_Jair_Molina_Arce_2026_v2.pdf';
 
-const POSITIONS = [
-  'Embedded Systems Engineer',
-  'Firmware Engineer',
-  'Instrumentation / DAQ Engineer',
-  'Robotics / Mechatronics Engineer',
-  'R&D Engineer — Aerospace / Defense',
-  'Electronics Design Engineer',
-  'IoT Systems Engineer',
-  'AI / Automation Engineer',
-  'Technical Co-Founder',
-];
-
 export default function ContactPage() {
   const { t } = useLang();
   const c = t.contact;
+  const POSITIONS = c.positions_list;
 
   const LINKS = [
     { icon: Mail,         label: 'Email',    sub: 'ingjarimolina@gmail.com',             href: 'mailto:ingjarimolina@gmail.com' },

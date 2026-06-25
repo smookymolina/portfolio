@@ -621,14 +621,6 @@ export const FEATURED_PROJECTS = PROJECTS.filter((p) => p.featured);
 export const CLASS_A_PROJECTS = PROJECTS.filter((p) => p.classification === 'A');
 export const CLASS_B_PROJECTS = PROJECTS.filter((p) => p.classification === 'B');
 
-export function getProjectBySlug(slug: string): Project | undefined {
-  return PROJECTS.find((p) => p.slug === slug);
-}
-
-export function getProjectsByCategory(category: ProjectCategory): Project[] {
-  return PROJECTS.filter((p) => p.categories.includes(category));
-}
-
 export const CATEGORY_LABELS: Record<ProjectCategory, string> = {
   embedded: 'Embedded Systems',
   firmware: 'Firmware',
@@ -638,3 +630,359 @@ export const CATEGORY_LABELS: Record<ProjectCategory, string> = {
   hardware: 'Hardware Design',
   control: 'Control Systems',
 };
+
+const PROJECT_TRANSLATIONS_ES: Record<string, {
+  title: string;
+  subtitle: string;
+  tagline: string;
+  institution: string;
+  description: string;
+  highlights: string[];
+  evidence: string[];
+  metricsLabels?: string[];
+  hardware?: string[];
+  firmware?: string[];
+}> = {
+  'rocket-propulsion-daq': {
+    title: 'Banco de Pruebas de Propulsión Cohete — Sistema DAQ',
+    subtitle: 'Adquisición de Datos e Instrumentación para Motores Cohete de Combustible Sólido',
+    tagline: 'Hardware DAQ personalizado + firmware embebido para medición en tiempo real de presión de cámara, temperatura de boquilla y empuje durante pruebas de quemado estático.',
+    institution: 'Instituto Politécnico Nacional — UPIITA',
+    description: `Diseñó e implementó un sistema completo de adquisición de datos para un banco de pruebas de motores cohete de combustible sólido. El sistema integra transductores de presión, termopares tipo K y celdas de carga en una placa de acondicionamiento de señal personalizada. El firmware escrito en C/C++ en ESP32 y STM32 maneja el muestreo ADC multicanal, la fusión de sensores y la transmisión de datos en tiempo real. El flujo de análisis de datos en Python y LabVIEW procesa los resultados experimentales para la validación térmica y estructural.
+
+El proyecto fue publicado en la Revista Hacia el Espacio (2024) y presentado formalmente en UPIITA-IPN y en la sesión de carteles del Planetario Luis Enrique Erro de 2023.`,
+    highlights: [
+      'Sistema completo de hardware a software construido desde cero',
+      'PCB de acondicionamiento de señal personalizada diseñada internamente',
+      'Validación integrada de análisis FEA térmico-estructural con ANSYS',
+      'Publicado en revista nacional arbitrada (Revista Hacia el Espacio, 2024)',
+      'Presentado en UPIITA-IPN y sesión de póster científico en CDA-IPN',
+    ],
+    evidence: [
+      'Publicación: Revista Hacia el Espacio, 2024',
+      'Presentación: UPIITA-IPN, marzo de 2024',
+      'Póster: Planetario Luis Enrique Erro, CDA-IPN, 2023',
+      'Datos experimentales e informes de análisis',
+      'Fotos de hardware y videos de pruebas',
+    ],
+    metricsLabels: ['Tasa de muestreo', 'Rango de temperatura', 'Rango de presión', 'Error de modelo térmico'],
+    hardware: [
+      'ESP32 (Tensilica Xtensa LX6)',
+      'STM32 (Cortex-M)',
+      'HX711 — Amplificador de celda de carga',
+      'MAX6675 — Termopar a SPI',
+      'Transductores de presión (0–150 psi)',
+      'Acondicionamiento de señal con puente de Wheatstone',
+      'PCB personalizada — placa de acondicionamiento de señal',
+    ],
+    firmware: [
+      'C/C++ bare-metal',
+      'Controladores UART / SPI / I2C',
+      'Muestreo ADC multicanal',
+      'Lectura de sensores guiada por interrupciones',
+      'Transmisión de datos en tiempo real a PC',
+    ],
+  },
+  'mqtt-telemetry-propulsion': {
+    title: 'Telemetría Inalámbrica en Tiempo Real — Pruebas de Motores Cohete',
+    subtitle: 'Telemetría MQTT con ESP32 con Latencia <50ms para Monitoreo de Pruebas de Fuego Estático',
+    tagline: 'Sistema embebido inalámbrico que transmite parámetros críticos de propulsión en tiempo real durante pruebas de fuego estático, con panel web en vivo y alertas automáticas de seguridad.',
+    institution: 'Instituto Politécnico Nacional',
+    description: `Extensión de telemetría inalámbrica del sistema DAQ para bancos de prueba de motores cohete. Un nodo ESP32 lee sensores de presión de cámara, temperatura de boquilla y empuje y publica datos a través de MQTT a un broker local en tiempo real. Un panel web muestra gráficos en vivo y activa alertas de seguridad cuando los valores exceden los umbrales operativos. El sistema logra una latencia de extremo a extremo de menos de 50 ms, crítica para la seguridad de las pruebas.`,
+    highlights: [
+      'Latencia inferior a 50 ms en entorno industrial no controlado',
+      'Alertas automáticas de fuera de rango con umbrales configurables',
+      'Soporte de actualización de firmware OTA — sin necesidad de acceso físico',
+      'Panel web en tiempo real con almacenamiento de datos históricos',
+    ],
+    evidence: [
+      'Código fuente embebido en C++',
+      'Capturas de pantalla del panel web en vivo',
+      'Registros de medición de latencia',
+      'Integración con el banco de pruebas DAQ (P-01)',
+    ],
+    metricsLabels: ['Latencia extremo a extremo', 'Alcance de WiFi', 'Tasa de datos'],
+    hardware: [
+      'ESP32 (WiFi 2.4 GHz + BLE)',
+      'Sensores de presión / temperatura / empuje',
+    ],
+    firmware: [
+      'C++ (ESP-IDF / Framework de Arduino)',
+      'Cliente MQTT (PubSubClient)',
+      'Muestreo de sensores impulsado por ISR',
+      'Temporizador Watchdog para seguridad',
+      'Capacidad de actualización de firmware OTA',
+    ],
+  },
+  'adaptive-pid-stm32': {
+    title: 'Controlador PID Adaptativo — Auto-Sintonización en STM32',
+    subtitle: 'Control Digital con Sintonización Automática de Ziegler-Nichols Extendida, −35% de Tiempo de Establecimiento',
+    tagline: 'Controlador PID auto-sintonizable implementado en C++ en STM32 Cortex-M, logrando una reducción del 35% en el tiempo de establecimiento sobre la sintonía manual en un banco de pruebas real.',
+    institution: 'IPN — Laboratorio de Control y Sistemas Dinámicos',
+    description: `Controlador PID digital con un algoritmo de auto-sintonización extendido de Ziegler-Nichols, implementado en C++ embebido en STM32 Cortex-M. El controlador se ejecuta en tiempo real en el banco de pruebas de propulsión, leyendo la retroalimentación de los sensores a través de ADC y controlando actuadores mediante PWM. La rutina de auto-sintonización identifica la dinámica del sistema en línea y actualiza las ganancias del PID sin interrumpir la operación. La respuesta transitoria se visualiza en LabVIEW a través de UART.`,
+    highlights: [
+      'Mejora cuantificada del 35% en el tiempo de establecimiento vs. sintonización manual',
+      'Sintonización automática en línea — sin apagar el sistema',
+      'La aritmética de punto fijo garantiza un comportamiento determinista en tiempo real',
+      'Validado en hardware real, no en simulación',
+    ],
+    evidence: [
+      'Código fuente embebido en C++ (STM32)',
+      'Capturas de pantalla de visualización en LabVIEW',
+      'Datos de respuesta transitoria (antes/después)',
+      'Modelo de MATLAB para la validación de sintonización',
+    ],
+    metricsLabels: ['Reducción de tiempo de establecimiento', 'Tasa de bucle de control', 'Reducción de sobreimpulso'],
+    hardware: [
+      'STM32 (Cortex-M) — controlador primario',
+      'ADC — retroalimentación de sensores (presión, flujo)',
+      'Salidas PWM — control de actuadores',
+      'UART → Visualización en PC / LabVIEW',
+    ],
+    firmware: [
+      'C++ embebido — STM32 HAL',
+      'Sintonización automática extendida de Ziegler-Nichols',
+      'Aritmética de punto fijo para ISR en tiempo real',
+      'Registro UART a 115200 baudios',
+      'Ganancias de PID configurables mediante interfaz serial',
+    ],
+  },
+  '3d-printer-pcb-mill': {
+    title: 'Conversión de Impresora 3D → Fresadora de PCB',
+    subtitle: 'Modificación de Hardware: Impresora FDM Equipada con Herramienta Rotativa para Fabricación de PCB',
+    tagline: 'Modificó mecánicamente una impresora 3D FDM de consumo y reprogramó su firmware para funcionar como una fresadora de PCB mediante una herramienta de corte rotativa.',
+    institution: 'Laboratorio Personal / CO.DE Aerospace',
+    description: `Convirtió una impresora 3D FDM de consumo en una fresadora de PCB al reemplazar mecánicamente el ensamblaje del extrusor con una herramienta rotativa de alta velocidad (mototool) y reprogramar el firmware del controlador de movimiento (GRBL) para admitir operaciones de fresado. Las modificaciones mecánicas incluyeron el diseño de un soporte de herramienta a medida, el endurecimiento del eje Z y la gestión de cables. La máquina fabricó con éxito PCBs funcionales de una sola cara mediante la eliminación de la capa de cobre (ruteado de aislamiento). Este proyecto demuestra habilidades de hacking de hardware, diseño mecánico, modificación de firmware y fabricación de PCBs.`,
+    highlights: [
+      'Conversión de hardware completa — mecánica + eléctrica + firmware',
+      'Fabricó con éxito PCBs de una sola cara completamente funcionales',
+      'Soporte de herramienta personalizado diseñado y fabricado internamente',
+      'Demuestra mentalidad de creador/constructor: resolviendo con recursos disponibles',
+      'Alternativa de bajo costo a los servicios comerciales de prototipado de PCB',
+    ],
+    evidence: [
+      'Fotos de la máquina modificada',
+      'Video de la operación de fresado',
+      'Muestras de PCB fabricadas',
+      'Archivos G-code de FlatCAM',
+      'Fotos del antes/después de la modificación',
+    ],
+    metricsLabels: ['PCBs producidas', 'Diseño de soporte', 'vs. PCB comercial'],
+    hardware: [
+      'Chasis de impresora 3D (modificado)',
+      'Herramienta rotativa de alta velocidad — husillo de reemplazo',
+      'Soporte de herramienta personalizado (impreso en 3D)',
+      'Controlador de movimiento compatible con GRBL',
+      'Motores a pasos (ejes X/Y/Z)',
+      'Sustrato de PCB FR4 revestido de cobre',
+    ],
+    firmware: [
+      'GRBL (modificado para operaciones de fresado)',
+      'Generación de G-code a través de FlatCAM',
+      'Lógica personalizada de habilitación/deshabilitación del husillo',
+    ],
+  },
+  'smartcity-iot-network': {
+    title: 'Monitoreo Ambiental SmartCity — Red de Sensores IoT',
+    subtitle: 'Red de Nodos de Sensores ESP32 Distribuidos para el Monitoreo Climático y de Calidad del Aire Urbano',
+    tagline: 'Plataforma IoT de extremo a extremo: nodos de sensores distribuidos (ESP32 + MQ + BME280) → MQTT → Backend Flask/PostgreSQL → Panel web en vivo con informes PDF automatizados.',
+    institution: 'Proyecto Independiente',
+    description: `Red IoT distribuida para el monitoreo ambiental urbano. Cada nodo consta de un microcontrolador ESP32 conectado a sensores de calidad de gas (serie MQ) y un sensor ambiental BME280 (temperatura, humedad, presión atmosférica). Los nodos publican lecturas a través de MQTT a un broker central. Un backend de Flask/PostgreSQL almacena datos de series temporales y sirve un panel de Chart.js con notificaciones push e informes PDF semanales automatizados.`,
+    highlights: [
+      'Sistema completo de extremo a extremo: hardware → firmware → nube → panel web',
+      'Informes semanales en PDF generados automáticamente',
+      'Optimización de batería mediante ciclos de sueño profundo de ESP32',
+      'Arquitectura de múltiples nodos ampliable',
+    ],
+    evidence: ['Capturas de pantalla del panel', 'Fotos de los nodos', 'Ejemplos de reportes automáticos'],
+    metricsLabels: ['Extremo a extremo', 'Reportes en PDF', 'Escalabilidad'],
+    hardware: [
+      'ESP32 (múltiples nodos)',
+      'Sensores de gas de la serie MQ (CO, CO2, GLP)',
+      'BME280 (temperatura, humedad, presión)',
+      'Gabinetes personalizados para despliegue en exteriores',
+    ],
+    firmware: [
+      'C++ (Framework de Arduino)',
+      'Publicación MQTT con QoS 1',
+      'Sueño profundo entre lecturas (optimización de batería)',
+      'Actualizaciones OTA',
+    ],
+  },
+  'iot-monitoring-platform': {
+    title: 'Plataforma de Monitoreo IoT de Grado de Producción',
+    subtitle: 'API de Flask Full-Stack con Autenticación JWT, Despliegue en Docker y Panel en Tiempo Real',
+    tagline: 'Plataforma web segura y contenedorizada para ingesta de datos de sensores IoT, control de acceso basado en roles, visualización en tiempo real e historial de eventos.',
+    institution: 'Proyecto Independiente / IPN',
+    description: `Plataforma de backend de grado de producción para la gestión de datos de sensores IoT. La API REST construida con Flask y SQLAlchemy maneja la ingesta de datos de nodos de sensores remotos. La autenticación utiliza JWT con control de acceso basado en roles (administrador, operador, espectador). Despliegue mediante Docker + Gunicorn con métricas de Prometheus, almacenamiento en caché de Redis y MySQL como base de datos principal. El panel de control proporciona visualización de sensores en tiempo real y alertas de eventos configurables.`,
+    highlights: [
+      'Lista para producción: Docker, Gunicorn, Prometheus, limitación de tasa',
+      'Seguridad que cumple con OWASP: JWT, CSRF, HTTPS, bcrypt',
+      'Control de acceso basado en roles con registro de auditoría',
+      'Panel de control en tiempo real con límites de alerta configurables',
+    ],
+    evidence: ['Diagrama de arquitectura', 'Documentación de API', 'Configuración de Docker Compose'],
+    metricsLabels: ['Tiempo de respuesta de API', 'Usuarios concurrentes'],
+  },
+  'jobhunter-ai-pipeline': {
+    title: 'JobHunter — Automatización del Proceso de Aplicación de Empleo con IA',
+    subtitle: 'FastAPI + Servidor MCP + Next.js + Bot de Telegram — Pipeline de IA Completo',
+    tagline: 'Sistema de automatización local con un servidor MCP personalizado que coordina agentes de IA para buscar ofertas de empleo, generar CVs en LaTeX personalizados y gestionar aplicaciones.',
+    institution: 'Proyecto Personal',
+    description: `Sistema de automatización del proceso de búsqueda y aplicación de empleo construido con herramientas de IA modernas. Un backend de FastAPI gestiona las vacantes en SQLite y expone una API REST. Un servidor MCP (Model Context Protocol) personalizado coordina agentes de IA que analizan las ofertas de trabajo, generan CVs adaptados en LaTeX, los compilan a PDF mediante pdflatex y gestionan el proceso de revisión. Un panel de Next.js proporciona visibilidad en tiempo real. Un bot de Telegram permite el control del flujo desde dispositivos móviles. Sigue la disciplina de rutas absolutas y patrones de SQLite seguros para WAL.`,
+    highlights: [
+      'Servidor MCP personalizado para integración de herramientas LLM — tecnología de vanguardia 2026',
+      'Completamente local — sin dependencias en la nube, preservando la privacidad',
+      'CVs en LaTeX generados por IA compilados a PDF automáticamente',
+      'Bot de Telegram para control móvil del pipeline',
+      'SQLite seguro para WAL con disciplina de rutas absolutas',
+    ],
+    evidence: ['GitHub: github.com/smookymolina/JobHunter', 'README con diagrama de arquitectura completo'],
+    metricsLabels: ['Fases del pipeline'],
+  },
+  'data-pipeline-reports': {
+    title: 'Pipeline de Datos Experimentales — Reportes Técnicos Automatizados',
+    subtitle: 'Pipeline de Python: Datos DAQ → Análisis Estadístico → Reportes PDF/Excel en <20 Minutos',
+    tagline: 'Pipeline de procesamiento automatizado que reduce el tiempo de análisis posterior a la prueba de 6 horas a menos de 20 minutos — desde los datos sin procesar hasta los reportes técnicos en PDF + Excel.',
+    institution: 'IPN — Proyecto de Investigación',
+    description: `Pipeline de automatización en Python para procesar datos experimentales del banco de pruebas de propulsión cohete. Toma datos de sensores multicanal sin procesar como entrada, aplica procesamiento estadístico (media, varianza, FFT, análisis de tendencias) y genera reportes en PDF e informes en hojas de cálculo de Excel listos para publicación, todo sin intervención manual. Redujo el ciclo de análisis posterior a la prueba de 6 horas a menos de 20 minutos.`,
+    highlights: [
+      'Reducción del 94% en el tiempo de análisis posterior a la prueba',
+      'Cero intervención manual desde los datos sin procesar hasta el reporte final',
+      'Genera tanto PDF (para publicación) como Excel (para revisión del equipo)',
+      'Métricas estadísticas: media, desviación estándar, FFT, detección de tendencias',
+    ],
+    evidence: ['Código fuente de Python', 'Muestras de reportes generados (PDF + Excel)', 'Comparación de tiempos antes/después'],
+    metricsLabels: ['Reducción de tiempo de análisis', 'Tiempo: antes', 'Tiempo: después'],
+  },
+  'thermal-dynamics-simulator': {
+    title: 'Simulador de Dinámica Térmica — Componentes de Propulsión Aeroespacial',
+    subtitle: 'Modelos de Transferencia de Calor Validados con Datos de Banco de Pruebas Reales (<4% de Error RMS)',
+    tagline: 'Modelo térmico computacional para componentes de propulsión cohete de combustible sólido: conducción, convección y radiación — validado con datos experimentales con un error RMS <4%.',
+    institution: 'IPN — Grupo de Investigación Aeroespacial',
+    description: `Modelo computacional de transferencia de calor en componentes de motores cohete de combustible sólido, implementado en Python y ANSYS. Modela los tres mecanismos de transferencia de calor (conducción, convección, radiación) en la cámara de combustión, la boquilla y la carcasa. Validado frente a datos experimentales del banco de pruebas — logrando un error RMS menor al 4%. Genera mapas de distribución térmica e informes técnicos automáticos.`,
+    highlights: [
+      'Validado con datos experimentales reales, no solo teóricos',
+      '<4% de error RMS entre el modelo y el experimento',
+      'Cubre los 3 modos de transferencia de calor simultáneamente',
+      'Mapas térmicos automatizados y generación de informes en PDF',
+    ],
+    evidence: [
+      'Código de simulación en Python',
+      'Archivos del modelo de ANSYS',
+      'Gráficos de validación (modelo vs. experimental)',
+      'Mapas de distribución térmica',
+    ],
+    metricsLabels: ['Error del modelo (RMS)', 'Rango de temperatura'],
+  },
+  'dynamic-systems-modeling': {
+    title: 'Modelado de Sistemas Dinámicos — Kit de Herramientas de Espacio de Estados y Linealización',
+    subtitle: 'Biblioteca de Python para Simulación de Sistemas No Lineales, Linealización y Análisis de Estabilidad',
+    tagline: 'Biblioteca limpia de Python para el modelado de sistemas dinámicos: Jacobianos de diferencias finitas, búsqueda de equilibrio, simulación y análisis de plano de fase.',
+    institution: 'IPN — Maestría en Tecnologías Avanzadas',
+    description: `Kit de herramientas de Python para el análisis de sistemas dinámicos desarrollado para el curso de posgrado en Modelado de Sistemas Aeroespaciales. Implementa: cálculo de Jacobiano por diferencias finitas (∂f/∂x, ∂f/∂u), búsqueda de puntos de equilibrio a través de scipy.optimize.root, simulación no lineal con scipy.integrate.solve_ivp y simulación de sistemas linealizados. Incluye comparación gráfica de trayectorias no lineales vs. linealizadas para validación.`,
+    highlights: [
+      'Calidad de código profesional con abstracción de Modelo basada en dataclass',
+      'Jacobianos de diferencias finitas con estabilidad numérica',
+      'Maneja sistemas no lineales con múltiples puntos de equilibrio',
+      'Visualización comparativa: NL vs. linealizado para validación',
+    ],
+    evidence: [
+      'GitHub: github.com/smookymolina/Clase_02_Modelizacion',
+      'Código fuente de Python bien documentado (comentarios técnicos en español)',
+    ],
+  },
+  'vr-industrial-training': {
+    title: 'Entrenamiento de Seguridad Industrial en VR — Simulación de Extintores',
+    subtitle: 'Entorno de VR Inmersivo Demostrado en Vivo en Televisión Nacional (TV Azteca)',
+    tagline: 'Simulación inmersiva en realidad virtual para el entrenamiento del uso de extintores de incendios industriales, demostrada en vivo en TV Azteca México ante una audiencia nacional.',
+    institution: 'Proyecto Profesional / TV Azteca México',
+    description: `Aplicación de entrenamiento en realidad virtual para protocolos de seguridad contra incendios industriales. El entorno inmersivo simula el uso de extintores de incendios en una instalación industrial con física realista, retroalimentación háptica y puntuación interactiva. Integrado con hardware de seguimiento de movimiento para interacción de cuerpo completo. La aplicación fue seleccionada para una demostración tecnológica en vivo en TV Azteca México, llegando a una audiencia nacional.`,
+    highlights: [
+      'Demostración en vivo en TV Azteca México — audiencia de transmisión nacional',
+      'Integración de retroalimentación háptica para una interacción realista',
+      'Diseño de escenario de grado industrial con simulación física de incendios',
+      'Seleccionada como tecnología destacada entre soluciones competidoras',
+    ],
+    evidence: [
+      'Imágenes de transmisión de TV Azteca (2024)',
+      'Video de demostración de la aplicación',
+      'Documentación del protocolo de entrenamiento',
+    ],
+    metricsLabels: ['Audiencia nacional en TV Azteca', 'Demostración en vivo', 'Aptitud háptica'],
+    hardware: ['Visor VR', 'Hardware de seguimiento de movimiento', 'Dispositivos de retroalimentación háptica'],
+    firmware: [],
+  },
+  'tren-maya-tourism-app': {
+    title: 'México Profundo — Aplicación AR para el Tren Maya',
+    subtitle: 'Aplicación de Turismo en Realidad Aumentada para el Tren Maya, Destacada en ADN40 y Canal Once',
+    tagline: 'Aplicación interactiva de turismo en realidad aumentada para el corredor del Tren Maya de México: capas culturales, puntos de interés geográficos y contenidos del patrimonio indígena.',
+    institution: 'Proyecto Profesional — México Profundo',
+    description: `Aplicación de turismo en realidad aumentada para el corredor ferroviario del Tren Maya de México, desarrollada como parte de la iniciativa de tecnología cultural "México Profundo". La aplicación presenta capas en tiempo real en realidad aumentada para sitios históricos y culturales a lo largo de la ruta del Tren Maya, puntos de interés interactivos basados en GPS y contenidos del patrimonio indígena.
+
+La aplicación fue demostrada en vivo en ADN40 (canal nacional de noticias) y Canal Once (televisión pública del IPN) como segmentos de tecnología destacada, llegando a una audiencia combinada de millones de espectadores en todo México.`,
+    highlights: [
+      'Presentada en vivo en ADN40 noticias nacionales — segmento México Profundo',
+      'Presentada en Canal Once (TV pública del IPN) — segmento México Profundo',
+      'Capas culturales en realidad aumentada para monumentos de la ruta del Tren Maya',
+      'Integración de contenidos de patrimonio indígena y cultural',
+      'Llegó a millones de televidentes a través de transmisiones nacionales en México',
+    ],
+    evidence: [
+      'Imágenes de transmisión de ADN40 (2024)',
+      'Imágenes de transmisión de Canal Once (2024)',
+      'Reportaje del programa México Profundo',
+      'Video demostrativo de la aplicación',
+    ],
+    metricsLabels: ['Emisiones en TV Nacional', 'Canales principales', 'Stack tecnológico'],
+    firmware: [],
+  },
+  'stm32-embedded-firmware': {
+    title: 'Firmware STM32 Bare-Metal — Ensamblador y C',
+    subtitle: 'Programación de Bajo Nivel ARM Cortex-M: Control de Periféricos en Ensamblador',
+    tagline: 'Firmware STM32 bare-metal escrito en Ensamblador ARM y C para la manipulación directa de registros de periféricos, sin capa de abstracción HAL.',
+    institution: 'IPN / Personal',
+    description: `Firmware STM32 de bajo nivel escrito directamente en Ensamblador ARM y C, evitando las capas de abstracción HAL para obtener el máximo determinismo y rendimiento. Cubre la configuración de GPIO, temporizadores, UART, SPI y la tabla de vectores de interrupción a nivel de registros. Parte de una inmersión profunda en sistemas embebidos avanzados.`,
+    highlights: [
+      'Control de periféricos a nivel de registros (sin HAL)',
+      'Ensamblador ARM Thumb-2 para rutinas de rendimiento crítico',
+      'Inicio (startup) y script de enlazador (linker) personalizados',
+    ],
+    evidence: ['GitHub: github.com/smookymolina/atz_stm32 (código de ensamblador)'],
+  },
+};
+
+export function getProjects(lang: 'en' | 'es'): Project[] {
+  if (lang === 'en') return PROJECTS;
+  return PROJECTS.map((p) => {
+    const t = PROJECT_TRANSLATIONS_ES[p.slug];
+    if (!t) return p;
+    return {
+      ...p,
+      title: t.title,
+      subtitle: t.subtitle,
+      tagline: t.tagline,
+      institution: t.institution,
+      description: t.description,
+      highlights: t.highlights,
+      evidence: t.evidence,
+      metrics: p.metrics?.map((m, idx) => ({
+        ...m,
+        label: t.metricsLabels?.[idx] || m.label,
+      })),
+      hardware: p.hardware?.map((hw, idx) => t.hardware?.[idx] || hw),
+      firmware: p.firmware?.map((fw, idx) => t.firmware?.[idx] || fw),
+    };
+  });
+}
+
+export function getProjectBySlug(slug: string, lang: 'en' | 'es' = 'en'): Project | undefined {
+  const list = getProjects(lang);
+  return list.find((p) => p.slug === slug);
+}
+
+export function getProjectsByCategory(category: ProjectCategory, lang: 'en' | 'es' = 'en'): Project[] {
+  const list = getProjects(lang);
+  return list.filter((p) => p.categories.includes(category));
+}
+

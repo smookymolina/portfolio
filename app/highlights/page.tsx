@@ -102,13 +102,31 @@ export default function HighlightsPage() {
   const { t } = useLang();
   const h = t.highlights;
 
+  const translatedHighlights = HIGHLIGHTS.map((hl) => {
+    const tItem = h.items[hl.id as keyof typeof h.items];
+    if (!tItem) return hl;
+    return {
+      ...hl,
+      category: tItem.category,
+      title: tItem.title,
+      description: tItem.description,
+      badge: tItem.badge,
+      hardware: tItem.hardware.length > 0 ? tItem.hardware : hl.hardware,
+      firmware: tItem.firmware.length > 0 ? tItem.firmware : hl.firmware,
+      metrics: hl.metrics.map((m, idx) => ({
+        v: m.v,
+        l: tItem.metric_labels[idx] || m.l,
+      })),
+    };
+  });
+
   return (
     <div className="pt-24 pb-32">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <SectionHeader label={h.label} title={h.title} subtitle={h.subtitle} />
 
         <div className="space-y-px border border-border-subtle rounded-lg overflow-hidden">
-          {HIGHLIGHTS.map((hl) => {
+          {translatedHighlights.map((hl) => {
             const Icon = hl.icon;
             return (
               <div key={hl.id} className="bg-surface-alt border-b border-border-subtle last:border-b-0">

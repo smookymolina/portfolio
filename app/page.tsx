@@ -12,19 +12,12 @@ import { useTheme } from '@/lib/theme';
 
 const CV = '/cv/CV_Jair_Molina_Arce_2026_v2.pdf';
 
-const MEDIA = [
-  { channel: 'TV Azteca',  program: 'Tecnología',      topic: 'VR Fire Extinguisher Training', year: '2024' },
-  { channel: 'ADN40',      program: 'Mexico Profundo',  topic: 'AR Tourism — Tren Maya',        year: '2024' },
-  { channel: 'Canal Once', program: 'Realidad Virtual', topic: 'VR Industrial Training',        year: '2024' },
-  { channel: 'Canal Once', program: 'Mexico Profundo',  topic: 'Tourism Technology',            year: '2024' },
-];
-
-
-
 export default function HomePage() {
   const { t, lang } = useLang();
   const h = t.home;
   const { theme } = useTheme();
+
+  const MEDIA = h.media_list || [];
 
   const STATS = [
     { value: 'MSc. AT',      label: h.stat_msc_label,    sub: h.stat_msc_sub },
@@ -151,7 +144,7 @@ export default function HomePage() {
               </p>
               
               <div className="inline-flex items-center gap-2 text-xs font-mono text-text-muted bg-surface border border-border-subtle rounded-md px-3 py-1.5 self-start">
-                <span className="text-accent">▶</span> Play / Pause enabled
+                {t.common.play_pause_enabled}
               </div>
             </div>
             
@@ -217,9 +210,9 @@ export default function HomePage() {
               </a>
             </div>
             <div className="relative aspect-video bg-surface rounded-lg border border-border-subtle overflow-hidden">
-              <FallbackImage src="/images/research/iac-milan.jpeg" alt="IAC 2024 — Milan, Italy" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-80" />
+              <FallbackImage src="/images/research/iac-milan.jpeg" alt={lang === 'en' ? "IAC 2024 — Milan, Italy" : "IAC 2024 — Milán, Italia"} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-80" />
               <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
-              <div className="absolute bottom-3 left-3 font-mono text-xs text-text-muted">IAC 2024 · Milan, Italy</div>
+              <div className="absolute bottom-3 left-3 font-mono text-xs text-text-muted">IAC 2024 · {lang === 'en' ? 'Milan, Italy' : 'Milán, Italia'}</div>
             </div>
           </div>
         </div>

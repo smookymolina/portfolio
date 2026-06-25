@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, User } from 'lucide-react';
 import FallbackImage from '@/components/FallbackImage';
+import { useLang } from '@/lib/lang';
 
 const PHOTOS = [
   '/images/profile/photo-07.jpeg',
@@ -16,6 +17,7 @@ const PHOTOS = [
 export default function ProfileCarousel() {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
+  const { lang } = useLang();
 
   const next = useCallback(() => setCurrent((c) => (c + 1) % PHOTOS.length), []);
   const prev = useCallback(() => setCurrent((c) => (c - 1 + PHOTOS.length) % PHOTOS.length), []);
@@ -50,7 +52,7 @@ export default function ProfileCarousel() {
             </div>
             <div className="text-center">
               <p className="font-mono text-xs text-text-muted">Jair Molina Arce</p>
-              <p className="font-mono text-xs text-accent/60 mt-0.5">// photo</p>
+              <p className="font-mono text-xs text-accent/60 mt-0.5">{lang === 'en' ? '// photo' : '// foto'}</p>
             </div>
           </div>
 
@@ -86,7 +88,7 @@ export default function ProfileCarousel() {
           {/* Prev button */}
           <button
             onClick={prev}
-            aria-label="Previous photo"
+            aria-label={lang === 'en' ? 'Previous photo' : 'Foto anterior'}
             className="absolute left-1.5 top-1/2 -translate-y-1/2 z-30 w-7 h-7 flex items-center justify-center bg-background/70 border border-border-subtle rounded text-text-muted hover:text-accent hover:border-accent/50 transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/50"
           >
             <ChevronLeft size={13} />
@@ -95,7 +97,7 @@ export default function ProfileCarousel() {
           {/* Next button */}
           <button
             onClick={next}
-            aria-label="Next photo"
+            aria-label={lang === 'en' ? 'Next photo' : 'Foto siguiente'}
             className="absolute right-1.5 top-1/2 -translate-y-1/2 z-30 w-7 h-7 flex items-center justify-center bg-background/70 border border-border-subtle rounded text-text-muted hover:text-accent hover:border-accent/50 transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/50"
           >
             <ChevronRight size={13} />

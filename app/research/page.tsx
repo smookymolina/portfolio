@@ -3,13 +3,17 @@
 import SectionHeader from '@/components/SectionHeader';
 import PublicationCard from '@/components/PublicationCard';
 import TechBadge from '@/components/TechBadge';
-import { PUBLICATIONS, CONFERENCES, TEACHING } from '@/lib/research';
+import { getPublications, getConferences, getTeaching } from '@/lib/research';
 import { MapPin, Calendar, Award, BookOpen, Mic, Tv } from 'lucide-react';
 import { useLang } from '@/lib/lang';
 
 export default function ResearchPage() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const r = t.research;
+
+  const publications = getPublications(lang);
+  const conferences = getConferences(lang);
+  const teaching = getTeaching(lang);
 
   const ROLE_LABELS: Record<string, string> = {
     speaker:  r.role_speaker,
@@ -27,8 +31,8 @@ export default function ResearchPage() {
     media:    'text-accent-amber',
   };
 
-  const mediaConferences = CONFERENCES.filter((c) => c.role === 'media');
-  const academicConferences = CONFERENCES.filter((c) => c.role !== 'media');
+  const mediaConferences = conferences.filter((c) => c.role === 'media');
+  const academicConferences = conferences.filter((c) => c.role !== 'media');
 
   return (
     <div className="pt-24 pb-32">
@@ -62,7 +66,7 @@ export default function ResearchPage() {
             <h2 className="text-xl font-semibold text-text-primary">{r.publications}</h2>
           </div>
           <div className="space-y-6">
-            {PUBLICATIONS.map((pub) => <PublicationCard key={pub.id} pub={pub} />)}
+            {publications.map((pub) => <PublicationCard key={pub.id} pub={pub} />)}
           </div>
         </div>
 
@@ -121,7 +125,7 @@ export default function ResearchPage() {
             <h2 className="text-xl font-semibold text-text-primary">{r.teaching}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
-            {TEACHING.map((tch) => (
+            {teaching.map((tch) => (
               <div key={tch.id} className="bg-surface-alt border border-border-subtle rounded-lg p-6">
                 <div className="flex items-start justify-between mb-3">
                   <span className="font-mono text-xs text-accent">{tch.role}</span>

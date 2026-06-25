@@ -4,8 +4,9 @@ import Link from 'next/link';
 import FallbackImage from './FallbackImage';
 import { ArrowUpRight } from 'lucide-react';
 import type { Project } from '@/lib/projects';
-import { CATEGORY_LABELS } from '@/lib/projects';
+import { getProjectBySlug } from '@/lib/projects';
 import TechBadge from './TechBadge';
+import { useLang } from '@/lib/lang';
 
 interface Props {
   project: Project;
@@ -18,14 +19,13 @@ const STATUS_COLORS: Record<string, string> = {
   research:    'text-text-secondary',
 };
 
-const STATUS_LABELS: Record<string, string> = {
-  completed:   'Completed',
-  prototype:   'Prototype',
-  'in-progress':'In Progress',
-  research:    'Research',
-};
+export default function ProjectCard({ project: initialProject }: Props) {
+  const { t, lang } = useLang();
+  const project = getProjectBySlug(initialProject.slug, lang) || initialProject;
+  const p = t.projects;
 
-export default function ProjectCard({ project }: Props) {
+  const statusLabel = p.status[project.status as keyof typeof p.status] || project.status;
+
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -45,7 +45,7 @@ export default function ProjectCard({ project }: Props) {
         {project.classification === 'A' && (
           <div className="absolute top-3 left-3">
             <span className="font-mono text-xs px-2 py-0.5 bg-accent/10 border border-accent/30 text-accent rounded">
-              Featured
+              {p.featured}
             </span>
           </div>
         )}
@@ -55,7 +55,7 @@ export default function ProjectCard({ project }: Props) {
       <div className="p-5">
         <div className="flex items-center justify-between mb-3">
           <span className={`font-mono text-xs ${STATUS_COLORS[project.status]}`}>
-            ● {STATUS_LABELS[project.status]}
+            ● {statusLabel}
           </span>
           <span className="font-mono text-xs text-text-muted">{project.period}</span>
         </div>
@@ -67,7 +67,7 @@ export default function ProjectCard({ project }: Props) {
 
         <div className="flex flex-wrap gap-1.5 mb-4">
           {project.categories.slice(0, 3).map((cat) => (
-            <TechBadge key={cat} label={CATEGORY_LABELS[cat]} variant="accent" />
+            <TechBadge key={cat} label={p.categories[cat as keyof typeof p.categories] || cat} variant="accent" />
           ))}
         </div>
 

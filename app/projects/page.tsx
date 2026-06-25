@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { PROJECTS, CATEGORY_LABELS, type ProjectCategory } from '@/lib/projects';
+import { getProjects, type ProjectCategory } from '@/lib/projects';
 import ProjectCard from '@/components/ProjectCard';
 import SectionHeader from '@/components/SectionHeader';
 import { useLang } from '@/lib/lang';
@@ -10,10 +10,11 @@ const CATEGORIES: ProjectCategory[] = ['embedded','firmware','iot','aerospace','
 
 export default function ProjectsPage() {
   const [active, setActive] = useState<ProjectCategory | 'all'>('all');
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const p = t.projects;
 
-  const filtered = active === 'all' ? PROJECTS : PROJECTS.filter((proj) => proj.categories.includes(active));
+  const projects = getProjects(lang);
+  const filtered = active === 'all' ? projects : projects.filter((proj) => proj.categories.includes(active));
 
   const btn = (cat: ProjectCategory | 'all', label: string) => (
     <button
@@ -35,9 +36,9 @@ export default function ProjectsPage() {
         <SectionHeader label={p.label} title={p.title} subtitle={p.subtitle} />
 
         <div className="flex flex-wrap gap-2 mb-12">
-          {btn('all', `${p.all} (${PROJECTS.length})`)}
+          {btn('all', `${p.all} (${projects.length})`)}
           {CATEGORIES.map((cat) =>
-            btn(cat, `${CATEGORY_LABELS[cat]} (${PROJECTS.filter((proj) => proj.categories.includes(cat)).length})`)
+            btn(cat, `${p.categories[cat]} (${projects.filter((proj) => proj.categories.includes(cat)).length})`)
           )}
         </div>
 

@@ -110,7 +110,7 @@ export default function Navbar() {
             <button
               onClick={toggleLang}
               className="px-2 py-1 font-mono text-xs border border-border rounded text-text-muted hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-              aria-label={`Switch to ${lang === 'en' ? 'Spanish' : 'English'}`}
+              aria-label={lang === 'en' ? 'Switch to Spanish' : 'Cambiar a Inglés'}
             >
               {lang === 'en' ? 'ES' : 'EN'}
             </button>
@@ -119,7 +119,7 @@ export default function Navbar() {
             <button
               onClick={toggleTheme}
               className="p-1.5 text-text-muted hover:text-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              aria-label={lang === 'en' ? `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode` : `Cambiar a modo ${theme === 'dark' ? 'claro' : 'oscuro'}`}
             >
               {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
             </button>
@@ -136,7 +136,7 @@ export default function Navbar() {
             <button
               className="md:hidden p-1.5 text-text-secondary hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
               onClick={() => setOpen(!open)}
-              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-label={lang === 'en' ? (open ? 'Close menu' : 'Open menu') : (open ? 'Cerrar menú' : 'Abrir menú')}
               aria-expanded={open}
               aria-controls="mobile-nav"
             >
@@ -192,12 +192,14 @@ export default function Navbar() {
                 </a>
                 <button
                   onClick={toggleLang}
+                  aria-label={lang === 'en' ? 'Switch to Spanish' : 'Cambiar a Inglés'}
                   className="px-2.5 py-1.5 font-mono text-[11px] border border-border/60 bg-surface/30 rounded-lg text-text-secondary hover:border-accent hover:text-accent transition-colors"
                 >
                   {lang === 'en' ? 'ES' : 'EN'}
                 </button>
                 <button
                   onClick={toggleTheme}
+                  aria-label={lang === 'en' ? `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode` : `Cambiar a modo ${theme === 'dark' ? 'claro' : 'oscuro'}`}
                   className="p-1.5 border border-border/60 bg-surface/30 rounded-lg text-text-muted hover:text-text-primary hover:border-border-subtle transition-colors"
                 >
                   {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
