@@ -11,7 +11,7 @@ const SKILLS = [
   { category: 'Firmware Engineering',    items: ['C/C++ embedded','ARM Assembly (Thumb-2)','RTOS concepts','ISR / DMA','ADC multi-channel','PWM control','Watchdog timers'], variant: 'amber' as const },
   { category: 'Control Systems',         items: ['PID (classic & digital)','Auto-tuning (Z-N)','State space modeling','Linearization','LabVIEW','MATLAB/Simulink'], variant: 'accent' as const },
   { category: 'Instrumentation & DAQ',   items: ['Pressure transducers','Thermocouples (K-type)','Load cells + HX711','Signal conditioning','LabVIEW DAQ','Python (pandas/numpy)'], variant: 'accent' as const },
-  { category: 'CAD / Simulation',        items: ['SolidWorks','ANSYS (FEA, Thermal)','FlatCAM (PCB CAM)','KiCad','Python simulation'], variant: 'muted' as const },
+  { category: 'CAD / Simulation / Structural', items: ['SolidWorks','AutoCAD 2D/3D','ANSYS (FEA, Thermal)','Prodisis & Sasid','Structural Analysis Software','Renders','FlatCAM (PCB CAM)','KiCad','Python simulation'], variant: 'muted' as const },
   { category: 'Software & Backend',      items: ['Python','Flask + SQLAlchemy','FastAPI','Docker','REST APIs','JWT auth','PostgreSQL · MySQL · Redis','Prometheus'], variant: 'muted' as const },
 ];
 
