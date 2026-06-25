@@ -63,6 +63,8 @@ export const PROJECTS: Project[] = [
     institution: 'Instituto Politécnico Nacional — UPIITA',
     description: `Designed and implemented a complete data acquisition system for a solid-fuel rocket motor test bench. The system integrates pressure transducers, type-K thermocouples, and load cells into a custom signal conditioning board. Firmware written in C/C++ on ESP32 and STM32 handles multi-channel ADC sampling, sensor fusion, and real-time data streaming. Data analysis pipeline in Python and LabVIEW processes experimental results for thermal and structural validation.
 
+The signal conditioning PCB was designed in KiCad and fabricated in-house using a CNC milling setup built from a converted FDM 3D printer — directly applying the milling machine project output to a real embedded system.
+
 The project was published in Revista Hacia el Espacio (2024) and formally presented at UPIITA–IPN and the 2023 Planetario Luis Enrique Erro poster session.`,
     hardware: [
       'ESP32 (Tensilica Xtensa LX6)',
@@ -71,7 +73,7 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       'MAX6675 — Thermocouple-to-SPI',
       'Pressure transducers (0–150 psi)',
       'Wheatstone bridge signal conditioning',
-      'Custom PCB — signal conditioning board',
+      'Custom PCB — signal conditioning board (KiCad-designed, CNC-milled in-house)',
     ],
     firmware: [
       'C/C++ bare-metal',
@@ -95,7 +97,7 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
     ],
     highlights: [
       'Full hardware-to-software system built from scratch',
-      'Custom signal conditioning PCB designed in-house',
+      'Signal conditioning PCB designed in KiCad and milled in-house with converted 3D printer CNC setup',
       'Integrated thermal-structural FEA validation with ANSYS',
       'Published in peer-reviewed national journal (Revista Hacia el Espacio, 2024)',
       'Presented at UPIITA–IPN and scientific poster session at CDA–IPN',
@@ -179,20 +181,21 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
   {
     id: 'p04',
     slug: 'adaptive-pid-stm32',
-    title: 'Adaptive PID Controller — Auto-Tuning on STM32',
-    subtitle: 'Digital Control with Extended Ziegler-Nichols Auto-Tuning, −35% Settling Time',
+    title: 'Adaptive PID Controller — Auto-Tuning on STM32H753ZI',
+    subtitle: 'Digital Control on Furuta Pendulum with Extended Ziegler-Nichols Auto-Tuning, −35% Settling Time',
     tagline:
-      'Self-tuning PID controller implemented in C++ on STM32 Cortex-M, achieving a 35% reduction in settling time over manual tuning on a real propulsion test bench.',
-    categories: ['embedded', 'firmware', 'control', 'aerospace'],
+      'Self-tuning PID controller implemented in C++ on STM32H753ZI (Cortex-M7), applied to a Furuta rotary inverted pendulum — achieving a 35% reduction in settling time over manual tuning.',
+    categories: ['embedded', 'firmware', 'control'],
     classification: 'A',
     status: 'completed',
     period: '2023 – 2024',
     institution: 'IPN — Laboratory of Control & Dynamic Systems',
-    description: `Digital PID controller with an extended Ziegler-Nichols auto-tuning algorithm, implemented in embedded C++ on STM32 Cortex-M. The controller runs in real time on the propulsion test bench, reading sensor feedback via ADC and driving actuators through PWM. The auto-tuning routine identifies system dynamics online and updates PID gains without interrupting operation. Transient response is visualized in LabVIEW over UART.`,
+    description: `Digital PID controller with an extended Ziegler-Nichols auto-tuning algorithm, implemented in embedded C++ on the STM32H753ZI (ARM Cortex-M7, up to 480 MHz). Applied to a Furuta rotary inverted pendulum — a classic underactuated nonlinear control benchmark. The controller reads encoder and sensor feedback via ADC and drives the pendulum motor through PWM. The auto-tuning routine identifies the linearized plant dynamics online and updates PID gains without interrupting operation. Fixed-point arithmetic is used in the real-time ISR for deterministic timing. Transient response is visualized in LabVIEW over UART.`,
     hardware: [
-      'STM32 (Cortex-M) — primary controller',
-      'ADC — sensor feedback (pressure, flow)',
-      'PWM outputs — actuator control',
+      'STM32H753ZI (Cortex-M7, up to 480 MHz) — primary controller',
+      'Furuta pendulum (rotary inverted pendulum) — plant',
+      'ADC — encoder / sensor feedback',
+      'PWM output — motor actuator',
       'UART → PC / LabVIEW visualization',
     ],
     firmware: [
@@ -210,10 +213,11 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
       { label: 'Overshoot reduction', value: '~18', unit: '%' },
     ],
     highlights: [
+      'Applied to Furuta rotary inverted pendulum — classic nonlinear underactuated system',
+      'STM32H753ZI (Cortex-M7) running real-time control loop at 1 kHz',
+      'Online auto-tuning — identifies plant dynamics without stopping operation',
+      'Fixed-point arithmetic in ISR for deterministic real-time behavior',
       'Quantified 35% improvement in settling time vs. manual tuning',
-      'Online auto-tuning — no system shutdown required',
-      'Fixed-point arithmetic ensures deterministic real-time behavior',
-      'Validated on real hardware, not simulation',
     ],
     evidence: [
       'Embedded C++ source code (STM32)',
@@ -243,9 +247,9 @@ The project was published in Revista Hacia el Espacio (2024) and formally presen
     institution: 'Personal Lab / UPIITA-IPN',
     description: `Converted a consumer FDM 3D printer into a CNC-style milling setup by removing the extruder assembly and mounting a high-speed rotary tool (mototool) as the spindle, and replacing the original 3D printer controller board with a GRBL-compatible CNC shield. Ran calibration and depth-cutting tests on wood to validate motion control and cutting depth before milling on copper-clad board.
 
-Used the resulting setup to design (in KiCad) and mill a functional PCB for a mini switching power supply, built following reference designs, to power multiple Arduino Nano boards. The milled PCB worked correctly and was later integrated into a signal switcher/selector circuit (LEDs and switches) developed independently at UPIITA-IPN.
+Used the resulting setup to design and mill multiple real PCBs, including: (1) a mini switching power supply PCB (KiCad layout, built following reference designs) to power multiple Arduino Nano boards — integrated into a signal switcher/selector circuit (LEDs and switches) at UPIITA-IPN; and (2) the custom signal conditioning PCB for the Rocket Motor DAQ system (p01), which integrates pressure transducers, thermocouples, and load cell amplifiers.
 
-This project covers a complete design-to-fabrication cycle: KiCad schematic & layout → G-code via FlatCAM → milling with the converted machine → functional circuit. It directly demonstrates hands-on PCB design with a real EDA tool and physical fabrication at low cost (~2019).`,
+This project covers a complete design-to-fabrication cycle: KiCad schematic & layout → G-code via FlatCAM → milling with the converted machine → functional circuit. It directly demonstrates hands-on PCB design with a real EDA tool and in-house fabrication applied to real projects (~2019).`,
     hardware: [
       '3D Printer chassis (modified)',
       'High-speed rotary tool (mototool) — spindle replacement',
@@ -264,10 +268,10 @@ This project covers a complete design-to-fabrication cycle: KiCad schematic & la
     ],
     highlights: [
       'Complete hardware conversion: extruder removed, mototool spindle mounted, CNC shield installed',
-      'Wood calibration tests before milling copper — validated motion control and depth',
-      'Designed PCB layout in KiCad — full EDA workflow from schematic to Gerber to G-code',
-      'Milled PCB for mini switching power supply (built from reference design) — circuit functioned correctly',
-      'PCB integrated into signal switcher/selector (LEDs + switches) for independent UPIITA-IPN project',
+      'Wood calibration tests before milling copper — validated motion control and cutting depth',
+      'Designed PCB layouts in KiCad — full EDA workflow from schematic to Gerber to G-code',
+      'Milled PCB for mini switching power supply → integrated into signal switcher at UPIITA-IPN',
+      'Milled the signal conditioning PCB used in the Rocket Motor DAQ system (p01) — in-house fabrication applied to a real published project',
     ],
     evidence: [
       'KiCad project files (schematic + layout)',
@@ -648,10 +652,12 @@ const PROJECT_TRANSLATIONS_ES: Record<string, {
     institution: 'Instituto Politécnico Nacional — UPIITA',
     description: `Diseñó e implementó un sistema completo de adquisición de datos para un banco de pruebas de motores cohete de combustible sólido. El sistema integra transductores de presión, termopares tipo K y celdas de carga en una placa de acondicionamiento de señal personalizada. El firmware escrito en C/C++ en ESP32 y STM32 maneja el muestreo ADC multicanal, la fusión de sensores y la transmisión de datos en tiempo real. El flujo de análisis de datos en Python y LabVIEW procesa los resultados experimentales para la validación térmica y estructural.
 
+La PCB de acondicionamiento de señal fue diseñada en KiCad y fabricada internamente con el setup de fresado CNC construido a partir de una impresora 3D FDM convertida — aplicando directamente el output del proyecto de fresadora a un sistema embebido real publicado.
+
 El proyecto fue publicado en la Revista Hacia el Espacio (2024) y presentado formalmente en UPIITA-IPN y en la sesión de carteles del Planetario Luis Enrique Erro de 2023.`,
     highlights: [
       'Sistema completo de hardware a software construido desde cero',
-      'PCB de acondicionamiento de señal personalizada diseñada internamente',
+      'PCB de acondicionamiento de señal diseñada en KiCad y fresada internamente con setup CNC convertido',
       'Validación integrada de análisis FEA térmico-estructural con ANSYS',
       'Publicado en revista nacional arbitrada (Revista Hacia el Espacio, 2024)',
       'Presentado en UPIITA-IPN y sesión de póster científico en CDA-IPN',
@@ -713,16 +719,17 @@ El proyecto fue publicado en la Revista Hacia el Espacio (2024) y presentado for
     ],
   },
   'adaptive-pid-stm32': {
-    title: 'Controlador PID Adaptativo — Auto-Sintonización en STM32',
-    subtitle: 'Control Digital con Sintonización Automática de Ziegler-Nichols Extendida, −35% de Tiempo de Establecimiento',
-    tagline: 'Controlador PID auto-sintonizable implementado en C++ en STM32 Cortex-M, logrando una reducción del 35% en el tiempo de establecimiento sobre la sintonía manual en un banco de pruebas real.',
+    title: 'Controlador PID Adaptativo — Auto-Sintonización en STM32H753ZI',
+    subtitle: 'Control Digital en Péndulo de Furuta con Ziegler-Nichols Extendido, −35% Tiempo de Establecimiento',
+    tagline: 'Controlador PID auto-sintonizable implementado en C++ en STM32H753ZI (Cortex-M7), aplicado a un péndulo de Furuta — logrando una reducción del 35% en el tiempo de establecimiento vs. sintonía manual.',
     institution: 'IPN — Laboratorio de Control y Sistemas Dinámicos',
-    description: `Controlador PID digital con un algoritmo de auto-sintonización extendido de Ziegler-Nichols, implementado en C++ embebido en STM32 Cortex-M. El controlador se ejecuta en tiempo real en el banco de pruebas de propulsión, leyendo la retroalimentación de los sensores a través de ADC y controlando actuadores mediante PWM. La rutina de auto-sintonización identifica la dinámica del sistema en línea y actualiza las ganancias del PID sin interrumpir la operación. La respuesta transitoria se visualiza en LabVIEW a través de UART.`,
+    description: `Controlador PID digital con un algoritmo de auto-sintonización extendido de Ziegler-Nichols, implementado en C++ embebido en el STM32H753ZI (ARM Cortex-M7, hasta 480 MHz). Aplicado a un péndulo de Furuta (péndulo invertido rotatorio) — referencia clásica de control no lineal subactuado. El controlador lee la retroalimentación de encoders y sensores mediante ADC y controla el motor del péndulo por PWM. La rutina de auto-sintonización identifica la dinámica linealizada de la planta en línea y actualiza las ganancias del PID sin interrumpir la operación. Se utiliza aritmética de punto fijo en el ISR de tiempo real para garantizar comportamiento determinista. La respuesta transitoria se visualiza en LabVIEW a través de UART.`,
     highlights: [
+      'Aplicado a péndulo de Furuta — sistema no lineal subactuado clásico de control',
+      'STM32H753ZI (Cortex-M7) ejecutando lazo de control en tiempo real a 1 kHz',
+      'Sintonización automática en línea — identifica dinámica de la planta sin detener la operación',
+      'Aritmética de punto fijo en ISR para comportamiento determinista en tiempo real',
       'Mejora cuantificada del 35% en el tiempo de establecimiento vs. sintonización manual',
-      'Sintonización automática en línea — sin apagar el sistema',
-      'La aritmética de punto fijo garantiza un comportamiento determinista en tiempo real',
-      'Validado en hardware real, no en simulación',
     ],
     evidence: [
       'Código fuente embebido en C++ (STM32)',
@@ -732,9 +739,10 @@ El proyecto fue publicado en la Revista Hacia el Espacio (2024) y presentado for
     ],
     metricsLabels: ['Reducción de tiempo de establecimiento', 'Tasa de bucle de control', 'Reducción de sobreimpulso'],
     hardware: [
-      'STM32 (Cortex-M) — controlador primario',
-      'ADC — retroalimentación de sensores (presión, flujo)',
-      'Salidas PWM — control de actuadores',
+      'STM32H753ZI (Cortex-M7, hasta 480 MHz) — controlador primario',
+      'Péndulo de Furuta (péndulo invertido rotatorio) — planta',
+      'ADC — retroalimentación de encoder / sensores',
+      'Salida PWM — actuador motor',
       'UART → Visualización en PC / LabVIEW',
     ],
     firmware: [
@@ -752,15 +760,15 @@ El proyecto fue publicado en la Revista Hacia el Espacio (2024) y presentado for
     institution: 'Laboratorio Personal / UPIITA-IPN',
     description: `Convertí una impresora 3D FDM de consumo en un setup de fresado CNC al desmontar el ensamblaje del extrusor y montar una herramienta rotativa de alta velocidad (mototool) como husillo, y reemplazar la tarjeta controladora original de la impresora por una shield CNC compatible con GRBL. Realicé pruebas de calibración y corte a distintas profundidades en madera para validar el control de movimiento antes de fresar en placa de cobre.
 
-Usé el setup resultante para diseñar (en KiCad) y fresar una PCB funcional para una mini fuente conmutada, construida siguiendo diseños de referencia, para alimentar varios Arduino Nano. La PCB fresada funcionó correctamente y fue integrada después en un circuito conmutador de señales (LEDs y switches) desarrollado de forma independiente en UPIITA-IPN.
+Usé el setup resultante para diseñar y fresar múltiples PCBs reales, entre ellas: (1) una PCB para mini fuente conmutada (layout en KiCad, siguiendo diseño de referencia) para alimentar varios Arduino Nano — integrada en un conmutador de señales (LEDs y switches) en UPIITA-IPN; y (2) la PCB de acondicionamiento de señal del sistema DAQ para banco de pruebas de motores cohete (p01), que integra transductores de presión, termopares y amplificadores de celda de carga.
 
-Este proyecto cubre un ciclo completo de diseño a fabricación: esquemático y layout en KiCad → G-code con FlatCAM → fresado con la máquina convertida → circuito funcional. Demuestra directamente manejo de herramienta EDA real y fabricación física de PCB a bajo costo (~2019).`,
+Este proyecto cubre un ciclo completo de diseño a fabricación: esquemático y layout en KiCad → G-code con FlatCAM → fresado con la máquina convertida → circuito funcional. Demuestra fabricación de PCB en casa aplicada a proyectos reales publicados (~2019).`,
     highlights: [
       'Conversión completa de hardware: extrusor desmontado, husillo mototool montado, shield CNC instalada',
       'Pruebas de calibración en madera antes de fresar cobre — validación de control de movimiento y profundidad',
-      'Layout de PCB diseñado en KiCad — flujo EDA completo desde esquemático hasta Gerber y G-code',
-      'PCB fresada para fuente conmutada mini (siguiendo diseño de referencia) — circuito funcionó correctamente',
-      'PCB integrada en conmutador de señales (LEDs + switches) para proyecto independiente en UPIITA-IPN',
+      'Layouts de PCB diseñados en KiCad — flujo EDA completo desde esquemático hasta Gerber y G-code',
+      'PCB fresada para fuente conmutada mini → integrada en conmutador de señales en UPIITA-IPN',
+      'PCB de acondicionamiento de señal del DAQ (p01) fresada internamente — fabricación en casa aplicada a proyecto publicado',
     ],
     evidence: [
       'Archivos de proyecto KiCad (esquemático + layout)',

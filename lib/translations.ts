@@ -135,12 +135,12 @@ const T = {
         },
         h03: {
           category: 'Firmware + Control Systems',
-          title: 'Adaptive PID Controller — Auto-Tuning on STM32 (−35% Settling Time)',
-          description: 'Self-tuning PID controller in embedded C++ on STM32 Cortex-M. Extended Ziegler-Nichols algorithm identifies system dynamics online and updates gains without shutdown. Achieved a quantified 35% reduction in settling time versus manual tuning, validated on the real propulsion test bench.',
+          title: 'Adaptive PID Controller — Auto-Tuning on STM32H753ZI, Furuta Pendulum (−35% Settling Time)',
+          description: 'Self-tuning PID controller in embedded C++ on STM32H753ZI (Cortex-M7). Applied to a Furuta rotary inverted pendulum — a classic nonlinear underactuated control benchmark. Extended Ziegler-Nichols auto-tuning identifies plant dynamics online and updates gains without shutdown. Fixed-point arithmetic in the ISR ensures deterministic real-time behavior.',
           badge: 'Quantified Impact',
-          hardware: ['STM32 Cortex-M','ADC sensors','PWM actuator outputs'],
+          hardware: ['STM32H753ZI (Cortex-M7)','Furuta pendulum (plant)','ADC encoder feedback','PWM motor output'],
           firmware: ['C++ (STM32 HAL)','Extended Ziegler-Nichols','Fixed-point ISR','UART logging'],
-          metric_labels: ['Settling time', 'Control loop rate', 'Overshoot reduction']
+          metric_labels: ['Settling time reduction', 'Control loop rate', 'Overshoot reduction']
         },
         h04: {
           category: 'Hardware Hacking + PCB Fabrication',
@@ -429,12 +429,12 @@ const T = {
         },
         h03: {
           category: 'Firmware + Sistemas de Control',
-          title: 'Controlador PID Adaptativo — Auto-Sintonización en STM32 (−35% Tiempo de Establecimiento)',
-          description: 'Controlador PID auto-sintonizable en C++ embebido en STM32 Cortex-M. El algoritmo Ziegler-Nichols extendido identifica la dinámica del sistema en línea y actualiza las ganancias sin interrupción. Logró una reducción cuantificada del 35% en el tiempo de establecimiento frente a la sintonía manual, validado en el banco de pruebas de propulsión real.',
+          title: 'Controlador PID Adaptativo — STM32H753ZI, Péndulo de Furuta (−35% Tiempo de Establecimiento)',
+          description: 'Controlador PID auto-sintonizable en C++ embebido en STM32H753ZI (Cortex-M7). Aplicado a un péndulo de Furuta (péndulo invertido rotatorio) — referencia clásica de control no lineal subactuado. El algoritmo Ziegler-Nichols extendido identifica la dinámica de la planta en línea y actualiza las ganancias sin interrupción. Aritmética de punto fijo en el ISR para comportamiento determinista en tiempo real.',
           badge: 'Impacto Cuantificado',
-          hardware: ['STM32 Cortex-M','Sensores ADC','Salidas de actuador PWM'],
+          hardware: ['STM32H753ZI (Cortex-M7)','Péndulo de Furuta (planta)','Retroalimentación ADC encoder','Salida PWM motor'],
           firmware: ['C++ (STM32 HAL)','Ziegler-Nichols extendido','ISR de punto fijo','Registro UART'],
-          metric_labels: ['Tiempo de establecimiento', 'Tasa de bucle de control', 'Reducción de sobreimpulso']
+          metric_labels: ['Reducción de tiempo de establecimiento', 'Tasa de bucle de control', 'Reducción de sobreimpulso']
         },
         h04: {
           category: 'Hack de Hardware + Fabricación de PCB',
