@@ -91,7 +91,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-6 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-text-muted font-mono">
-            © {new Date().getFullYear()} Jair Molina Arce · Next.js 14 + Tailwind CSS · v1.1.2
+            © {new Date().getFullYear()} Jair Molina Arce · Next.js 14 + Tailwind CSS · v1.1.4
           </p>
           <div className="flex items-center gap-4">
             <span className="text-xs text-text-muted font-mono">{t.footer?.cofounder || 'CO.DE Aerospace Co-Founder'}</span>
