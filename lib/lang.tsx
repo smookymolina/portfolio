@@ -21,6 +21,11 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
     if (stored === 'en' || stored === 'es') setLang(stored);
   }, []);
 
+  // Keep <html lang> in sync for screen readers and search engines
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const toggle = () => {
     const next: Lang = lang === 'en' ? 'es' : 'en';
     setLang(next);

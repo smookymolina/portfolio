@@ -186,12 +186,15 @@ export default function ProjectDetail({ project: initialProject }: { project: Pr
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-border-subtle flex flex-col sm:flex-row justify-between gap-4">
+        <div className="mt-16 pt-8 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
           <Link href="/projects" className="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-accent transition-colors">
             <ArrowLeft size={14} /> {c.all_projects}
           </Link>
-          <Link href="/highlights" className="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-accent transition-colors">
-            {c.eng_highlights} <ExternalLink size={14} />
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-background font-medium text-sm rounded hover:bg-accent/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+          >
+            {t.home.get_in_touch} <ExternalLink size={14} />
           </Link>
         </div>
       </div>

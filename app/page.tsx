@@ -1,35 +1,32 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, ExternalLink, Tv } from 'lucide-react';
+import { ArrowRight, ExternalLink, Github, Linkedin, Mail, Tv } from 'lucide-react';
 import { CLASS_A_PROJECTS } from '@/lib/projects';
 import ProjectCard from '@/components/ProjectCard';
 import TechBadge from '@/components/TechBadge';
 import FallbackImage from '@/components/FallbackImage';
 import ProfileCarousel from '@/components/ProfileCarousel';
 import { useLang } from '@/lib/lang';
-import { useTheme } from '@/lib/theme';
+import { SITE } from '@/lib/site';
 
-const CV = '/cv/CV_Jair_Molina_Arce_2026_v2.pdf';
+const CV = SITE.cv;
+const EMAIL = SITE.email;
+
+const HW_STACK = ['ESP32', 'STM32', 'C/C++', 'UART · SPI · I2C', 'MQTT', 'KiCad', 'DAQ'];
+const SW_STACK = ['Python', 'LabVIEW', 'MATLAB/Simulink', 'ANSYS · FEA', 'SolidWorks', 'Docker', 'Flask'];
 
 export default function HomePage() {
   const { t, lang } = useLang();
   const h = t.home;
-  const { theme } = useTheme();
 
   const MEDIA = h.media_list || [];
 
   const STATS = [
-    { value: 'MSc. AT',      label: h.stat_msc_label,    sub: h.stat_msc_sub },
-    { value: '3×',           label: h.stat_pub_label,    sub: 'IAC · Springer · Revista' },
-    { value: '4×',           label: h.stat_tv_label,     sub: 'TV Azteca · ADN40 · Canal Once' },
-    { value: '6h → 20min',   label: h.stat_daq_label,    sub: h.stat_daq_sub },
-  ];
-
-  const TECH_STACK = [
-    'ESP32','STM32','C/C++','MQTT','Python',
-    'UART · SPI · I2C','LabVIEW','ANSYS','FEA',
-    'Flask','Docker','MATLAB/Simulink',
+    { value: '6h → 20min', label: h.stat_daq_label, sub: h.stat_daq_sub },
+    { value: '3×',         label: h.stat_pub_label, sub: 'IAC · Springer · Revista' },
+    { value: 'MSc.',       label: h.stat_msc_label, sub: h.stat_msc_sub },
+    { value: '4×',         label: h.stat_tv_label,  sub: 'TV Azteca · ADN40 · Canal Once' },
   ];
 
   return (
@@ -51,51 +48,63 @@ export default function HomePage() {
                   </span>
                 </div>
 
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-text-primary leading-[1.1] mb-2">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-text-primary leading-[1.1] mb-3">
                   Jair<br />Molina Arce
                 </h1>
+                <p className="font-mono text-xs md:text-sm text-text-secondary">{h.hero_role}</p>
               </div>
 
-              {/* Smaller glass card wrapping only the specific subtitle, CV title, and description */}
               <div className="bg-background/55 backdrop-blur-sm rounded-xl p-5 border border-white/[0.05] max-w-xl shadow-lg">
-                <p className="text-lg md:text-xl lg:text-2xl text-text-primary mb-2 font-light leading-snug">
-                  {h.hero_subtitle}
+                <p className="text-lg md:text-xl lg:text-2xl text-text-primary mb-3 font-light leading-snug">
+                  {h.hero_tagline}
                 </p>
-                <p className="font-mono text-xs text-text-secondary mb-4">{h.hero_title_cv}</p>
                 <p className="text-sm md:text-base text-text-secondary leading-relaxed font-light">
                   {h.hero_description}
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-3 pt-2">
-                <Link
-                  href="/highlights"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-background font-medium text-sm rounded hover:bg-accent/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
-                >
-                  {h.cta_highlights} <ArrowRight size={15} />
-                </Link>
+              <div className="flex flex-wrap items-center gap-3 pt-2">
                 <Link
                   href="/projects"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-secondary text-sm rounded hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-background font-medium text-sm rounded hover:bg-accent/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
                 >
-                  {h.cta_projects}
+                  {h.cta_projects} <ArrowRight size={15} />
                 </Link>
                 <a
                   href={CV}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-secondary text-sm font-mono rounded hover:border-border-subtle hover:text-text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-secondary text-sm font-mono rounded hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
                 >
                   CV.pdf <ExternalLink size={14} />
                 </a>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="https://github.com/smookymolina"
+                    target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+                    className="p-2.5 border border-border rounded text-text-secondary hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+                  >
+                    <Github size={16} />
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/jair-molina-arce-4909622b2"
+                    target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+                    className="p-2.5 border border-border rounded text-text-secondary hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+                  >
+                    <Linkedin size={16} />
+                  </a>
+                </div>
               </div>
 
-
-
-              <div className="flex flex-wrap gap-1.5 pt-2">
-                {TECH_STACK.map((tag) => (
-                  <TechBadge key={tag} label={tag} variant="muted" />
-                ))}
+              <div className="space-y-2 pt-2">
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <span className="font-mono text-xs text-text-muted mr-1">{h.hw_stack_label}</span>
+                  {HW_STACK.map((tag) => <TechBadge key={tag} label={tag} variant="accent" />)}
+                </div>
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <span className="font-mono text-xs text-text-muted mr-1">{h.sw_stack_label}</span>
+                  {SW_STACK.map((tag) => <TechBadge key={tag} label={tag} variant="muted" />)}
+                </div>
               </div>
             </div>
 
@@ -118,46 +127,6 @@ export default function HomePage() {
                 <p className="text-xs text-text-muted">{s.sub}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── DEMO REEL VIDEO ── */}
-      <section className="max-w-7xl mx-auto px-6 md:px-12 pt-16 md:pt-24">
-        <div className="relative border border-border-subtle bg-surface-alt/45 backdrop-blur-md rounded-xl p-6 md:p-10 overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-[280px] h-[280px] md:w-[500px] md:h-[500px] rounded-full bg-accent/[0.02] blur-[120px] pointer-events-none" />
-          
-          <div className="grid lg:grid-cols-[1fr_1.6fr] gap-8 lg:gap-12 items-center relative z-10">
-            {/* Left: Info */}
-            <div className="flex flex-col justify-center">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-                <span className="font-mono text-xs text-accent tracking-widest uppercase">
-                  {h.video_label}
-                </span>
-              </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-text-primary mb-4 leading-snug">
-                {h.video_title}
-              </h2>
-              <p className="text-text-secondary leading-relaxed text-sm md:text-base mb-6 font-light">
-                {h.video_desc}
-              </p>
-              
-              <div className="inline-flex items-center gap-2 text-xs font-mono text-text-muted bg-surface border border-border-subtle rounded-md px-3 py-1.5 self-start">
-                {t.common.play_pause_enabled}
-              </div>
-            </div>
-            
-            {/* Right: Video player container */}
-            <div className="relative aspect-video rounded-lg overflow-hidden border border-border bg-black/50 shadow-2xl group transition-all duration-300 hover:border-accent/45">
-              <video
-                src="/videos/capsula.mp4"
-                controls
-                preload="metadata"
-                className="w-full h-full object-cover relative z-10"
-              />
-              <div className="absolute inset-0 grid-bg opacity-10 pointer-events-none" />
-            </div>
           </div>
         </div>
       </section>
@@ -197,7 +166,7 @@ export default function HomePage() {
               <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-text-primary mb-4 leading-snug">{h.pub_title}</h2>
               <p className="text-text-secondary mb-6 leading-relaxed text-sm md:text-base">{h.pub_desc}</p>
               <div className="flex flex-wrap gap-2 mb-6">
-                {['IAF','Small Satellites','IAC 2024','Milan Italy','CubeSat'].map((tag) => (
+                {['IAF', 'Small Satellites', 'IAC 2024', 'Milan Italy', 'CubeSat'].map((tag) => (
                   <TechBadge key={tag} label={tag} variant="accent" />
                 ))}
               </div>
@@ -210,7 +179,7 @@ export default function HomePage() {
               </a>
             </div>
             <div className="relative aspect-video bg-surface rounded-lg border border-border-subtle overflow-hidden">
-              <FallbackImage src="/images/research/iac-milan.jpeg" alt={lang === 'en' ? "IAC 2024 — Milan, Italy" : "IAC 2024 — Milán, Italia"} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-80" />
+              <FallbackImage src="/images/research/iac-milan.jpeg" alt={lang === 'en' ? 'IAC 2024 — Milan, Italy' : 'IAC 2024 — Milán, Italia'} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-80" />
               <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
               <div className="absolute bottom-3 left-3 font-mono text-xs text-text-muted">IAC 2024 · {lang === 'en' ? 'Milan, Italy' : 'Milán, Italia'}</div>
             </div>
@@ -218,94 +187,98 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── NATIONAL MEDIA ── */}
+      {/* ── PROFILE ── */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
-        <div className="mb-8 md:mb-10">
-          <p className="font-mono text-xs text-accent tracking-widest uppercase mb-2">{h.media_label}</p>
-          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-3">{h.media_title}</h2>
-          <p className="text-text-secondary max-w-2xl leading-relaxed text-sm md:text-base">{h.media_desc}</p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-          {MEDIA.map((m) => (
-            <div key={m.channel + m.program} className="bg-surface-alt border border-border-subtle rounded-lg p-4 md:p-5 hover:border-accent/30 transition-colors">
-              <div className="flex items-center gap-2 mb-3">
-                <Tv size={13} className="text-accent shrink-0" />
-                <span className="font-mono text-xs text-accent font-medium truncate">{m.channel}</span>
-              </div>
-              <p className="text-xs md:text-sm font-medium text-text-primary mb-1">{m.program}</p>
-              <p className="text-xs text-text-muted leading-relaxed">{m.topic}</p>
-              <p className="font-mono text-xs text-text-muted mt-2 pt-2 border-t border-border-subtle">{m.year}</p>
+        <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+          <div className="space-y-6">
+            <div>
+              <p className="font-mono text-xs text-accent tracking-widest uppercase mb-4">{h.profile_label}</p>
+              <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-6 leading-snug">{h.profile_title}</h2>
+              <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_desc1}</p>
+              <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_desc2}</p>
+              <p className="text-text-secondary mb-8 leading-relaxed text-sm md:text-base">{h.profile_desc3}</p>
             </div>
-          ))}
+
+            <div className="pt-2">
+              <div className="flex flex-wrap gap-3 mb-6">
+                <Link href="/about" className="inline-flex items-center gap-2 text-sm font-mono text-accent hover:text-accent/80 transition-colors">
+                  {h.full_profile} <ArrowRight size={14} />
+                </Link>
+                <a href={CV} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-text-primary transition-colors">
+                  <ExternalLink size={13} /> {h.download_cv}
+                </a>
+              </div>
+              <div className="flex flex-wrap gap-2 mt-4">
+                {['CVU CONACYT: 1340773', 'ORCID: 0009-0009-6732-8100', 'IPN · CDMX'].map((id) => (
+                  <span key={id} className="font-mono text-xs px-2 py-1 bg-surface border border-border-subtle text-text-muted rounded">
+                    {id}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Skill grid — from CV specialization table */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {h.skill_labels.map((label, i) => (
+              <div
+                key={label}
+                className={`p-3 md:p-4 rounded border ${
+                  i === 0 || i === 4
+                    ? 'bg-accent/5 border-accent/20'
+                    : 'bg-surface border-border-subtle'
+                }`}
+              >
+                <p className="text-xs md:text-sm font-medium text-text-primary mb-1">{label}</p>
+                <p className="font-mono text-xs text-text-muted leading-relaxed">{h.skill_details[i]}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── PROFILE (CV-BASED) ── */}
-      <section className="border-t border-border-subtle bg-surface-alt">
+      {/* ── NATIONAL MEDIA + DEMO REEL ── */}
+      <section className="border-y border-border-subtle bg-surface-alt">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
-            <div className="space-y-6">
-              <div className={theme === 'dark' ? "bg-background/55 backdrop-blur-sm rounded-2xl p-5 md:p-7 border border-white/[0.05] shadow-lg" : ""}>
-                <p className="font-mono text-xs text-accent tracking-widest uppercase mb-4">
-                  {theme === 'dark' ? '// perfil de ingeniero' : h.profile_label}
-                </p>
-                <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-6 leading-snug">
-                  {theme === 'dark' ? 'Jair Molina Arce' : h.profile_title}
-                </h2>
-                {theme === 'dark' ? (
-                  <>
-                    <p className="text-lg font-medium text-text-primary mb-4">{h.profile_dark_subtitle}</p>
-                    <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_dark_desc1}</p>
-                    <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_dark_desc2}</p>
-                    <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_dark_desc3}</p>
-                    <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_dark_desc4}</p>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_desc1}</p>
-                    <p className="text-text-secondary mb-4 leading-relaxed text-sm md:text-base">{h.profile_desc2}</p>
-                    <p className="text-text-secondary mb-8 leading-relaxed text-sm md:text-base">{h.profile_desc3}</p>
-                  </>
-                )}
-              </div>
+          <div className="mb-8 md:mb-10">
+            <p className="font-mono text-xs text-accent tracking-widest uppercase mb-2">{h.media_label}</p>
+            <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-3">{h.media_title}</h2>
+            <p className="text-text-secondary max-w-2xl leading-relaxed text-sm md:text-base">{h.media_desc}</p>
+          </div>
 
-              <div className="pt-2">
-                <div className="flex flex-wrap gap-3 mb-6">
-                  <Link href="/about" className="inline-flex items-center gap-2 text-sm font-mono text-accent hover:text-accent/80 transition-colors">
-                    {h.full_profile} <ArrowRight size={14} />
-                  </Link>
-                  <a href={CV} target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-mono text-text-muted hover:text-text-primary transition-colors">
-                    <ExternalLink size={13} /> {h.download_cv}
-                  </a>
-                </div>
-                {/* Key identifiers */}
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {['CVU CONACYT: 1340773', 'ORCID: 0009-0009-6732-8100', 'IPN · CDMX'].map((id) => (
-                    <span key={id} className="font-mono text-xs px-2 py-1 bg-surface border border-border-subtle text-text-muted rounded">
-                      {id}
-                    </span>
-                  ))}
-                </div>
+          <div className="grid lg:grid-cols-[1.6fr_1fr] gap-8 items-start mb-10">
+            <div className="relative aspect-video rounded-lg overflow-hidden border border-border bg-black/50 shadow-2xl">
+              <video
+                src="/videos/capsula.mp4"
+                controls
+                preload="none"
+                poster="/images/research/iac-milan.jpeg"
+                className="w-full h-full object-cover relative z-10"
+              />
+            </div>
+            <div className="flex flex-col justify-center h-full">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                <span className="font-mono text-xs text-accent tracking-widest uppercase">{h.video_label}</span>
               </div>
+              <h3 className="text-xl md:text-2xl font-semibold text-text-primary mb-3 leading-snug">{h.video_title}</h3>
+              <p className="text-text-secondary leading-relaxed text-sm md:text-base">{h.video_desc}</p>
             </div>
+          </div>
 
-            {/* Skill grid — from CV specialization table */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {h.skill_labels.map((label, i) => (
-                <div
-                  key={label}
-                  className={`p-3 md:p-4 rounded border ${
-                    i === 0 || i === 4
-                      ? 'bg-accent/5 border-accent/20'
-                      : 'bg-surface border-border-subtle'
-                  }`}
-                >
-                  <p className="text-xs md:text-sm font-medium text-text-primary mb-1">{label}</p>
-                  <p className="font-mono text-xs text-text-muted leading-relaxed">{h.skill_details[i]}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            {MEDIA.map((m) => (
+              <div key={m.channel + m.program} className="bg-surface border border-border-subtle rounded-lg p-4 md:p-5 hover:border-accent/30 transition-colors">
+                <div className="flex items-center gap-2 mb-3">
+                  <Tv size={13} className="text-accent shrink-0" />
+                  <span className="font-mono text-xs text-accent font-medium truncate">{m.channel}</span>
                 </div>
-              ))}
-            </div>
+                <p className="text-xs md:text-sm font-medium text-text-primary mb-1">{m.program}</p>
+                <p className="text-xs text-text-muted leading-relaxed">{m.topic}</p>
+                <p className="font-mono text-xs text-text-muted mt-2 pt-2 border-t border-border-subtle">{m.year}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -316,18 +289,21 @@ export default function HomePage() {
           <p className="font-mono text-xs text-accent tracking-widest uppercase mb-4">{h.cta_label}</p>
           <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-text-primary mb-4">{h.cta_title}</h2>
           <p className="text-text-secondary max-w-lg mx-auto mb-8 leading-relaxed text-sm md:text-base">{h.cta_desc}</p>
-          <div className="flex flex-wrap gap-3 md:gap-4 justify-center">
+          <div className="flex flex-wrap gap-3 md:gap-4 justify-center mb-6">
             <Link href="/contact"
               className="inline-flex items-center gap-2 px-6 md:px-7 py-2.5 md:py-3 bg-accent text-background font-medium text-sm rounded hover:bg-accent/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
             >
               {h.get_in_touch} <ArrowRight size={15} />
             </Link>
-            <Link href="/highlights"
+            <a href={CV} target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 md:px-7 py-2.5 md:py-3 border border-border text-text-secondary text-sm rounded hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
             >
-              {h.see_highlights}
-            </Link>
+              {h.download_cv}
+            </a>
           </div>
+          <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-2 font-mono text-sm text-text-secondary hover:text-accent transition-colors">
+            <Mail size={14} /> {EMAIL}
+          </a>
         </div>
       </section>
     </>

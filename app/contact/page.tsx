@@ -1,28 +1,57 @@
 'use client';
 
-import { Mail, Github, Linkedin, ExternalLink, MapPin, Download } from 'lucide-react';
+import { useState } from 'react';
+import { Mail, Github, Linkedin, ExternalLink, MapPin, Download, Copy, Check } from 'lucide-react';
 import SectionHeader from '@/components/SectionHeader';
 import TechBadge from '@/components/TechBadge';
 import { useLang } from '@/lib/lang';
+import { SITE } from '@/lib/site';
 
-const CV = '/cv/CV_Jair_Molina_Arce_2026_v2.pdf';
+const CV = SITE.cv;
+const EMAIL = SITE.email;
 
 export default function ContactPage() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const c = t.contact;
   const POSITIONS = c.positions_list;
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard unavailable (e.g. insecure context) — mailto link still works
+    }
+  };
 
   const LINKS = [
-    { icon: Mail,         label: 'Email',    sub: 'ingjarimolina@gmail.com',             href: 'mailto:ingjarimolina@gmail.com' },
-    { icon: Linkedin,     label: 'LinkedIn', sub: 'jair-molina-arce-4909622b2',           href: 'https://linkedin.com/in/jair-molina-arce-4909622b2' },
-    { icon: Github,       label: 'GitHub',   sub: 'github.com/smookymolina',              href: 'https://github.com/smookymolina' },
-    { icon: ExternalLink, label: 'ORCID',    sub: '0009-0009-6732-8100',                  href: 'https://orcid.org/0009-0009-6732-8100' },
+    { icon: Mail,         label: 'Email',    sub: EMAIL,                        href: `mailto:${EMAIL}` },
+    { icon: Linkedin,     label: 'LinkedIn', sub: 'jair-molina-arce-4909622b2', href: SITE.linkedin },
+    { icon: Github,       label: 'GitHub',   sub: 'github.com/smookymolina',    href: SITE.github },
+    { icon: ExternalLink, label: 'ORCID',    sub: '0009-0009-6732-8100',        href: SITE.orcid },
   ];
 
   return (
     <div className="pt-24 pb-32">
       <div className="max-w-4xl mx-auto px-6 md:px-12">
         <SectionHeader label={c.label} title={c.title} subtitle={c.subtitle} />
+
+        {/* Primary contact strip: email visible + one-click copy */}
+        <div className="flex flex-wrap items-center gap-3 mb-12 p-4 bg-surface-alt border border-accent/20 rounded-lg">
+          <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-2 font-mono text-sm md:text-base text-text-primary hover:text-accent transition-colors">
+            <Mail size={15} className="text-accent" /> {EMAIL}
+          </a>
+          <button
+            onClick={copyEmail}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono border border-border rounded text-text-secondary hover:border-accent hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+          >
+            {copied
+              ? <><Check size={12} className="text-accent-green" /> {lang === 'en' ? 'Copied' : 'Copiado'}</>
+              : <><Copy size={12} /> {lang === 'en' ? 'Copy' : 'Copiar'}</>}
+          </button>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-10 mb-12">
           {/* Contact channels */}

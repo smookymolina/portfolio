@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { useLang } from '@/lib/lang';
 import { useTheme } from '@/lib/theme';
+import { SITE } from '@/lib/site';
 
-const CV = '/cv/CV_Jair_Molina_Arce_2026_v2.pdf';
+const CV = SITE.cv;
 
 export default function Footer() {
   const { t } = useLang();
@@ -66,20 +67,20 @@ export default function Footer() {
             <div className="font-mono text-xs text-text-muted mb-4">{t.nav.connect}</div>
             <div className="flex flex-col gap-3">
               <a
-                href="mailto:ingjarimolina@gmail.com"
+                href={`mailto:${SITE.email}`}
                 className="flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded"
               >
-                <Mail size={14} /> ingjarimolina@gmail.com
+                <Mail size={14} /> {SITE.email}
               </a>
               <a
-                href="https://github.com/smookymolina"
+                href={SITE.github}
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors"
               >
                 <Github size={14} /> github.com/smookymolina
               </a>
               <a
-                href="https://linkedin.com/in/jair-molina-arce-4909622b2"
+                href={SITE.linkedin}
                 target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors"
               >
@@ -91,7 +92,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-6 border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-text-muted font-mono">
-            © {new Date().getFullYear()} Jair Molina Arce · Next.js 14 + Tailwind CSS · v1.1.4
+            © {new Date().getFullYear()} Jair Molina Arce · Next.js 14 + Tailwind CSS · v2.0
           </p>
           <div className="flex items-center gap-4">
             <span className="text-xs text-text-muted font-mono">{t.footer?.cofounder || 'CO.DE Aerospace Co-Founder'}</span>

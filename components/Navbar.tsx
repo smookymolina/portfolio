@@ -6,8 +6,9 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, Github, Linkedin, Sun, Moon } from 'lucide-react';
 import { useTheme } from '@/lib/theme';
 import { useLang } from '@/lib/lang';
+import { SITE } from '@/lib/site';
 
-const CV = '/cv/CV_Jair_Molina_Arce_2026_v2.pdf';
+const CV = SITE.cv;
 
 export default function Navbar() {
   const [open, setOpen]         = useState(false);
@@ -42,12 +43,11 @@ export default function Navbar() {
   }, [open]);
 
   const NAV_LINKS = [
-    { href: '/',           label: t.nav.home },
-    { href: '/about',      label: t.nav.about },
-    { href: '/highlights', label: t.nav.highlights },
-    { href: '/projects',   label: t.nav.projects },
-    { href: '/research',   label: t.nav.research },
-    { href: '/contact',    label: t.nav.contact },
+    { href: '/',         label: t.nav.home },
+    { href: '/projects', label: t.nav.projects },
+    { href: '/research', label: t.nav.research },
+    { href: '/about',    label: t.nav.about },
+    { href: '/contact',  label: t.nav.contact },
   ];
 
   return (
