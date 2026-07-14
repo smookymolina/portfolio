@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
@@ -23,26 +23,56 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://jairmolina.dev'),
-  title: 'Jair Molina Arce — Embedded Systems & Advanced Technology Engineer',
+  title: 'Jair Molina Arce — Mechanical Engineer · Embedded Systems & Instrumentation',
   description:
-    'Embedded Systems & Advanced Technology Engineer. Firmware, IoT, Aerospace Instrumentation, Control Systems. IPN · IAC 2024 · ESP32 · STM32 · CO.DE Aerospace.',
+    'Mechanical Engineer (IPN) specialized in embedded systems and instrumentation: rocket propulsion test benches, DAQ, C/C++ firmware on ESP32/STM32, FEA/thermal simulation. IAC 2024 speaker · 3 peer-reviewed publications.',
   keywords: [
-    'Embedded Systems Engineer', 'Firmware Engineer', 'IoT', 'ESP32', 'STM32',
-    'Aerospace', 'Instrumentation', 'DAQ', 'PID Control', 'Mechatronics', 'IPN Mexico', 'IAC 2024',
+    'Mechanical Engineer', 'Embedded Systems Engineer', 'Mechatronics', 'Instrumentation', 'DAQ',
+    'Firmware Engineer', 'ESP32', 'STM32', 'C/C++', 'FEA', 'Thermal Simulation', 'ANSYS',
+    'Aerospace', 'Rocket Propulsion Test Bench', 'PID Control', 'IPN Mexico', 'IAC 2024',
   ],
   authors: [{ name: 'Jair Molina Arce', url: 'https://github.com/smookymolina' }],
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    alternateLocale: 'es_MX',
-    title: 'Jair Molina Arce — Embedded Systems Engineer',
-    description: 'Firmware, IoT, Aerospace Instrumentation & Control Systems. IPN Researcher. IAC 2024 Speaker.',
+    locale: 'es_MX',
+    alternateLocale: 'en_US',
+    title: 'Jair Molina Arce — Mechanical Engineer · Embedded Systems & Instrumentation',
+    description: 'From sensor to dashboard: complete systems — CAD and FEA to C/C++ firmware. IAC 2024 speaker · IPN.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Jair Molina Arce — Embedded Systems Engineer',
-    description: 'Firmware, IoT, Aerospace Instrumentation & Control Systems.',
+    title: 'Jair Molina Arce — Mechanical Engineer · Embedded Systems & Instrumentation',
+    description: 'From sensor to dashboard: complete systems — CAD and FEA to C/C++ firmware.',
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#0A0A0A' },
+    { media: '(prefers-color-scheme: light)', color: '#F2F0EC' },
+  ],
+};
+
+const PERSON_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Jair Molina Arce',
+  url: 'https://jairmolina.dev',
+  email: 'mailto:ingjarimolina@gmail.com',
+  jobTitle: 'Mechanical Engineer — Embedded Systems & Instrumentation',
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Instituto Politécnico Nacional',
+  },
+  knowsAbout: [
+    'Embedded Systems', 'Instrumentation', 'Data Acquisition', 'Firmware (C/C++)',
+    'Mechanical Engineering', 'FEA', 'Thermal Simulation', 'Control Systems', 'Aerospace',
+  ],
+  sameAs: [
+    'https://github.com/smookymolina',
+    'https://linkedin.com/in/jair-molina-arce-4909622b2',
+    'https://orcid.org/0009-0009-6732-8100',
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -50,6 +80,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" data-theme="dark" suppressHydrationWarning
       className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-background text-text-primary min-h-screen">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSONLD) }}
+        />
         <ThemeProvider>
           <VantaBackground />
           <LangProvider>

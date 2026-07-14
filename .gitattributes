@@ -1,0 +1,11 @@
+# Never apply line-ending normalization to binary assets
+*.pdf  binary
+*.mp4  binary
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.webp binary
+*.gif  binary
+*.ico  binary
+*.woff binary
+*.woff2 binary

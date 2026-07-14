@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'Jair Molina Arce — Embedded Systems & Advanced Technology Engineer';
+export const alt = 'Jair Molina Arce — Mechanical Engineer · Embedded Systems & Instrumentation';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -55,7 +55,7 @@ export default async function Image() {
             <span style={{ color: '#00C2FF', fontSize: 14, fontWeight: 600, fontFamily: 'monospace' }}>JM</span>
           </div>
           <span style={{ color: 'rgba(0,194,255,0.8)', fontSize: 13, fontFamily: 'monospace', letterSpacing: 3 }}>
-            EMBEDDED SYSTEMS · AEROSPACE · IoT · FIRMWARE
+            MECHANICAL ENGINEERING · EMBEDDED SYSTEMS · INSTRUMENTATION
           </span>
         </div>
 
@@ -68,10 +68,10 @@ export default async function Image() {
             Jair Molina Arce
           </h1>
           <p style={{ color: '#888', fontSize: 28, margin: 0, fontWeight: 300 }}>
-            Embedded Systems & Advanced Technology Engineer
+            Mechanical Engineer (IPN) — Embedded Systems & Instrumentation
           </p>
           <div style={{ display: 'flex', gap: 24, marginTop: 16 }}>
-            {['ESP32 · STM32', 'IAC 2024 Milan', 'IPN Researcher', 'CO.DE Aerospace'].map((tag) => (
+            {['ESP32 · STM32 · C/C++', 'DAQ · FEA', 'IAC 2024 Milan', 'CO.DE Aerospace'].map((tag) => (
               <div key={tag} style={{
                 color: '#00C2FF', fontSize: 13, fontFamily: 'monospace',
                 border: '1px solid rgba(0,194,255,0.25)',

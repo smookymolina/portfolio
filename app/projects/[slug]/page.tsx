@@ -14,6 +14,17 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: `${project.title} — Jair Molina Arce`,
     description: project.tagline,
+    openGraph: {
+      title: project.title,
+      description: project.tagline,
+      images: [{ url: project.coverImage, width: 1200, height: 900, alt: project.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: project.title,
+      description: project.tagline,
+      images: [project.coverImage],
+    },
   };
 }
 

@@ -34,6 +34,11 @@ export default function VantaBackground() {
     if (typeof window === 'undefined') return;
     if (!containerRef.current) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // Skip the WebGL background on small screens and metered connections:
+    // static grid-bg still renders, and LCP stays fast on weak devices
+    if (window.matchMedia('(max-width: 767px)').matches) return;
+    const conn = (navigator as { connection?: { saveData?: boolean } }).connection;
+    if (conn?.saveData) return;
 
     const { bg, color, points, maxDistance, spacing } = PALETTE[theme];
     let cancelled = false;
