@@ -13,7 +13,7 @@ import { SITE } from '@/lib/site';
 const CV = SITE.cv;
 const EMAIL = SITE.email;
 
-const HW_STACK = ['ESP32', 'STM32', 'RP2350', 'C/C++', 'MicroPython', 'CAN bus · OBD-II', 'UART · SPI · I2C', 'MQTT · 4G', 'KiCad', 'DAQ'];
+const HW_STACK = ['Microcontroladores', 'C/C++', 'RTOS', 'CAN bus · OBD-II', 'UART · SPI · I2C', 'MQTT · 4G', 'Diseño de PCBs', 'DAQ'];
 const SW_STACK = ['Python', 'LabVIEW', 'MATLAB/Simulink', 'ANSYS · FEA', 'SolidWorks', 'Docker', 'Flask'];
 
 // Slugs + images for the embedded-systems journey section (text lives in translations)

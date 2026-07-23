@@ -10,7 +10,7 @@ const T = {
     home: {
       hero_label: 'Embedded Systems · Firmware · Hardware & Instrumentation',
       hero_role: 'Embedded Systems Engineer — Firmware, PCB Design & Instrumentation (IPN)',
-      hero_tagline: 'Firmware, PCBs, and validated hardware: safety FSMs on RP2350/STM32/ESP32, mixed-signal KiCad boards, CAN bus and 4G telematics — real systems, fabricated and measured.',
+      hero_tagline: 'Firmware, PCBs, and validated hardware: safety FSMs on microcontrollers, mixed-signal PCB design, CAN bus and 4G telematics — real systems, fabricated and measured.',
       hero_description: 'MSc in Advanced Technologies (IPN) with a mechanical engineering base. Thesis: rocket motor test bench (structure + distributed DAQ + real-time app). Fabricated industrial PCB for Jaguar de México · Speaker at IAC 2024, Milan · Co-founder, CO.DE Aerospace.',
       hw_stack_label: '// hardware & firmware',
       sw_stack_label: '// software & simulation',
@@ -71,7 +71,7 @@ const T = {
         'Research & Publications',
       ],
       skill_details: [
-        'C/C++ · ESP32 · STM32 · Arduino',
+        'C/C++ · Microcontrollers · RTOS · Bare-metal',
         'Pressure · Temp · Load Cell · LabVIEW',
         'PID · Auto-Tune · MATLAB/Simulink',
         'SolidWorks · AutoCAD 2D/3D · ANSYS · Prodisis & Sasid · Structural Analysis · Renders',
@@ -110,7 +110,7 @@ const T = {
       timeline_label: '// experience',
       timeline_title: 'Timeline',
       skills: [
-        { category: 'Embedded Systems / IoT',  items: ['ESP32','STM32 (Cortex-M)','Arduino','C/C++ bare-metal','MQTT','UART · SPI · I2C','WiFi','OTA Updates'], variant: 'amber' },
+        { category: 'Embedded Systems / IoT',  items: ['Microcontrollers','Cortex-M','RTOS','C/C++ bare-metal','MQTT','UART · SPI · I2C','Wireless (WiFi/BLE)','OTA Updates'], variant: 'amber' },
         { category: 'Firmware Engineering',    items: ['C/C++ embedded','ARM Assembly (Thumb-2)','RTOS concepts','ISR / DMA','ADC multi-channel','PWM control','Watchdog timers'], variant: 'amber' },
         { category: 'Control Systems',         items: ['PID (classic & digital)','Auto-tuning (Z-N)','State space modeling','Linearization','LabVIEW','MATLAB/Simulink'], variant: 'accent' },
         { category: 'Instrumentation & DAQ',   items: ['Pressure transducers','Thermocouples (K-type)','Load cells + HX711','Signal conditioning','LabVIEW DAQ','Python (pandas/numpy)'], variant: 'accent' },
@@ -328,7 +328,7 @@ const T = {
     home: {
       hero_label: 'Sistemas Embebidos · Firmware · Hardware e Instrumentación',
       hero_role: 'Ingeniero en Sistemas Embebidos — Firmware, Diseño de PCB e Instrumentación (IPN)',
-      hero_tagline: 'Firmware, PCBs y hardware validado: FSMs de seguridad en RP2350/STM32/ESP32, placas mixed-signal en KiCad, CAN bus y telemática 4G — sistemas reales, fabricados y medidos.',
+      hero_tagline: 'Firmware, PCBs y hardware validado: FSMs de seguridad en microcontroladores, diseño de PCBs de señal mixta, CAN bus y telemática 4G — sistemas reales, fabricados y medidos.',
       hero_description: 'Maestría en Tecnologías Avanzadas (IPN) con base de ingeniería mecánica. Tesis: banco de pruebas de motores cohete (estructura + DAQ distribuido + app en tiempo real). PCB industrial fabricada para Jaguar de México · Ponente en IAC 2024, Milán · Co-fundador de CO.DE Aerospace.',
       hw_stack_label: '// hardware y firmware',
       sw_stack_label: '// software y simulación',
@@ -389,7 +389,7 @@ const T = {
         'Investigación y Publicaciones',
       ],
       skill_details: [
-        'C/C++ · ESP32 · STM32 · Arduino',
+        'C/C++ · Microcontroladores · RTOS · Bare-metal',
         'Presión · Temp · Celda de carga · LabVIEW',
         'PID · Auto-ajuste · MATLAB/Simulink',
         'SolidWorks · AutoCAD 2D/3D · ANSYS · Prodisis y Sasid · Análisis Estructural · Renders',
@@ -428,7 +428,7 @@ const T = {
       timeline_label: '// experiencia',
       timeline_title: 'Línea de Tiempo',
       skills: [
-        { category: 'Sistemas Embebidos / IoT',  items: ['ESP32','STM32 (Cortex-M)','Arduino','C/C++ bare-metal','MQTT','UART · SPI · I2C','WiFi','Actualizaciones OTA'], variant: 'amber' },
+        { category: 'Sistemas Embebidos / IoT',  items: ['Microcontroladores','Cortex-M','RTOS','C/C++ bare-metal','MQTT','UART · SPI · I2C','Wireless (WiFi/BLE)','Actualizaciones OTA'], variant: 'amber' },
         { category: 'Ingeniería de Firmware',    items: ['C/C++ embebido','Ensamblador ARM (Thumb-2)','Conceptos de RTOS','ISR / DMA','ADC multicanal','Control PWM','Temporizadores Watchdog'], variant: 'amber' },
         { category: 'Sistemas de Control',         items: ['PID (clásico y digital)','Auto-sintonización (Z-N)','Modelado en espacio de estados','Linealización','LabVIEW','MATLAB/Simulink'], variant: 'accent' },
         { category: 'Instrumentación y DAQ',   items: ['Transductores de presión','Termopares (tipo K)','Celdas de carga + HX711','Acondicionamiento de señales','LabVIEW DAQ','Python (pandas/numpy)'], variant: 'accent' },
