@@ -89,6 +89,28 @@ export default function ProjectDetail({ project: initialProject }: { project: Pr
               <p className="text-text-secondary leading-relaxed whitespace-pre-line">{project.description}</p>
             </div>
 
+            {project.process && project.process.length > 0 && (
+              <div>
+                <h2 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-6">{c.process}</h2>
+                <ol className="relative border-l border-border-subtle ml-3 space-y-8">
+                  {project.process.map((step, i) => (
+                    <li key={i} className="relative pl-8">
+                      <span className="absolute -left-[13px] top-0 flex h-[26px] w-[26px] items-center justify-center rounded-full bg-surface border border-accent/40 font-mono text-[10px] text-accent">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <h3 className="text-sm font-medium text-text-primary mb-1.5 leading-snug">{step.title}</h3>
+                      <p className="text-sm text-text-secondary leading-relaxed mb-3">{step.description}</p>
+                      {step.image && (
+                        <div className="relative aspect-video max-w-md bg-surface rounded border border-border-subtle overflow-hidden">
+                          <FallbackImage src={step.image} alt={step.title} fill sizes="(max-width: 768px) 100vw, 448px" className="object-cover opacity-85" />
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
             <div>
               <h2 className="font-mono text-xs text-text-muted uppercase tracking-widest mb-4">{c.highlights_section}</h2>
               <ul className="space-y-3">

@@ -13,8 +13,16 @@ import { SITE } from '@/lib/site';
 const CV = SITE.cv;
 const EMAIL = SITE.email;
 
-const HW_STACK = ['ESP32', 'STM32', 'C/C++', 'UART · SPI · I2C', 'MQTT', 'KiCad', 'DAQ'];
+const HW_STACK = ['ESP32', 'STM32', 'RP2350', 'C/C++', 'MicroPython', 'CAN bus · OBD-II', 'UART · SPI · I2C', 'MQTT · 4G', 'KiCad', 'DAQ'];
 const SW_STACK = ['Python', 'LabVIEW', 'MATLAB/Simulink', 'ANSYS · FEA', 'SolidWorks', 'Docker', 'Flask'];
+
+// Slugs + images for the embedded-systems journey section (text lives in translations)
+const JOURNEY_PROJECTS = [
+  { slug: 'tesis-banco-pruebas',      image: '/images/projects/tesis-banco-pruebas/hero.jpeg' },
+  { slug: 'jaguar-mx-thermal-control', image: '/images/projects/jaguar-mx/hero.jpeg' },
+  { slug: 'canbus-fleet-telematics',   image: '/images/projects/canbus-fleet/hero.jpeg' },
+  { slug: 'cubesat-ground-station',    image: '/images/projects/ground-station/hero.jpeg' },
+];
 
 export default function HomePage() {
   const { t, lang } = useLang();
@@ -128,6 +136,37 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── EMBEDDED SYSTEMS JOURNEY ── */}
+      <section className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
+        <div className="mb-10 md:mb-14 max-w-3xl">
+          <p className="font-mono text-xs text-accent tracking-widest uppercase mb-2">{h.journey_label}</p>
+          <h2 className="text-2xl md:text-3xl font-semibold text-text-primary mb-3">{h.journey_title}</h2>
+          <p className="text-text-secondary text-sm md:text-base leading-relaxed">{h.journey_desc}</p>
+        </div>
+
+        <div className="space-y-6 md:space-y-8">
+          {h.journey_items.map((item, i) => (
+            <Link
+              key={JOURNEY_PROJECTS[i].slug}
+              href={`/projects/${JOURNEY_PROJECTS[i].slug}`}
+              className="group grid md:grid-cols-[1fr_1.2fr] gap-0 md:gap-8 rounded-lg border border-border-subtle bg-surface hover:border-accent/40 transition-colors overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+            >
+              <div className={`relative aspect-video md:aspect-auto md:min-h-[220px] bg-background ${i % 2 === 1 ? 'md:order-2' : ''}`}>
+                <FallbackImage src={JOURNEY_PROJECTS[i].image} alt={item.title} fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <div className={`p-5 md:p-8 flex flex-col justify-center ${i % 2 === 1 ? 'md:order-1' : ''}`}>
+                <p className="font-mono text-[11px] text-accent tracking-widest mb-2">{item.step}</p>
+                <h3 className="text-lg md:text-xl font-semibold text-text-primary mb-2 leading-snug">{item.title}</h3>
+                <p className="text-sm text-text-secondary leading-relaxed mb-4">{item.desc}</p>
+                <span className="inline-flex items-center gap-2 text-sm font-mono text-accent">
+                  {h.journey_cta} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                </span>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 

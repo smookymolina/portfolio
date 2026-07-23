@@ -16,6 +16,12 @@ export interface Metric {
   unit?: string;
 }
 
+export interface ProcessStep {
+  title: string;
+  description: string;
+  image?: string;
+}
+
 export interface Project {
   id: string;
   slug: string;
@@ -33,6 +39,7 @@ export interface Project {
   software: string[];
   protocols?: string[];
   metrics?: Metric[];
+  process?: ProcessStep[];
   highlights: string[];
   evidence: string[];
   githubUrl?: string;
@@ -47,8 +54,371 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   // ──────────────────────────────
-  // CLASS A — HERO / COVER PROJECTS
+  // CLASS A — EMBEDDED SYSTEMS FLAGSHIP PROJECTS
   // ──────────────────────────────
+  {
+    id: 'p20',
+    slug: 'tesis-banco-pruebas',
+    title: 'MSc Thesis — Test Bench for Solid-Fuel Experimental Rockets',
+    subtitle: 'Characterization & Design: Welded Structure, Distributed ESP32 DAQ, and Real-Time Monitoring App',
+    tagline:
+      'Complete engineering cycle for a rocket motor test bench: CAD + FEA structural design, in-house welded fabrication, distributed ESP32 sensor network (thrust, pressure, temperature), and a real-time wireless monitoring app.',
+    categories: ['embedded', 'hardware', 'aerospace', 'control'],
+    classification: 'A',
+    status: 'completed',
+    period: '2024 – 2026',
+    institution: 'IPN — UPIITA · MSc in Advanced Technology',
+    description: `Master's thesis (defended May 2026, UPIITA–IPN): "Characterization and Design of a Test Bench for Solid-Fuel Experimental Rockets". The project covers the full engineering cycle of a static-fire test bench for class F–J rocket motors.
+
+The structure is a 75×75×75 cm welded A36 steel frame designed in SolidWorks and validated with FEA: maximum von Mises stress of 7.13 MPa against a 250 MPa yield (safety factor 4:1 at 2000 N design thrust with a 1.5 dynamic factor). Fabrication — cutting, welding, and painting — was done in-house.
+
+Instrumentation is a distributed embedded system: a main ESP32 coordinates load-cell nodes (HX711, 24-bit ADC), a pressure channel (0–1.2 MPa transducer), K-type thermocouples over MAX6675/SPI, and an ESP32-CAM, communicating over a UART bus. The main node runs digital filtering, JSON packaging, and a WebSocket server on a local WiFi access point, streaming live data to a mobile/web dashboard with pre-launch checklist, calibration routines, real-time charts, and CSV export. Both measurement channels were validated point-by-point against reference instruments.
+
+Next phase (in progress): consolidating the breadboard-validated electronics into a dedicated KiCad schematic and PCB for the bench's signal acquisition chain.`,
+    hardware: [
+      'ESP32 main controller + ESP32 load-cell nodes',
+      'HX711 24-bit ADC — 2× 50 kg load cells (thrust)',
+      'Pressure transducer 0–1.2 MPa (chamber pressure)',
+      'MAX6675 + K-type thermocouple (SPI)',
+      'ESP32-CAM — visual test recording',
+      'A36 welded steel frame 75×75×75 cm (FS 4:1)',
+    ],
+    firmware: [
+      'C/C++ (ESP-IDF / Arduino framework)',
+      'Distributed nodes over UART bus (115200 bps)',
+      'Digital filtering + JSON packaging',
+      'WebSocket server on local WiFi AP',
+      'Calibration & tare routines (known-weight)',
+    ],
+    software: [
+      'SolidWorks (CAD of structure and mounts)',
+      'FEA structural validation (von Mises, displacement)',
+      'Mobile/Web SPA dashboard (real-time charts)',
+      'Python (channel validation analysis)',
+    ],
+    protocols: ['UART bus', 'SPI', 'WiFi AP', 'WebSocket', 'HTTP'],
+    metrics: [
+      { label: 'Structural safety factor', value: '4:1', unit: '@ 2000 N' },
+      { label: 'Max von Mises stress', value: '7.13', unit: 'MPa (A36: 250)' },
+      { label: 'Thrust channel', value: '2×50', unit: 'kg HX711' },
+    ],
+    process: [
+      {
+        title: 'CAD design of the structure',
+        description: 'SolidWorks model of the 75×75×75 cm frame for class F–J motors: load paths, motor mount plate, and instrumentation placement designed for 2000 N thrust plus a 1.5 dynamic factor.',
+        image: '/images/projects/tesis-banco-pruebas/cad-frame.jpeg',
+      },
+      {
+        title: 'FEA structural validation',
+        description: 'Von Mises stress analysis under dynamic load: 7.13 MPa maximum vs. 250 MPa yield for A36 steel — 4:1 safety factor, 2.49 mm max displacement, with critical attention to welded joints.',
+        image: '/images/projects/tesis-banco-pruebas/fea.jpeg',
+      },
+      {
+        title: 'In-house welded fabrication',
+        description: 'Cutting, arc welding, and finishing of the steel frame done personally in the workshop — the same engineer who simulated the structure fabricated it.',
+        image: '/images/projects/tesis-banco-pruebas/welding.jpeg',
+      },
+      {
+        title: 'Distributed electronics architecture',
+        description: 'Block design of the distributed DAQ: main ESP32 + load-cell nodes (HX711) + pressure and thermocouple channels + ESP32-CAM, linked by a UART bus with WiFi AP output.',
+        image: '/images/projects/tesis-banco-pruebas/architecture.jpeg',
+      },
+      {
+        title: 'Wiring and breadboard prototyping',
+        description: 'Full wiring diagram (HX711 ×2, MAX6675, 0.5–4.5 V pressure transducer) and breadboard bring-up of every sensor channel before mechanical integration.',
+        image: '/images/projects/tesis-banco-pruebas/wiring.jpeg',
+      },
+      {
+        title: 'Mechanical integration',
+        description: 'Motor mount, load cells, and sensor harness installed on the welded frame; sensor routing kept clear of the exhaust path.',
+        image: '/images/projects/tesis-banco-pruebas/mounting.jpeg',
+      },
+      {
+        title: 'Calibration and channel validation',
+        description: 'Point-by-point validation of the pressure channel (relative error within limits across 100–700 kPa) and thrust channel (2×50 kg cells, known-weight calibration) against reference instruments.',
+        image: '/images/projects/tesis-banco-pruebas/hero.jpeg',
+      },
+      {
+        title: 'Real-time monitoring app',
+        description: 'Mobile/web dashboard served from the bench itself: pre-launch sequence (propellant tare, general tare, known-weight calibration, camera URL), live thrust/pressure charts, and CSV export.',
+        image: '/images/projects/tesis-banco-pruebas/app.jpeg',
+      },
+      {
+        title: 'Next phase: dedicated schematic & PCB',
+        description: 'The breadboard-validated acquisition chain is being consolidated into a dedicated KiCad schematic and PCB — the final hardware iteration of the bench electronics.',
+      },
+    ],
+    highlights: [
+      'Full-cycle engineering: CAD → FEA → welded fabrication → electronics → firmware → validated measurements',
+      'Distributed ESP32 architecture with dedicated load-cell nodes and camera node over UART bus',
+      'Self-hosted WiFi AP + WebSocket dashboard — no external network needed at the test site',
+      'Point-by-point validation of pressure and thrust channels against reference instruments',
+      'Structure validated at 4:1 safety factor for class F–J motors (2000 N design load)',
+    ],
+    evidence: [
+      'MSc thesis document — UPIITA–IPN, May 2026',
+      'FEA reports (von Mises, displacement) and CAD models',
+      'Channel validation charts (pressure & thrust)',
+      'Monitoring app screenshots and fabrication photos',
+      'Dedicated KiCad schematic + PCB — in progress',
+    ],
+    coverImage: '/images/projects/tesis-banco-pruebas/hero.jpeg',
+    coverFit: 'cover',
+    gallery: [
+      '/images/projects/tesis-banco-pruebas/motors.jpeg',
+      '/images/projects/tesis-banco-pruebas/validation-pressure.jpeg',
+      '/images/projects/tesis-banco-pruebas/validation-thrust.jpeg',
+      '/images/projects/tesis-banco-pruebas/frame.jpeg',
+    ],
+    featured: true,
+  },
+  {
+    id: 'p21',
+    slug: 'jaguar-mx-thermal-control',
+    title: 'Jaguar MX — Hot-Air Extraction System for Telecom Cabinets',
+    subtitle: 'RP2350 Safety FSM, Mixed-Signal KiCad PCB (0 DRC Errors) — Fabricated Board SE_TELCODEN_V1',
+    tagline:
+      'Industrial thermal-control system developed for Jaguar de México: fail-safe firmware FSM on Seeed XIAO RP2350, dual-NTC acquisition, H-bridge damper actuator, 48 V fan stage — from Wokwi simulation to a fabricated mixed-signal PCB.',
+    categories: ['embedded', 'firmware', 'hardware'],
+    classification: 'A',
+    status: 'completed',
+    period: '2026',
+    institution: 'Jaguar de México',
+    description: `Complete embedded development (firmware, simulation, schematic, and PCB) of a hot-air extraction system for telecommunications cabinets, built for Jaguar de México's embedded systems engineering evaluation — and fabricated as the SE_TELCODEN_V1 board.
+
+The firmware is a MicroPython safety FSM (INIT → READING → COOLING / IDLE / ERROR / LOCKOUT) on a Seeed XIAO RP2350. Two NTC TT05 sensors are read through voltage dividers with Beta-equation conversion (B=3435 K per datasheet — not the generic 3950 K), open/short-circuit validation, and a trimmed-mean filter over a circular buffer. A DIP switch selects 8 thermal setpoints (40–75 °C) with ±1 °C hysteresis. The system drives a FIT0803 linear actuator (cabinet dampers) through a TB6612FNG H-bridge and an MR1238E48B-FSR 48 V industrial fan through an isolated MOSFET stage. An 8 s hardware watchdog is kept alive during the actuator's 3 s blocking travel via chunked feeding injected into the H-bridge driver.
+
+The KiCad design strictly separates analog/logic from the 48 V power stage: split AGND/PGND planes joined at a single net-tie, per-net-class track widths (48 V at 1.5 mm), and guard rings on the ADC inputs. Final DRC: 0 errors, 0 warnings, 0 unrouted nets. The board was manufactured and brought up successfully.`,
+    hardware: [
+      'Seeed XIAO RP2350 (RP2040-compatible)',
+      '2× NTC TT05 10K (B=3435 K) + voltage dividers',
+      'TB6612FNG H-bridge → FIT0803 linear actuator',
+      'MOSFET power stage → MR1238E48B-FSR 48 V fan',
+      'DIP switch — 8 thermal setpoints (40–75 °C)',
+      'Fabricated PCB SE_TELCODEN_V1 (relay + buck stages)',
+    ],
+    firmware: [
+      'MicroPython — OOP module structure (fsm / adc_ntc / hbridge)',
+      'Safety FSM: INIT · READING · COOLING · IDLE · ERROR · LOCKOUT',
+      '8 s hardware watchdog with chunked feeding (500 ms)',
+      'Trimmed-mean filter over circular ADC buffer',
+      'Sensor fault detection (open/short, 10–130 °C validity window)',
+    ],
+    software: [
+      'KiCad (schematic + mixed-signal PCB layout)',
+      'Wokwi (full-system simulation, custom H-bridge chip)',
+      'Python unit tests with machine-module mocks',
+    ],
+    protocols: ['ADC', 'PWM / H-bridge control', 'UART (serial console commands)'],
+    metrics: [
+      { label: 'Final DRC', value: '0', unit: 'errors · 0 warnings' },
+      { label: 'FSM safety states', value: '6', unit: 'incl. LOCKOUT' },
+      { label: 'Setpoint range', value: '40–75', unit: '°C (8 steps)' },
+    ],
+    process: [
+      {
+        title: 'Requirements and FSM architecture',
+        description: 'Translated the industrial requirement (cool a telecom cabinet only when internal temp exceeds both the setpoint and the outside temp) into a 6-state safety FSM with ERROR safe-state and permanent LOCKOUT after 5 failed recoveries.',
+      },
+      {
+        title: 'Firmware in MicroPython',
+        description: 'Modular OOP firmware: NTC Beta-equation driver with open/short detection, trimmed-mean circular buffer, H-bridge driver with watchdog feeding injected as a callback so the 3 s actuator travel never trips the 8 s WDT.',
+      },
+      {
+        title: 'Full-system simulation in Wokwi',
+        description: 'RP2040 simulation with a custom TB6612FNG chip, antiparallel LEDs to visualize H-bridge polarity, serial command injection (SET/TEMP/EXT), and simulated thermal feedback closing the full COOLING → IDLE cycle.',
+      },
+      {
+        title: 'Mixed-signal schematic in KiCad',
+        description: 'Readable-by-blocks schematic: logic/analog side (MCU, LDO, NTC conditioning, DIP switch) and power side (H-bridge, 48 V MOSFET stage), with AGND/PGND joined at a single net-tie.',
+        image: '/images/projects/jaguar-mx/schematic.jpeg',
+      },
+      {
+        title: 'PCB layout — analog vs. power separation',
+        description: 'Net classes per domain (48 V at 1.5 mm, 5 V at 1.0 mm, 3V3 signal at 0.4 mm), split ground planes, guard rings on ADC traces, connectors and test points on the board edge. Final DRC: 0 errors, 0 warnings, 0 unrouted.',
+        image: '/images/projects/jaguar-mx/pcb-render.jpeg',
+      },
+      {
+        title: 'Fabrication and bring-up',
+        description: 'The SE_TELCODEN_V1 board was manufactured and brought up: XIAO RP2350 socketed, relay and buck stages populated, and the labeled harness (motor, limit, NTCs, fan) connected for functional testing.',
+        image: '/images/projects/jaguar-mx/hero.jpeg',
+      },
+    ],
+    highlights: [
+      'Fail-safe firmware: safe states, hardware watchdog, sensor-fault detection, and permanent LOCKOUT',
+      'Datasheet-driven engineering: corrected NTC Beta constant (3435 K) avoiding a >3 °C systematic error',
+      'Watchdog-safe blocking actuator control via chunked feeding — predictability over async complexity',
+      'Mixed-signal KiCad layout with split ground planes and per-class track widths — DRC clean',
+      'Validated end-to-end in Wokwi before committing to hardware; board fabricated and working',
+    ],
+    evidence: [
+      'Fabricated PCB SE_TELCODEN_V1 — bring-up photos',
+      'Wokwi simulation: wokwi.com/projects/468449090390286337',
+      'KiCad project (schematic + PCB, DRC clean)',
+      'MicroPython firmware modules + unit tests',
+      'Technical evaluation report — Jaguar de México, 2026',
+    ],
+    coverImage: '/images/projects/jaguar-mx/hero.jpeg',
+    coverFit: 'cover',
+    gallery: [
+      '/images/projects/jaguar-mx/board-02.jpeg',
+      '/images/projects/jaguar-mx/board-03.jpeg',
+      '/images/projects/jaguar-mx/pcb-render.jpeg',
+      '/images/projects/jaguar-mx/schematic.jpeg',
+    ],
+    featured: true,
+  },
+  {
+    id: 'p22',
+    slug: 'canbus-fleet-telematics',
+    title: 'CAN Bus Fleet Telematics — OBD-II Monitoring & Predictive Maintenance',
+    subtitle: 'Embedded CAN Gateway + 4G Telematics for Vehicle Fleet Management',
+    tagline:
+      'Vehicle telematics system built on the CAN bus: an embedded gateway polls OBD-II PIDs and diagnostic trouble codes, streams them over 4G/MQTT, and feeds a fleet dashboard with predictive-maintenance alerts.',
+    categories: ['embedded', 'firmware', 'iot'],
+    classification: 'A',
+    status: 'prototype',
+    period: '2022 – 2023',
+    institution: 'UPIITA-IPN — B.Eng. project',
+    description: `Fleet-monitoring system developed during my bachelor's degree, following the standard methodology for automotive CAN/OBD-II integrations. An embedded gateway (STM32 + MCP2515 CAN controller + TJA1050 transceiver) connects to the vehicle's OBD-II port and communicates on the 500 kbit/s CAN 2.0B bus.
+
+The gateway polls SAE J1979 mode-01 PIDs (RPM, vehicle speed, coolant temperature, MAF, throttle position) via the 0x7DF broadcast ID, decodes the standard scaling formulas, and reads diagnostic trouble codes (mode 03) with freeze-frame data. Frames are received in an interrupt service routine into a ring buffer, decoded, packaged as JSON, and transmitted through a 4G LTE telematics modem (UART AT commands) with GPS position to an MQTT broker.
+
+The fleet backend stores time-series data per vehicle and applies threshold- and trend-based rules on DTCs and sensor signals (e.g., sustained coolant temperature rise, misfire counts) to schedule predictive maintenance instead of reactive repairs. This project is documented here as a methodology reconstruction of the original academic work.`,
+    hardware: [
+      'STM32 (Cortex-M) gateway',
+      'MCP2515 CAN controller (SPI) + TJA1050 transceiver',
+      'OBD-II (SAE J1962) vehicle connector',
+      '4G LTE telematics modem (AT over UART)',
+      'GPS/GNSS module (NMEA)',
+    ],
+    firmware: [
+      'C embedded — CAN driver with ISR + ring buffer',
+      'OBD-II PID polling (mode 01) + DTC readout (mode 03)',
+      'Standard PID decode formulas (A·256+B scaling)',
+      'JSON telemetry packaging → MQTT over 4G',
+      'Watchdog + reconnection logic for cellular link',
+    ],
+    software: [
+      'MQTT broker + time-series storage',
+      'Fleet dashboard (per-vehicle KPIs, map, alerts)',
+      'Python analysis for maintenance-trend rules',
+    ],
+    protocols: ['CAN 2.0B (500 kbit/s)', 'OBD-II — SAE J1979', 'ISO-TP (ISO 15765-2)', 'MQTT over 4G LTE', 'UART (AT commands)', 'NMEA (GPS)'],
+    metrics: [
+      { label: 'CAN bus rate', value: '500', unit: 'kbit/s' },
+      { label: 'PIDs monitored', value: '8+', unit: 'per vehicle' },
+      { label: 'Sampling', value: '1', unit: 'Hz per PID' },
+    ],
+    process: [
+      {
+        title: 'CAN bus fundamentals and frame sniffing',
+        description: 'Characterized the vehicle bus: 11-bit identifiers, 500 kbit/s bit rate, arbitration, and passive listening with the MCP2515 in listen-only mode before any transmission.',
+        image: '/images/projects/canbus-fleet/hero.jpeg',
+      },
+      {
+        title: 'OBD-II PID polling',
+        description: 'Implemented SAE J1979 mode-01 requests to the 0x7DF broadcast address and parsing of 0x7E8 responses — RPM, speed, coolant temp, MAF — using the standard decode formulas.',
+        image: '/images/projects/canbus-fleet/obd-pipeline.jpeg',
+      },
+      {
+        title: 'Gateway firmware',
+        description: 'Interrupt-driven CAN reception into a ring buffer, PID scheduler at 1 Hz, DTC readout (mode 03) with freeze frames, and JSON packaging of the decoded signals.',
+      },
+      {
+        title: '4G telematics uplink',
+        description: 'Cellular modem driven by AT commands over UART: session management, MQTT publishing with QoS, GPS position stamping, and reconnection/watchdog logic for coverage gaps.',
+      },
+      {
+        title: 'Fleet dashboard and predictive maintenance',
+        description: 'Per-vehicle time series with threshold and trend rules on DTCs and signals (sustained overheating, misfires) generating maintenance alerts before failures occur.',
+      },
+    ],
+    highlights: [
+      'Real automotive protocol stack: CAN 2.0B, SAE J1979 PIDs, DTCs, ISO-TP',
+      'Interrupt-driven CAN reception with ring buffer — no dropped frames at bus speed',
+      '4G/MQTT telematics link with GPS stamping and reconnection logic',
+      'Predictive maintenance from DTC trends instead of reactive repair',
+      'Same methodology used in production fleet-management platforms',
+    ],
+    evidence: [
+      'Academic project — UPIITA-IPN (methodology reconstruction)',
+      'Architecture and OBD-II pipeline diagrams',
+      'Standard-based design: SAE J1979 / ISO 15765',
+    ],
+    coverImage: '/images/projects/canbus-fleet/hero.jpeg',
+    coverFit: 'contain',
+    gallery: ['/images/projects/canbus-fleet/obd-pipeline.jpeg'],
+    featured: true,
+  },
+  {
+    id: 'p23',
+    slug: 'cubesat-ground-station',
+    title: 'Remote Satellite Monitoring — Educational CubeSat Ground Station',
+    subtitle: 'Fork of an Open-Source Ground Station Adapted to Track National Educational CubeSats',
+    tagline:
+      'Forked the open-source sgoudelis/ground-station project and adapted it into a remotely accessible ground station: SDR reception, TLE-based pass tracking, and telemetry decoding for national educational CubeSat missions.',
+    categories: ['aerospace', 'iot', 'embedded'],
+    classification: 'A',
+    status: 'completed',
+    period: '2024 – 2025',
+    institution: 'CO.DE Aerospace — educational collaboration',
+    description: `Remote satellite-monitoring station built by forking the open-source ground-station project (github.com/sgoudelis/ground-station) and adapting it to Mexican educational CubeSat missions.
+
+The station combines a VHF/UHF antenna with an RTL-SDR receiver on a Raspberry Pi station server. Orbit propagation from TLE sets schedules upcoming passes, applies Doppler correction during reception, and captures beacon/telemetry downlinks (AFSK/AX.25 framing). Decoded frames — battery voltages, temperatures, beacon counters — are stored and exposed through a web interface so student teams can monitor their satellites remotely without being physically at the station.
+
+The work connects hands-on RF/embedded infrastructure with the small-satellite research line presented at IAC 2024 (small satellite missions symposium).`,
+    hardware: [
+      'RTL-SDR receiver (VHF/UHF)',
+      'Yagi antenna + az/el rotor',
+      'Raspberry Pi — station server',
+    ],
+    firmware: [
+      'Pass scheduler from TLE orbit propagation',
+      'Doppler-corrected SDR capture',
+      'AFSK demodulation + AX.25 frame decoding',
+    ],
+    software: [
+      'Fork of sgoudelis/ground-station (Python)',
+      'Web dashboard — telemetry history & beacon health',
+      'TLE tracking / pass prediction tooling',
+    ],
+    protocols: ['AX.25', 'AFSK', 'HTTP/REST', 'TLE / SGP4 propagation'],
+    process: [
+      {
+        title: 'Fork and station bring-up',
+        description: 'Forked the open-source ground-station codebase, deployed it on a Raspberry Pi with an RTL-SDR, and validated reception with known amateur-satellite beacons.',
+        image: '/images/projects/ground-station/hero.jpeg',
+      },
+      {
+        title: 'Tracking and Doppler correction',
+        description: 'TLE-based pass prediction for the target CubeSats, with frequency correction applied across each pass for clean captures.',
+      },
+      {
+        title: 'Telemetry decoding',
+        description: 'AFSK/AX.25 decoding of beacon frames into structured telemetry (battery, temperature, counters) stored per pass.',
+      },
+      {
+        title: 'Remote access for student teams',
+        description: 'Web interface exposing pass history and decoded telemetry so national educational CubeSat teams monitor their missions remotely.',
+      },
+    ],
+    highlights: [
+      'Open-source contribution model: fork, adapt, and operate a real ground station',
+      'End-to-end RF chain: antenna → SDR → demodulation → decoded telemetry',
+      'Remote, shared access for educational CubeSat teams',
+      'Connected to small-satellite research line presented at IAC 2024',
+    ],
+    evidence: [
+      'Base project: github.com/sgoudelis/ground-station (forked)',
+      'Decoded telemetry logs from tracked passes',
+      'IAC 2024 small-satellite research line (DOI: 10.52202/078365-0120)',
+    ],
+    githubUrl: 'https://github.com/sgoudelis/ground-station',
+    coverImage: '/images/projects/ground-station/hero.jpeg',
+    coverFit: 'contain',
+    featured: true,
+  },
   {
     id: 'p01',
     slug: 'rocket-propulsion-daq',
@@ -644,7 +1014,194 @@ const PROJECT_TRANSLATIONS_ES: Record<string, {
   metricsLabels?: string[];
   hardware?: string[];
   firmware?: string[];
+  process?: { title: string; description: string }[];
 }> = {
+  'tesis-banco-pruebas': {
+    title: 'Tesis de Maestría — Banco de Pruebas para Cohetes Experimentales de Combustible Sólido',
+    subtitle: 'Caracterización y Diseño: Estructura Soldada, DAQ Distribuido con ESP32 y App de Monitoreo en Tiempo Real',
+    tagline: 'Ciclo completo de ingeniería para un banco de pruebas de motores cohete: diseño estructural CAD + FEA, fabricación soldada propia, red distribuida de sensores con ESP32 (empuje, presión, temperatura) y app inalámbrica de monitoreo en tiempo real.',
+    institution: 'IPN — UPIITA · Maestría en Tecnología Avanzada',
+    description: `Tesis de maestría (defendida en mayo 2026, UPIITA–IPN): "Caracterización y Diseño de un Banco de Pruebas para Cohetes Experimentales de Combustible Sólido". El proyecto cubre el ciclo completo de ingeniería de un banco de pruebas estáticas para motores cohete clase F–J.
+
+La estructura es un marco soldado de acero A36 de 75×75×75 cm diseñado en SolidWorks y validado con FEA: esfuerzo máximo de von Mises de 7.13 MPa contra una fluencia de 250 MPa (factor de seguridad 4:1 a 2000 N de empuje de diseño con factor dinámico de 1.5). La fabricación — corte, soldadura y pintura — se realizó internamente.
+
+La instrumentación es un sistema embebido distribuido: un ESP32 principal coordina nodos de celdas de carga (HX711, ADC de 24 bits), un canal de presión (transductor 0–1.2 MPa), termopares tipo K por MAX6675/SPI y un ESP32-CAM, comunicados por un bus UART. El nodo principal ejecuta filtrado digital, empaquetado JSON y un servidor WebSocket sobre un punto de acceso WiFi local, transmitiendo datos en vivo a un dashboard móvil/web con checklist de pre-lanzamiento, rutinas de calibración, gráficas en tiempo real y exportación CSV. Ambos canales de medición se validaron punto a punto contra instrumentos de referencia.
+
+Siguiente fase (en desarrollo): consolidar la electrónica validada en protoboard en un esquemático y PCB dedicados en KiCad para la cadena de adquisición del banco.`,
+    highlights: [
+      'Ingeniería de ciclo completo: CAD → FEA → fabricación soldada → electrónica → firmware → mediciones validadas',
+      'Arquitectura distribuida de ESP32 con nodos dedicados de celdas de carga y nodo de cámara sobre bus UART',
+      'AP WiFi propio + dashboard WebSocket — sin necesidad de red externa en el sitio de prueba',
+      'Validación punto a punto de los canales de presión y empuje contra instrumentos de referencia',
+      'Estructura validada con factor de seguridad 4:1 para motores clase F–J (carga de diseño de 2000 N)',
+    ],
+    evidence: [
+      'Documento de tesis de maestría — UPIITA–IPN, mayo 2026',
+      'Reportes FEA (von Mises, desplazamiento) y modelos CAD',
+      'Gráficas de validación de canales (presión y empuje)',
+      'Capturas de la app de monitoreo y fotos de fabricación',
+      'Esquemático + PCB dedicados en KiCad — en desarrollo',
+    ],
+    metricsLabels: ['Factor de seguridad estructural', 'Esfuerzo máx. von Mises', 'Canal de empuje'],
+    hardware: [
+      'ESP32 principal + nodos ESP32 de celdas de carga',
+      'HX711 ADC 24 bits — 2× celdas de 50 kg (empuje)',
+      'Transductor de presión 0–1.2 MPa (presión de cámara)',
+      'MAX6675 + termopar tipo K (SPI)',
+      'ESP32-CAM — registro visual de pruebas',
+      'Marco soldado de acero A36 75×75×75 cm (FS 4:1)',
+    ],
+    firmware: [
+      'C/C++ (ESP-IDF / framework de Arduino)',
+      'Nodos distribuidos sobre bus UART (115200 bps)',
+      'Filtrado digital + empaquetado JSON',
+      'Servidor WebSocket sobre AP WiFi local',
+      'Rutinas de calibración y tara (peso conocido)',
+    ],
+    process: [
+      { title: 'Diseño CAD de la estructura', description: 'Modelo en SolidWorks del marco de 75×75×75 cm para motores clase F–J: trayectorias de carga, placa de montaje del motor y ubicación de instrumentación diseñadas para 2000 N de empuje más factor dinámico de 1.5.' },
+      { title: 'Validación estructural FEA', description: 'Análisis de esfuerzos von Mises bajo carga dinámica: 7.13 MPa máximo vs. 250 MPa de fluencia del acero A36 — factor de seguridad 4:1, desplazamiento máximo de 2.49 mm, con atención crítica a las uniones soldadas.' },
+      { title: 'Fabricación soldada propia', description: 'Corte, soldadura de arco y acabado del marco de acero realizados personalmente en el taller — el mismo ingeniero que simuló la estructura la fabricó.' },
+      { title: 'Arquitectura electrónica distribuida', description: 'Diseño por bloques del DAQ distribuido: ESP32 principal + nodos de celdas de carga (HX711) + canales de presión y termopar + ESP32-CAM, enlazados por bus UART con salida por AP WiFi.' },
+      { title: 'Cableado y prototipado en protoboard', description: 'Diagrama de conexiones completo (HX711 ×2, MAX6675, transductor de presión 0.5–4.5 V) y puesta en marcha en protoboard de cada canal de sensado antes de la integración mecánica.' },
+      { title: 'Integración mecánica', description: 'Montaje del motor, celdas de carga y arnés de sensores instalados en el marco soldado; el ruteo de sensores se mantuvo fuera de la trayectoria del escape.' },
+      { title: 'Calibración y validación de canales', description: 'Validación punto a punto del canal de presión (error relativo dentro de límites en 100–700 kPa) y del canal de empuje (2 celdas de 50 kg, calibración con peso conocido) contra instrumentos de referencia.' },
+      { title: 'App de monitoreo en tiempo real', description: 'Dashboard móvil/web servido desde el propio banco: secuencia de pre-lanzamiento (tara de propelente, tara general, calibración con peso conocido, URL de cámara), gráficas de empuje/presión en vivo y exportación CSV.' },
+      { title: 'Siguiente fase: esquemático y PCB dedicados', description: 'La cadena de adquisición validada en protoboard se está consolidando en un esquemático y PCB dedicados en KiCad — la iteración final del hardware de la electrónica del banco.' },
+    ],
+  },
+  'jaguar-mx-thermal-control': {
+    title: 'Jaguar MX — Sistema de Extracción de Aire Caliente para Gabinetes de Telecomunicaciones',
+    subtitle: 'FSM de Seguridad en RP2350, PCB Mixed-Signal en KiCad (0 Errores DRC) — Placa Fabricada SE_TELCODEN_V1',
+    tagline: 'Sistema industrial de control térmico desarrollado para Jaguar de México: firmware FSM fail-safe en Seeed XIAO RP2350, adquisición dual NTC, actuador de compuertas por puente H, etapa de ventilador de 48 V — de la simulación en Wokwi a una PCB mixed-signal fabricada.',
+    institution: 'Jaguar de México',
+    description: `Desarrollo embebido completo (firmware, simulación, esquemático y PCB) de un sistema de extracción de aire caliente para gabinetes de telecomunicaciones, construido para la evaluación de ingeniería en sistemas embebidos de Jaguar de México — y fabricado como la placa SE_TELCODEN_V1.
+
+El firmware es una FSM de seguridad en MicroPython (INIT → READING → COOLING / IDLE / ERROR / LOCKOUT) sobre un Seeed XIAO RP2350. Dos sensores NTC TT05 se leen mediante divisores de voltaje con conversión por ecuación Beta (B=3435 K según datasheet — no el genérico de 3950 K), validación de circuito abierto/corto y filtro trimmed-mean sobre un buffer circular. Un DIP switch selecciona 8 setpoints térmicos (40–75 °C) con histéresis de ±1 °C. El sistema acciona un actuador lineal FIT0803 (compuertas del gabinete) mediante un puente H TB6612FNG y un ventilador industrial MR1238E48B-FSR de 48 V mediante una etapa MOSFET aislada. Un watchdog de hardware de 8 s se mantiene alimentado durante el recorrido bloqueante de 3 s del actuador mediante alimentación en ráfagas inyectada al driver del puente H.
+
+El diseño en KiCad separa estrictamente lo analógico/lógico de la etapa de potencia de 48 V: planos AGND/PGND divididos unidos en un solo net-tie, anchos de pista por net class (48 V a 1.5 mm) y anillos de guarda en las entradas ADC. DRC final: 0 errores, 0 avisos, 0 redes sin rutear. La placa fue manufacturada y puesta en marcha con éxito.`,
+    highlights: [
+      'Firmware fail-safe: estados seguros, watchdog de hardware, detección de falla de sensores y LOCKOUT permanente',
+      'Ingeniería guiada por datasheet: constante Beta del NTC corregida (3435 K) evitando un error sistemático >3 °C',
+      'Control bloqueante del actuador seguro para el watchdog vía alimentación en ráfagas — predictibilidad sobre complejidad asíncrona',
+      'Layout mixed-signal en KiCad con planos de tierra divididos y anchos por clase — DRC limpio',
+      'Validado de extremo a extremo en Wokwi antes de comprometer hardware; placa fabricada y funcionando',
+    ],
+    evidence: [
+      'PCB fabricada SE_TELCODEN_V1 — fotos de puesta en marcha',
+      'Simulación Wokwi: wokwi.com/projects/468449090390286337',
+      'Proyecto KiCad (esquemático + PCB, DRC limpio)',
+      'Módulos de firmware MicroPython + pruebas unitarias',
+      'Reporte de evaluación técnica — Jaguar de México, 2026',
+    ],
+    metricsLabels: ['DRC final', 'Estados de seguridad FSM', 'Rango de setpoints'],
+    hardware: [
+      'Seeed XIAO RP2350 (compatible RP2040)',
+      '2× NTC TT05 10K (B=3435 K) + divisores de voltaje',
+      'Puente H TB6612FNG → actuador lineal FIT0803',
+      'Etapa MOSFET → ventilador MR1238E48B-FSR 48 V',
+      'DIP switch — 8 setpoints térmicos (40–75 °C)',
+      'PCB fabricada SE_TELCODEN_V1 (etapas de relé y buck)',
+    ],
+    firmware: [
+      'MicroPython — estructura modular OOP (fsm / adc_ntc / hbridge)',
+      'FSM de seguridad: INIT · READING · COOLING · IDLE · ERROR · LOCKOUT',
+      'Watchdog de hardware de 8 s con alimentación en ráfagas (500 ms)',
+      'Filtro trimmed-mean sobre buffer circular de ADC',
+      'Detección de fallas de sensor (abierto/corto, ventana de validez 10–130 °C)',
+    ],
+    process: [
+      { title: 'Requerimientos y arquitectura FSM', description: 'Tradujo el requerimiento industrial (enfriar un gabinete de telecom solo cuando la temperatura interna supera el setpoint y la temperatura exterior) a una FSM de seguridad de 6 estados con estado seguro ERROR y LOCKOUT permanente tras 5 recuperaciones fallidas.' },
+      { title: 'Firmware en MicroPython', description: 'Firmware modular OOP: driver NTC con ecuación Beta y detección de abierto/corto, buffer circular con trimmed-mean, driver de puente H con alimentación del watchdog inyectada como callback para que el recorrido de 3 s del actuador nunca dispare el WDT de 8 s.' },
+      { title: 'Simulación completa en Wokwi', description: 'Simulación en RP2040 con chip custom del TB6612FNG, LEDs en antiparalelo para visualizar la polaridad del puente H, inyección de comandos seriales (SET/TEMP/EXT) y retroalimentación térmica simulada cerrando el ciclo completo COOLING → IDLE.' },
+      { title: 'Esquemático mixed-signal en KiCad', description: 'Esquemático legible por bloques: lado lógico/analógico (MCU, LDO, acondicionamiento NTC, DIP switch) y lado de potencia (puente H, etapa MOSFET de 48 V), con AGND/PGND unidos en un solo net-tie.' },
+      { title: 'Layout de PCB — separación analógico vs. potencia', description: 'Net classes por dominio (48 V a 1.5 mm, 5 V a 1.0 mm, señal 3V3 a 0.4 mm), planos de tierra divididos, anillos de guarda en pistas ADC, conectores y test points al borde de la placa. DRC final: 0 errores, 0 avisos, 0 sin rutear.' },
+      { title: 'Fabricación y puesta en marcha', description: 'La placa SE_TELCODEN_V1 fue manufacturada y puesta en marcha: XIAO RP2350 montado, etapas de relé y buck pobladas, y el arnés etiquetado (motor, límites, NTCs, ventilador) conectado para pruebas funcionales.' },
+    ],
+  },
+  'canbus-fleet-telematics': {
+    title: 'Telemática Vehicular CAN Bus — Monitoreo OBD-II y Mantenimiento Predictivo',
+    subtitle: 'Gateway CAN Embebido + Telemática 4G para Gestión de Flotas Vehiculares',
+    tagline: 'Sistema de telemática vehicular sobre el bus CAN: un gateway embebido consulta PIDs OBD-II y códigos de diagnóstico, los transmite por 4G/MQTT y alimenta un dashboard de flota con alertas de mantenimiento predictivo.',
+    institution: 'UPIITA-IPN — Proyecto de licenciatura',
+    description: `Sistema de monitoreo de flotas desarrollado durante mi licenciatura, siguiendo la metodología estándar para integraciones automotrices CAN/OBD-II. Un gateway embebido (STM32 + controlador CAN MCP2515 + transceptor TJA1050) se conecta al puerto OBD-II del vehículo y se comunica en el bus CAN 2.0B a 500 kbit/s.
+
+El gateway consulta PIDs del modo 01 de SAE J1979 (RPM, velocidad, temperatura de refrigerante, MAF, posición del acelerador) mediante el ID de difusión 0x7DF, decodifica las fórmulas de escalamiento estándar y lee códigos de diagnóstico (modo 03) con datos de freeze frame. Las tramas se reciben en una rutina de interrupción hacia un ring buffer, se decodifican, se empaquetan como JSON y se transmiten mediante un módem telemático 4G LTE (comandos AT por UART) con posición GPS hacia un broker MQTT.
+
+El backend de flota almacena series de tiempo por vehículo y aplica reglas por umbral y tendencia sobre DTCs y señales (p. ej., aumento sostenido de temperatura de refrigerante, conteo de misfires) para programar mantenimiento predictivo en lugar de reparaciones reactivas. Este proyecto se documenta aquí como una reconstrucción metodológica del trabajo académico original.`,
+    highlights: [
+      'Stack real de protocolos automotrices: CAN 2.0B, PIDs SAE J1979, DTCs, ISO-TP',
+      'Recepción CAN por interrupciones con ring buffer — sin tramas perdidas a velocidad de bus',
+      'Enlace telemático 4G/MQTT con estampado GPS y lógica de reconexión',
+      'Mantenimiento predictivo desde tendencias de DTCs en lugar de reparación reactiva',
+      'Misma metodología usada en plataformas de gestión de flotas en producción',
+    ],
+    evidence: [
+      'Proyecto académico — UPIITA-IPN (reconstrucción metodológica)',
+      'Diagramas de arquitectura y del pipeline OBD-II',
+      'Diseño basado en estándares: SAE J1979 / ISO 15765',
+    ],
+    metricsLabels: ['Velocidad del bus CAN', 'PIDs monitoreados', 'Muestreo'],
+    hardware: [
+      'Gateway STM32 (Cortex-M)',
+      'Controlador CAN MCP2515 (SPI) + transceptor TJA1050',
+      'Conector vehicular OBD-II (SAE J1962)',
+      'Módem telemático 4G LTE (AT por UART)',
+      'Módulo GPS/GNSS (NMEA)',
+    ],
+    firmware: [
+      'C embebido — driver CAN con ISR + ring buffer',
+      'Consulta de PIDs OBD-II (modo 01) + lectura de DTCs (modo 03)',
+      'Fórmulas estándar de decodificación de PIDs (escala A·256+B)',
+      'Empaquetado de telemetría JSON → MQTT sobre 4G',
+      'Watchdog + lógica de reconexión para el enlace celular',
+    ],
+    process: [
+      { title: 'Fundamentos de CAN bus y sniffing de tramas', description: 'Caracterización del bus del vehículo: identificadores de 11 bits, velocidad de 500 kbit/s, arbitraje y escucha pasiva con el MCP2515 en modo listen-only antes de cualquier transmisión.' },
+      { title: 'Consulta de PIDs OBD-II', description: 'Implementación de solicitudes modo 01 de SAE J1979 a la dirección de difusión 0x7DF y parseo de respuestas 0x7E8 — RPM, velocidad, temperatura de refrigerante, MAF — usando las fórmulas estándar de decodificación.' },
+      { title: 'Firmware del gateway', description: 'Recepción CAN por interrupciones hacia un ring buffer, planificador de PIDs a 1 Hz, lectura de DTCs (modo 03) con freeze frames y empaquetado JSON de las señales decodificadas.' },
+      { title: 'Enlace telemático 4G', description: 'Módem celular controlado por comandos AT sobre UART: gestión de sesión, publicación MQTT con QoS, estampado de posición GPS y lógica de reconexión/watchdog para huecos de cobertura.' },
+      { title: 'Dashboard de flota y mantenimiento predictivo', description: 'Series de tiempo por vehículo con reglas de umbral y tendencia sobre DTCs y señales (sobrecalentamiento sostenido, misfires) generando alertas de mantenimiento antes de que ocurran fallas.' },
+    ],
+  },
+  'cubesat-ground-station': {
+    title: 'Monitoreo Satelital Remoto — Estación Terrena para CubeSats Educativos',
+    subtitle: 'Fork de una Estación Terrena Open-Source Adaptada para Rastrear CubeSats Educativos Nacionales',
+    tagline: 'Fork del proyecto open-source sgoudelis/ground-station adaptado como estación terrena con acceso remoto: recepción SDR, rastreo de pases basado en TLE y decodificación de telemetría para misiones CubeSat educativas nacionales.',
+    institution: 'CO.DE Aerospace — colaboración educativa',
+    description: `Estación de monitoreo satelital remoto construida haciendo fork del proyecto open-source ground-station (github.com/sgoudelis/ground-station) y adaptándolo a misiones CubeSat educativas mexicanas.
+
+La estación combina una antena VHF/UHF con un receptor RTL-SDR sobre un servidor de estación Raspberry Pi. La propagación orbital desde conjuntos TLE agenda los próximos pases, aplica corrección Doppler durante la recepción y captura los enlaces de bajada de beacon/telemetría (tramas AFSK/AX.25). Las tramas decodificadas — voltajes de batería, temperaturas, contadores de beacon — se almacenan y exponen mediante una interfaz web para que los equipos estudiantiles monitoreen sus satélites de forma remota sin estar físicamente en la estación.
+
+El trabajo conecta la infraestructura práctica RF/embebida con la línea de investigación de pequeños satélites presentada en el IAC 2024 (simposio de misiones de pequeños satélites).`,
+    highlights: [
+      'Modelo de contribución open-source: hacer fork, adaptar y operar una estación terrena real',
+      'Cadena RF de extremo a extremo: antena → SDR → demodulación → telemetría decodificada',
+      'Acceso remoto y compartido para equipos CubeSat educativos',
+      'Conectado con la línea de investigación de pequeños satélites presentada en IAC 2024',
+    ],
+    evidence: [
+      'Proyecto base: github.com/sgoudelis/ground-station (con fork)',
+      'Registros de telemetría decodificada de pases rastreados',
+      'Línea de investigación de pequeños satélites IAC 2024 (DOI: 10.52202/078365-0120)',
+    ],
+    hardware: [
+      'Receptor RTL-SDR (VHF/UHF)',
+      'Antena Yagi + rotor az/el',
+      'Raspberry Pi — servidor de estación',
+    ],
+    firmware: [
+      'Planificador de pases desde propagación orbital TLE',
+      'Captura SDR con corrección Doppler',
+      'Demodulación AFSK + decodificación de tramas AX.25',
+    ],
+    process: [
+      { title: 'Fork y puesta en marcha de la estación', description: 'Fork del código open-source de la estación terrena, desplegado en una Raspberry Pi con RTL-SDR y validado recibiendo beacons conocidos de satélites de radioaficionados.' },
+      { title: 'Rastreo y corrección Doppler', description: 'Predicción de pases basada en TLE para los CubeSats objetivo, con corrección de frecuencia aplicada durante cada pase para capturas limpias.' },
+      { title: 'Decodificación de telemetría', description: 'Decodificación AFSK/AX.25 de tramas de beacon a telemetría estructurada (batería, temperatura, contadores) almacenada por pase.' },
+      { title: 'Acceso remoto para equipos estudiantiles', description: 'Interfaz web que expone el historial de pases y la telemetría decodificada para que los equipos CubeSat educativos nacionales monitoreen sus misiones de forma remota.' },
+    ],
+  },
   'rocket-propulsion-daq': {
     title: 'Banco de Pruebas de Propulsión Cohete — Sistema DAQ',
     subtitle: 'Adquisición de Datos e Instrumentación para Motores Cohete de Combustible Sólido',
@@ -978,6 +1535,11 @@ export function getProjects(lang: 'en' | 'es'): Project[] {
       })),
       hardware: p.hardware?.map((hw, idx) => t.hardware?.[idx] || hw),
       firmware: p.firmware?.map((fw, idx) => t.firmware?.[idx] || fw),
+      process: p.process?.map((step, idx) => ({
+        ...step,
+        title: t.process?.[idx]?.title || step.title,
+        description: t.process?.[idx]?.description || step.description,
+      })),
     };
   });
 }
